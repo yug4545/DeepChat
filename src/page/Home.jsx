@@ -46,6 +46,7 @@ const Home = () => {
       }),
     };
     
+    setMessages("")
     setReceivedMessages((prev) => [...prev, newMessage]);
     try {
 
