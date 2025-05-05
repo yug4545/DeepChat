@@ -45,7 +45,8 @@ const Home = () => {
         hour12: true,
       }),
     };
-
+    
+    setReceivedMessages((prev) => [...prev, newMessage]);
     try {
 
       let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/createchat', {
@@ -55,7 +56,6 @@ const Home = () => {
       });
 
       socket.emit('Message', newMessage);
-      setReceivedMessages((prev) => [...prev, newMessage]);
 
 
     } catch (error) {
