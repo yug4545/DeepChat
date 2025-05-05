@@ -121,7 +121,6 @@ const Signin = () => {
             setLoading(true);
             try {
                 if (isSignup) {
-                    values.SocketID = SocketID;
                     const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/signup', values);
                     toast.success('Signup successful');
                     setTimeout(() => {
@@ -136,8 +135,8 @@ const Signin = () => {
                         navigate('/home', { state: res.data.user });
                     }, 1000);
                 }
-            } catch (error) {
-                toast.error(error.response?.data?.message || 'Something went wrong');
+            } catch ({error,details}) {
+                toast.error(error || details);
             } finally {
                 setLoading(false);
             }
