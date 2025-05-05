@@ -127,7 +127,7 @@ const Signin = () => {
                         window.location.reload();
                     }, 1000);
                 } else {
-                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/login', values);
+                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.comuser/login', values);
                     toast.success('Login successful');
 
                     localStorage.setItem("Token", res.data.token);
@@ -135,8 +135,8 @@ const Signin = () => {
                         navigate('/home', { state: res.data.user });
                     }, 1000);
                 }
-            } catch ({error,details}) {
-                toast.error(error || details);
+            } catch (error) {
+                toast.error(error);
             } finally {
                 setLoading(false);
             }
