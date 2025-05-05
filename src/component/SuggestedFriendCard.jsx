@@ -8,7 +8,7 @@ const SuggestedFriendCard = ({ user, isFollowed, LoginUser,onFollowToggle, onSel
 
   const Following = async (ID) => {
     try {
-      const res = await axios.post(`http://localhost:3000/user/followeing/${ID}`, {
+      const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
         currentUserId: LoginUser._id,
       });
       

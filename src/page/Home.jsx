@@ -48,7 +48,7 @@ const Home = () => {
 
     try {
 
-      let res = await axios.post('http://localhost:3000/chat/createchat', {
+      let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/createchat', {
         sender: newMessage.sender,
         receiver: newMessage.receiver,
         text: newMessage.messages,
@@ -72,7 +72,7 @@ const Home = () => {
     setReceivedMessages([]);
     try {
       
-      let res = await axios.post('http://localhost:3000/chat/getchat', { sender: LoginUser?._id, receiver: user?._id })
+      let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/getchat', { sender: LoginUser?._id, receiver: user?._id })
 
       if (res.data?.chat?.messages?.length > 0) {
         
@@ -90,7 +90,7 @@ const Home = () => {
 
   const Following = async (ID) => {
     try {
-      const res = await axios.post(`http://localhost:3000/user/followeing/${ID}`, {
+      const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
         currentUserId: LoginUser._id,
       });
       fetchUsers();
@@ -119,10 +119,10 @@ const Home = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/user/read');
+      const res = await axios.get('https://deepchat-backend-qrc9.onrender.com/user/read');
       setUsers(res.data.users);
 
-      const ress = await axios.get(`http://localhost:3000/user/following/${LoginUser._id}`);
+      const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${LoginUser._id}`);
 
       setFollowedUsers(ress.data.user.isFollowing);
     } catch (error) {

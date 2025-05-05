@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
     const fetchUsersfollowing = async () => {
         try {
-            const ress = await axios.get(`http://localhost:3000/user/following/${LoginUser?._id}`);
+            const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${LoginUser?._id}`);
             setLoginuser({
                 ...ress.data.user,
                 isFollowing: ress.data.user?.isFollowing || [],
@@ -138,7 +138,7 @@ const ProfilePage = () => {
         //     }
 
         //     const response = await axios.put(
-        //         `http://localhost:3000/user/update/${Loginuser._id}`,
+        //         `https://deepchat-backend-qrc9.onrender.com/user/update/${Loginuser._id}`,
         //         formData,
         //         {
         //             headers: {

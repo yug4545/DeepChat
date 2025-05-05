@@ -81,7 +81,7 @@ const GradientButton = styled(Button)({
 
 const Signin = () => {
     const [isSignup, setIsSignup] = useState(false);
-    const socket = useMemo(() => io('http://localhost:3000'), []);
+    const socket = useMemo(() => io('https://deepchat-backend-qrc9.onrender.com'), []);
     const [SocketID, setSocketID] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -122,13 +122,13 @@ const Signin = () => {
             try {
                 if (isSignup) {
                     values.SocketID = SocketID;
-                    const res = await axios.post('http://localhost:3000/user/signup', values);
+                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/signup', values);
                     toast.success('Signup successful');
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
                 } else {
-                    const res = await axios.post('http://localhost:3000/user/login', values);
+                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/login', values);
                     toast.success('Login successful');
 
                     localStorage.setItem("Token", res.data.token);
