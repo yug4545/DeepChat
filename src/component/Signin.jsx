@@ -207,7 +207,7 @@ const Signin = () => {
                                 name="name"
                                 variant="outlined"
                                 margin="normal"
-                                value={formik.values.name}
+                                value={formik.values.username}
                                 onChange={formik.handleChange}
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
