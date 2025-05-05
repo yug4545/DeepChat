@@ -204,7 +204,7 @@ const Signin = () => {
                             <TextField
                                 fullWidth
                                 label="Username"
-                                name="name"
+                                name="username"
                                 variant="outlined"
                                 margin="normal"
                                 value={formik.values.username}
