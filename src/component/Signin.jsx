@@ -81,7 +81,11 @@ const GradientButton = styled(Button)({
 
 const Signin = () => {
     const [isSignup, setIsSignup] = useState(false);
-    const socket = useMemo(() => io('https://deepchat-backend-qrc9.onrender.com'), []);
+    const socket = useMemo(() => io('https://deepchat-backend-qrc9.onrender.com', {
+        transports: ['websocket'],
+        withCredentials: true,
+        autoConnect: true,
+      }), []);
     const [SocketID, setSocketID] = useState(null);
     const [loading, setLoading] = useState(false);
 
