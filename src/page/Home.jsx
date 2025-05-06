@@ -581,25 +581,7 @@ const Home = () => {
                       >
                         {Chatloader ? (
                           <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-                            <CircularProgress
-                              size={50}
-                              thickness={5}
-                              sx={{
-                                color: '#bb86fc',
-                                animation: 'glowSpin 1.2s linear infinite',
-                                '@keyframes glowSpin': {
-                                  '0%': {
-                                    boxShadow: '0 0 0px #bb86fc',
-                                  },
-                                  '50%': {
-                                    boxShadow: '0 0 12px 4px #bb86fc',
-                                  },
-                                  '100%': {
-                                    boxShadow: '0 0 0px #bb86fc',
-                                  },
-                                },
-                              }}
-                            />
+                            <CircularProgress size={50} thickness={5} sx={{ color: '#bb86fc' }} />
 
                           </Box>
                         ) : (
