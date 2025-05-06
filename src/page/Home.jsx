@@ -581,7 +581,39 @@ const Home = () => {
                       >
                         {Chatloader ? (
                           <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-                            <CircularProgress sx={{ color: '#bb86fc' }} />
+                            <Box
+                              sx={{
+                                position: 'relative',
+                                display: 'inline-flex',
+                                borderRadius: '50%',
+                                padding: '4px',
+                                background: 'linear-gradient(45deg, #bb86fc 0%, #03dac6 50%, #ff7597 100%)',
+                                boxShadow: '0 4px 20px rgba(187, 134, 252, 0.3)',
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  backgroundColor: 'background.paper',
+                                  borderRadius: '50%',
+                                  padding: '4px',
+                                }}
+                              >
+                                <CircularProgress
+                                  sx={{
+                                    color: '#bb86fc',
+                                    background: 'transparent',
+                                    '& .MuiCircularProgress-circle': {
+                                      strokeLinecap: 'round',
+                                    },
+                                  }}
+                                  thickness={4}
+                                  size={60}
+                                />
+                              </Box>
+                            </Box>
                           </Box>
                         ) : (
                           receivedMessages.map((msg, index) => {
