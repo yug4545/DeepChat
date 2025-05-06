@@ -28,6 +28,7 @@ const Home = () => {
   const [ActiveChat, setActiveChat] = useState(null);
   const [Chatloader, setChatloader] = useState(null);
   const [Follwingloader, setFollwingloader] = useState(null);
+  const [loadingIndex, setLoadingIndex] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -452,7 +453,7 @@ const Home = () => {
                     <Button
                       size="small"
                       variant="outlined"
-                      disabled={Follwingloader}
+                      disabled={Follwingloader || loadingIndex === index}
                       sx={{
                         textTransform: 'none',
                         borderRadius: '7px',
@@ -464,17 +465,17 @@ const Home = () => {
                           backgroundColor: '#2a2a2a',
                           borderColor: '#bb86fc',
                         },
-                        position: 'relative', 
+                        position: 'relative',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}
                       onClick={(e) => {
-                        e.stopPropagation(); 
+                        e.stopPropagation();
                         Following(user._id);
                       }}
                     >
-                      {Follwingloader ? (
+                      {loadingIndex === index ? (
                         <CircularProgress size={20} sx={{ color: '#bb86fc', position: 'absolute' }} />
                       ) : (
                         'Following'
