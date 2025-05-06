@@ -602,8 +602,8 @@ const Home = () => {
                                     ? 'linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee)'
                                     : 'linear-gradient(135deg, rgba(33,33,33,0.8), rgba(66,66,66,0.9))',
                                   borderRadius: msg.sender === LoginUser?._id
-                                    ? '18px 6px 18px 18px'
-                                    : '6px 18px 18px 18px',
+                                    ? '5px 3px 20px 5px'
+                                    : '3px 5px 5px 20px',
                                   boxShadow: msg.sender === LoginUser?._id
                                     ? '0 4px 15px rgba(114, 9, 183, 0.5)'
                                     : '0 4px 12px rgba(0, 0, 0, 0.3)',
