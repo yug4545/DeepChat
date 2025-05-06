@@ -594,8 +594,8 @@ const Home = () => {
                               <Box
                                 key={index}
                                 alignSelf={msg.sender === LoginUser?._id ? 'flex-end' : 'flex-start'}
-                                px={3}
-                                py={1.5}
+                                px={2}
+                                py={1}
                                 maxWidth="75%"
                                 sx={{
                                   background: msg.sender === LoginUser?._id
