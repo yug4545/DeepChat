@@ -12,6 +12,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import SuggestedFriendCard from '../component/SuggestedFriendCard';
 import Tooltip from '@mui/material/Tooltip';
 import ClearIcon from '@mui/icons-material/Clear';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = () => {
   const [messages, setMessages] = useState('');
@@ -25,6 +26,7 @@ const Home = () => {
   const [Searchfilteruser, setSearchfilteruser] = useState([]);
   const settings = ['Profile', 'Logout'];
   const [ActiveChat, setActiveChat] = useState(null);
+  const [Chatloader, setChatloader] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -73,6 +75,7 @@ const Home = () => {
       setSelectedUser(user);
       setActiveChat(index);
       setReceivedMessages([]);
+      setLoading(true);
       try {
 
         let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/getchat', { sender: LoginUser?._id, receiver: user?._id })
@@ -85,7 +88,11 @@ const Home = () => {
         }
 
       } catch (error) {
+
         toast.error("Failed to load chat.");
+
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -572,116 +579,118 @@ const Home = () => {
                         gap={1.5}
                         flexGrow={1}
                       >
-                        {receivedMessages.map((msg, index) => {
-                          if (msg.messages?.toLowerCase().includes('add')) return null;
+                        {loading ? (
+                          <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
+                            <CircularProgress sx={{ color: '#bb86fc' }} />
+                          </Box>
+                        ) : (
+                          receivedMessages.map((msg, index) => {
+                            if (msg.messages?.toLowerCase().includes('add')) return null;
 
-                          const isLast = index == receivedMessages.length - 1;
+                            const isLast = index === receivedMessages.length - 1;
 
-                          const messageBox = (
-                            <Box
-                              key={index}
-                              alignSelf={msg.sender == LoginUser?._id ? 'flex-end' : 'flex-start'}
-                              px={3}
-                              py={1.2}
-                              maxWidth="70%"
-                              sx={{
-                                background: msg.sender == LoginUser?._id
-                                  ? 'linear-gradient(145deg, #3a0ca3, #4361ee)'
-                                  : 'linear-gradient(145deg, #212121, #424242)',
-                                borderRadius: msg.sender == LoginUser?._id
-                                  ? '16px 4px 16px 16px'
-                                  : '4px 16px 16px 16px',
-                                boxShadow: msg.sender == LoginUser?._id
-                                  ? '0 0 12px rgba(67, 97, 238, 0.5)'
-                                  : '0 0 8px rgba(0, 0, 0, 0.4)',
-                                border: msg.sender == LoginUser?._id
-                                  ? '1px solid rgba(67, 97, 238, 0.4)'
-                                  : '1px solid rgba(255, 255, 255, 0.1)',
-                                color: '#ffffff',
-                                position: 'relative',
-                                overflow: 'hidden',
-                                transition: 'all 0.3s ease',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                '&:hover': {
-                                  transform: 'translateY(-2px)',
-                                  boxShadow: msg.sender == LoginUser?._id
-                                    ? '0 0 16px rgba(67, 97, 238, 0.7)'
-                                    : '0 0 12px rgba(0, 0, 0, 0.5)'
-                                },
-                                '&::before': {
-                                  content: '""',
-                                  position: 'absolute',
-                                  top: 0,
-                                  left: 0,
-                                  right: 0,
-                                  height: '2px',
-                                  background: msg.sender == LoginUser?._id
-                                    ? 'linear-gradient(90deg, transparent, #4cc9f0, transparent)'
-                                    : 'linear-gradient(90deg, transparent, #a5a5a5, transparent)',
-                                  opacity: 0.6
-                                }
-                              }}
-                            >
-                              {/* Message Text */}
-                              <Typography
-                                fontSize={15}
+                            const messageBox = (
+                              <Box
+                                key={index}
+                                alignSelf={msg.sender === LoginUser?._id ? 'flex-end' : 'flex-start'}
+                                px={3}
+                                py={1.2}
+                                maxWidth="70%"
                                 sx={{
-                                  flex: 1,
-                                  overflowWrap: 'break-word',
-                                  whiteSpace: 'pre-wrap',
-                                  lineHeight: 1.4,
-                                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-                                  pr: 2
+                                  background: msg.sender === LoginUser?._id
+                                    ? 'linear-gradient(145deg, #3a0ca3, #4361ee)'
+                                    : 'linear-gradient(145deg, #212121, #424242)',
+                                  borderRadius: msg.sender === LoginUser?._id
+                                    ? '16px 4px 16px 16px'
+                                    : '4px 16px 16px 16px',
+                                  boxShadow: msg.sender === LoginUser?._id
+                                    ? '0 0 12px rgba(67, 97, 238, 0.5)'
+                                    : '0 0 8px rgba(0, 0, 0, 0.4)',
+                                  border: msg.sender === LoginUser?._id
+                                    ? '1px solid rgba(67, 97, 238, 0.4)'
+                                    : '1px solid rgba(255, 255, 255, 0.1)',
+                                  color: '#ffffff',
+                                  position: 'relative',
+                                  overflow: 'hidden',
+                                  transition: 'all 0.3s ease',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  '&:hover': {
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: msg.sender === LoginUser?._id
+                                      ? '0 0 16px rgba(67, 97, 238, 0.7)'
+                                      : '0 0 12px rgba(0, 0, 0, 0.5)'
+                                  },
+                                  '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: '2px',
+                                    background: msg.sender === LoginUser?._id
+                                      ? 'linear-gradient(90deg, transparent, #4cc9f0, transparent)'
+                                      : 'linear-gradient(90deg, transparent, #a5a5a5, transparent)',
+                                    opacity: 0.6
+                                  }
                                 }}
                               >
-                                {msg?.messages}
-                              </Typography>
-
-                              {/* Time + Dot Container */}
-                              <Box display="flex" alignItems="center" gap={1}>
                                 <Typography
-                                  fontSize={10}
+                                  fontSize={15}
                                   sx={{
-                                    color: msg.sender == LoginUser?._id ? 'rgba(200, 225, 255, 0.8)' : 'rgba(200, 200, 200, 0.6)',
-                                    whiteSpace: 'nowrap',
-                                    letterSpacing: '0.5px',
-                                    textTransform: 'uppercase',
+                                    flex: 1,
+                                    overflowWrap: 'break-word',
+                                    whiteSpace: 'pre-wrap',
+                                    lineHeight: 1.4,
+                                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                                    pr: 2
                                   }}
                                 >
-                                  {msg?.time}
+                                  {msg?.messages}
                                 </Typography>
-                                <Box
-                                  sx={{
-                                    width: 8,
-                                    height: 8,
-                                    background: msg.sender == LoginUser?._id ? '#4cc9f0' : '#a5a5a5',
-                                    borderRadius: '50%',
-                                    boxShadow: msg.sender == LoginUser?._id ? '0 0 6px #4cc9f0' : 'none',
-                                    opacity: msg.sender == LoginUser?._id ? 0.8 : 0.6
-                                  }}
-                                />
+
+                                <Box display="flex" alignItems="center" gap={1}>
+                                  <Typography
+                                    fontSize={10}
+                                    sx={{
+                                      color: msg.sender === LoginUser?._id ? 'rgba(200, 225, 255, 0.8)' : 'rgba(200, 200, 200, 0.6)',
+                                      whiteSpace: 'nowrap',
+                                      letterSpacing: '0.5px',
+                                      textTransform: 'uppercase',
+                                    }}
+                                  >
+                                    {msg?.time}
+                                  </Typography>
+                                  <Box
+                                    sx={{
+                                      width: 8,
+                                      height: 8,
+                                      background: msg.sender === LoginUser?._id ? '#4cc9f0' : '#a5a5a5',
+                                      borderRadius: '50%',
+                                      boxShadow: msg.sender === LoginUser?._id ? '0 0 6px #4cc9f0' : 'none',
+                                      opacity: msg.sender === LoginUser?._id ? 0.8 : 0.6
+                                    }}
+                                  />
+                                </Box>
                               </Box>
-                            </Box>
+                            );
 
+                            return isLast ? (
+                              <Slide
+                                key={index}
+                                direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
+                                in={true}
+                                timeout={300}
+                              >
+                                {messageBox}
+                              </Slide>
+                            ) : (
+                              messageBox
+                            );
+                          })
+                        )}
 
-                          );
-
-                          return isLast ? (
-                            <Slide
-                              key={index}
-                              direction={msg.sender == LoginUser?._id ? 'left' : 'right'}
-                              in={true}
-                              timeout={300}
-
-                            >
-                              {messageBox}
-                            </Slide>
-                          ) : (
-                            messageBox
-                          );
-                        })}
                         <div ref={messageEndRef} />
                       </Box>
                     </Fade>
