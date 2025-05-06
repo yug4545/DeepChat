@@ -45,7 +45,7 @@ const Home = () => {
         hour12: true,
       }),
     };
-    
+
     setMessages("")
     setReceivedMessages((prev) => [...prev, newMessage]);
     try {
@@ -67,25 +67,25 @@ const Home = () => {
   };
 
   const UserSelect = async (user, index) => {
-    setSelectedUser(user);
-    setActiveChat(index);
+    if (!selectedUser) {
+      setSelectedUser(user);
+      setActiveChat(index);
 
-    setReceivedMessages([]);
-    try {
-      
-      let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/getchat', { sender: LoginUser?._id, receiver: user?._id })
+      setReceivedMessages([]);
+      try {
 
-      if (res.data?.chat?.messages?.length > 0) {
-        
-        setReceivedMessages(res.data.chat.messages);
-      }else{
-        setReceivedMessages([]);
+        let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/getchat', { sender: LoginUser?._id, receiver: user?._id })
+
+        if (res.data?.chat?.messages?.length > 0) {
+
+          setReceivedMessages(res.data.chat.messages);
+        } else {
+          setReceivedMessages([]);
+        }
+
+      } catch (error) {
+        toast.error(error);
       }
-
-      
-
-    } catch (error) {
-      toast.error(error);
     }
   };
 
@@ -105,7 +105,7 @@ const Home = () => {
     setSearchName(searchInput);
 
     const filtered = users.filter((user) =>
-      user.name.toLowerCase().includes(searchInput.toLowerCase())
+      user.username.toLowerCase().includes(searchInput.toLowerCase())
     );
     setSearchfilteruser(filtered);
   };
