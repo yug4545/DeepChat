@@ -67,10 +67,11 @@ const Home = () => {
   };
 
   const UserSelect = async (user, index) => {
-    if (!selectedUser) {
+
+    if (selectedUser?._id !== user?._id) {
+
       setSelectedUser(user);
       setActiveChat(index);
-
       setReceivedMessages([]);
       try {
 
@@ -84,7 +85,7 @@ const Home = () => {
         }
 
       } catch (error) {
-        toast.error(error);
+        toast.error("Failed to load chat.");
       }
     }
   };
