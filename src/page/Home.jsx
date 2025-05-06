@@ -580,40 +580,44 @@ const Home = () => {
                         flexGrow={1}
                       >
                         {Chatloader ? (
-                          <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-                            <Box
-                              sx={{
-                                position: 'relative',
-                                display: 'inline-flex',
+                          <Box
+                            sx={{
+                              position: 'relative',
+                              display: 'inline-flex',
+                              '&::before': {
+                                content: '""',
+                                position: 'absolute',
+                                inset: 0,
                                 borderRadius: '50%',
-                                padding: '4px',
-                                background: 'linear-gradient(45deg, #bb86fc 0%, #03dac6 50%, #ff7597 100%)',
-                                boxShadow: '0 4px 20px rgba(187, 134, 252, 0.3)',
+                                padding: 2,
+                                background: 'linear-gradient(135deg, rgba(187,134,252,0.8) 0%, rgba(3,218,198,0.8) 100%)',
+                                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                                WebkitMaskComposite: 'xor',
+                                maskComposite: 'exclude',
+                                pointerEvents: 'none',
+                              }
+                            }}
+                          >
+                            <CircularProgress
+                              variant="indeterminate"
+                              sx={{
+                                color: (theme) => theme.palette.mode === 'light' ? 'rgba(187,134,252,0.2)' : 'rgba(255,255,255,0.1)',
+                                '& .MuiCircularProgress-circle': {
+                                  strokeLinecap: 'round',
+                                  stroke: 'url(#progress-gradient)',
+                                },
                               }}
-                            >
-                              <Box
-                                sx={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  backgroundColor:'transparent',
-                                  borderRadius: '50%',
-                                  padding: '4px',
-                                }}
-                              >
-                                <CircularProgress
-                                  sx={{
-                                    color: '#bb86fc',
-                                    background: 'transparent',
-                                    '& .MuiCircularProgress-circle': {
-                                      strokeLinecap: 'round',
-                                    },
-                                  }}
-                                  thickness={4}
-                                  size={60}
-                                />
-                              </Box>
-                            </Box>
+                              thickness={thickness}
+                              size={size}
+                            />
+                            <svg width={0} height={0}>
+                              <defs>
+                                <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                  <stop offset="0%" stopColor="#BB86FC" />
+                                  <stop offset="100%" stopColor="#03DAC6" />
+                                </linearGradient>
+                              </defs>
+                            </svg>
                           </Box>
                         ) : (
                           receivedMessages.map((msg, index) => {
