@@ -595,33 +595,35 @@ const Home = () => {
                                 key={index}
                                 alignSelf={msg.sender === LoginUser?._id ? 'flex-end' : 'flex-start'}
                                 px={3}
-                                py={1.2}
-                                maxWidth="70%"
+                                py={1.5}
+                                maxWidth="75%"
                                 sx={{
                                   background: msg.sender === LoginUser?._id
-                                    ? 'linear-gradient(145deg, #3a0ca3, #4361ee)'
-                                    : 'linear-gradient(145deg, #212121, #424242)',
+                                    ? 'linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee)'
+                                    : 'linear-gradient(135deg, rgba(33,33,33,0.8), rgba(66,66,66,0.9))',
                                   borderRadius: msg.sender === LoginUser?._id
-                                    ? '16px 4px 16px 16px'
-                                    : '4px 16px 16px 16px',
+                                    ? '18px 6px 18px 18px'
+                                    : '6px 18px 18px 18px',
                                   boxShadow: msg.sender === LoginUser?._id
-                                    ? '0 0 12px rgba(67, 97, 238, 0.5)'
-                                    : '0 0 8px rgba(0, 0, 0, 0.4)',
+                                    ? '0 4px 15px rgba(114, 9, 183, 0.5)'
+                                    : '0 4px 12px rgba(0, 0, 0, 0.3)',
                                   border: msg.sender === LoginUser?._id
-                                    ? '1px solid rgba(67, 97, 238, 0.4)'
+                                    ? '1px solid rgba(114, 9, 183, 0.3)'
                                     : '1px solid rgba(255, 255, 255, 0.1)',
-                                  color: '#ffffff',
+                                  color: '#fff',
+                                  backdropFilter: 'blur(6px)',
+                                  WebkitBackdropFilter: 'blur(6px)',
                                   position: 'relative',
-                                  overflow: 'hidden',
                                   transition: 'all 0.3s ease',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'space-between',
+                                  overflow: 'hidden',
                                   '&:hover': {
-                                    transform: 'translateY(-2px)',
+                                    transform: 'scale(1.015)',
                                     boxShadow: msg.sender === LoginUser?._id
-                                      ? '0 0 16px rgba(67, 97, 238, 0.7)'
-                                      : '0 0 12px rgba(0, 0, 0, 0.5)'
+                                      ? '0 0 20px rgba(114, 9, 183, 0.6)'
+                                      : '0 0 12px rgba(255, 255, 255, 0.2)'
                                   },
                                   '&::before': {
                                     content: '""',
@@ -632,30 +634,32 @@ const Home = () => {
                                     height: '2px',
                                     background: msg.sender === LoginUser?._id
                                       ? 'linear-gradient(90deg, transparent, #4cc9f0, transparent)'
-                                      : 'linear-gradient(90deg, transparent, #a5a5a5, transparent)',
-                                    opacity: 0.6
+                                      : 'linear-gradient(90deg, transparent, #aaa, transparent)',
+                                    opacity: 0.7
                                   }
                                 }}
                               >
+                                {/* Message Text */}
                                 <Typography
                                   fontSize={15}
                                   sx={{
                                     flex: 1,
                                     overflowWrap: 'break-word',
                                     whiteSpace: 'pre-wrap',
-                                    lineHeight: 1.4,
-                                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                                    lineHeight: 1.5,
+                                    textShadow: '0 1px 2px rgba(0,0,0,0.4)',
                                     pr: 2
                                   }}
                                 >
                                   {msg?.messages}
                                 </Typography>
 
+                                {/* Time & Dot */}
                                 <Box display="flex" alignItems="center" gap={1}>
                                   <Typography
                                     fontSize={10}
                                     sx={{
-                                      color: msg.sender === LoginUser?._id ? 'rgba(200, 225, 255, 0.8)' : 'rgba(200, 200, 200, 0.6)',
+                                      color: msg.sender === LoginUser?._id ? 'rgba(200, 225, 255, 0.9)' : 'rgba(200, 200, 200, 0.7)',
                                       whiteSpace: 'nowrap',
                                       letterSpacing: '0.5px',
                                       textTransform: 'uppercase',
@@ -670,11 +674,24 @@ const Home = () => {
                                       background: msg.sender === LoginUser?._id ? '#4cc9f0' : '#a5a5a5',
                                       borderRadius: '50%',
                                       boxShadow: msg.sender === LoginUser?._id ? '0 0 6px #4cc9f0' : 'none',
-                                      opacity: msg.sender === LoginUser?._id ? 0.8 : 0.6
+                                      opacity: msg.sender === LoginUser?._id ? 0.8 : 0.6,
+                                      animation: msg.sender === LoginUser?._id ? 'pulse 1.8s infinite' : 'none'
                                     }}
                                   />
                                 </Box>
+
+                                {/* Pulse Animation */}
+                                <style>
+                                  {`
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.3); opacity: 0.4; }
+        100% { transform: scale(1); opacity: 0.8; }
+      }
+    `}
+                                </style>
                               </Box>
+
                             );
 
                             return isLast ? (
