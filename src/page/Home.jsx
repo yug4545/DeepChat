@@ -596,7 +596,7 @@ const Home = () => {
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  backgroundColor: 'background.paper',
+                                  backgroundColor:'transparent',
                                   borderRadius: '50%',
                                   padding: '4px',
                                 }}
