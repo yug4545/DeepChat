@@ -456,7 +456,7 @@ const Home = () => {
                     <Button
                       size="small"
                       variant="outlined"
-                      disabled={loadingIndex == index}
+                      disabled={loadingIndex === index}
                       sx={{
                         textTransform: 'none',
                         borderRadius: '7px',
@@ -464,6 +464,7 @@ const Home = () => {
                         minWidth: '70px',
                         color: '#bb86fc',
                         borderColor: '#bb86fc',
+                        height: '32px',
                         '&:hover': {
                           backgroundColor: '#2a2a2a',
                           borderColor: '#bb86fc',
@@ -475,15 +476,23 @@ const Home = () => {
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        Following(user._id,index);
+                        Following(user._id, index);
                       }}
                     >
-                      {loadingIndex === index ? (
-                        <CircularProgress size={16} sx={{ color: '#bb86fc', position: 'absolute' }} />
-                      ) : (
-                        'Following'
-                      )}
+                      <CircularProgress
+                        size={16}
+                        sx={{
+                          color: '#bb86fc',
+                          position: 'absolute',
+                          visibility: loadingIndex === index ? 'visible' : 'hidden',
+                        }}
+                      />
+
+                      <span style={{ visibility: loadingIndex === index ? 'hidden' : 'visible' }}>
+                        Following
+                      </span>
                     </Button>
+
                   </Box>
                 ))}
 
