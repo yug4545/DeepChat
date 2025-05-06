@@ -581,7 +581,7 @@ const Home = () => {
                       >
                         {Chatloader ? (
                           <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-                            <CircularProgress size={50} thickness={5} sx={{ color: '#bb86fc' }} />
+                            <CircularProgress size={76} thickness={3.6} sx={{ color: '#bb86fc' }} />
 
                           </Box>
                         ) : (
