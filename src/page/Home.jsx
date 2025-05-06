@@ -442,7 +442,7 @@ const Home = () => {
                       },
                     }}
                   >
-                    <Box display="flex" alignItems="center" gap={2} >
+                    <Box display="flex" alignItems="center" gap={2}>
                       <Avatar sx={{ bgcolor: '#bb86fc', mr: 2, fontWeight: 'bold' }}>{user?.username.charAt(0)}</Avatar>
                       <Box>
                         <Typography fontWeight={600} color="#fff">{user?.username}</Typography>
@@ -464,20 +464,25 @@ const Home = () => {
                           backgroundColor: '#2a2a2a',
                           borderColor: '#bb86fc',
                         },
+                        position: 'relative', 
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
-                      onClick={() => Following(user._id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); 
+                        Following(user._id);
+                      }}
                     >
                       {Follwingloader ? (
-                        <>
-                          <CircularProgress size={24} sx={{ color: '#bb86fc', marginRight: 2 }} />
-                        
-                        </>
+                        <CircularProgress size={20} sx={{ color: '#bb86fc', position: 'absolute' }} />
                       ) : (
                         'Following'
                       )}
                     </Button>
                   </Box>
                 ))}
+
 
                 {suggestedList.length > 0 && (
                   <Typography sx={sectionStyle}>Suggested</Typography>
