@@ -607,8 +607,8 @@ const Home = () => {
                                   stroke: 'url(#progress-gradient)',
                                 },
                               }}
-                              thickness={thickness}
-                              size={size}
+                              thickness={72}
+                              size={3.6}
                             />
                             <svg width={0} height={0}>
                               <defs>
