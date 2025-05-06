@@ -581,45 +581,26 @@ const Home = () => {
                       >
                         {Chatloader ? (
                           <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-                            <Box
+                            <CircularProgress
+                              size={50}
+                              thickness={5}
                               sx={{
-                                position: 'relative',
-                                display: 'inline-flex',
-                                '&::before': {
-                                  content: '""',
-                                  position: 'absolute',
-                                  inset: 0,
-                                  borderRadius: '50%',
-                                  padding: 2,
-                                  background: 'linear-gradient(135deg, rgba(187,134,252,0.8) 0%, rgba(3,218,198,0.8) 100%)',
-                                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                                  WebkitMaskComposite: 'xor',
-                                  maskComposite: 'exclude',
-                                  pointerEvents: 'none',
-                                }
-                              }}
-                            >
-                              <CircularProgress
-                                variant="indeterminate"
-                                sx={{
-                                  color: (theme) => theme.palette.mode === 'light' ? 'rgba(187,134,252,0.2)' : 'rgba(255,255,255,0.1)',
-                                  '& .MuiCircularProgress-circle': {
-                                    strokeLinecap: 'round',
-                                    stroke: 'url(#progress-gradient)',
+                                color: '#bb86fc',
+                                animation: 'glowSpin 1.2s linear infinite',
+                                '@keyframes glowSpin': {
+                                  '0%': {
+                                    boxShadow: '0 0 0px #bb86fc',
                                   },
-                                }}
-                                thickness={72}
-                                size={3.6}
-                              />
-                              <svg width={0} height={0}>
-                                <defs>
-                                  <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#BB86FC" />
-                                    <stop offset="100%" stopColor="#03DAC6" />
-                                  </linearGradient>
-                                </defs>
-                              </svg>
-                            </Box>
+                                  '50%': {
+                                    boxShadow: '0 0 12px 4px #bb86fc',
+                                  },
+                                  '100%': {
+                                    boxShadow: '0 0 0px #bb86fc',
+                                  },
+                                },
+                              }}
+                            />
+
                           </Box>
                         ) : (
                           receivedMessages.map((msg, index) => {
