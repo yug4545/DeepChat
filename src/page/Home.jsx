@@ -456,7 +456,7 @@ const Home = () => {
                     <Button
                       size="small"
                       variant="outlined"
-                      disabled={Follwingloader || loadingIndex === index}
+                      disabled={loadingIndex == index}
                       sx={{
                         textTransform: 'none',
                         borderRadius: '7px',
