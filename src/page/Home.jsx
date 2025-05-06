@@ -75,7 +75,7 @@ const Home = () => {
       setSelectedUser(user);
       setActiveChat(index);
       setReceivedMessages([]);
-      setLoading(true);
+      setChatloader(true);
       try {
 
         let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/getchat', { sender: LoginUser?._id, receiver: user?._id })
@@ -92,7 +92,7 @@ const Home = () => {
         toast.error("Failed to load chat.");
 
       } finally {
-        setLoading(false);
+        setChatloader(false);
       }
     }
   };
@@ -147,7 +147,7 @@ const Home = () => {
     }
     if (!LoginUser) return;
 
-    socket.emit("join", LoginUser._id); // join your room
+    socket.emit("join", LoginUser._id); 
 
     socket.on("receive-message", (data) => {
 
