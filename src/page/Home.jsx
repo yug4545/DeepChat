@@ -99,9 +99,10 @@ const Home = () => {
     }
   };
 
-  const Following = async (ID) => {
+  const Following = async (ID, index) => {
 
     setFollwingloader(true);
+    setLoadingIndex(index);
     try {
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
         currentUserId: LoginUser._id,
@@ -111,6 +112,8 @@ const Home = () => {
       toast.error(error.response?.data?.message || error.message);
     } finally {
       setFollwingloader(false);
+      setLoadingIndex(null);
+
     }
   };
 
@@ -472,7 +475,7 @@ const Home = () => {
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        Following(user._id);
+                        Following(user._id,index);
                       }}
                     >
                       {loadingIndex === index ? (
