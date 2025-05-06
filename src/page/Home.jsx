@@ -27,6 +27,7 @@ const Home = () => {
   const settings = ['Profile', 'Logout'];
   const [ActiveChat, setActiveChat] = useState(null);
   const [Chatloader, setChatloader] = useState(null);
+  const [Follwingloader, setFollwingloader] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -98,6 +99,8 @@ const Home = () => {
   };
 
   const Following = async (ID) => {
+
+    setFollwingloader(true);
     try {
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
         currentUserId: LoginUser._id,
@@ -105,6 +108,8 @@ const Home = () => {
       fetchUsers();
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
+    } finally {
+      setFollwingloader(false);
     }
   };
 
@@ -447,6 +452,7 @@ const Home = () => {
                     <Button
                       size="small"
                       variant="outlined"
+                      disabled={Follwingloader}
                       sx={{
                         textTransform: 'none',
                         borderRadius: '7px',
@@ -461,7 +467,14 @@ const Home = () => {
                       }}
                       onClick={() => Following(user._id)}
                     >
-                      Following
+                      {Follwingloader ? (
+                        <>
+                          <CircularProgress size={24} sx={{ color: '#bb86fc', marginRight: 2 }} />
+                        
+                        </>
+                      ) : (
+                        'Following'
+                      )}
                     </Button>
                   </Box>
                 ))}
@@ -602,7 +615,7 @@ const Home = () => {
                                     ? 'linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee)'
                                     : 'linear-gradient(135deg, rgba(33,33,33,0.8), rgba(66,66,66,0.9))',
                                   borderRadius: msg.sender === LoginUser?._id
-                                    ? '10px 4px 10px 10px' 
+                                    ? '10px 4px 10px 10px'
                                     : '4px 10px 10px 10px',
                                   boxShadow: msg.sender === LoginUser?._id
                                     ? '0 4px 15px rgba(114, 9, 183, 0.5)'
