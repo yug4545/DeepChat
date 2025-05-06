@@ -479,7 +479,7 @@ const Home = () => {
                       }}
                     >
                       {loadingIndex === index ? (
-                        <CircularProgress size={20} sx={{ color: '#bb86fc', position: 'absolute' }} />
+                        <CircularProgress size={10} sx={{ color: '#bb86fc', position: 'absolute' }} />
                       ) : (
                         'Following'
                       )}
