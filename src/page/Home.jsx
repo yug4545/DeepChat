@@ -579,7 +579,7 @@ const Home = () => {
                         gap={1.5}
                         flexGrow={1}
                       >
-                        {loading ? (
+                        {Chatloader ? (
                           <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
                             <CircularProgress sx={{ color: '#bb86fc' }} />
                           </Box>
