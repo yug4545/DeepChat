@@ -166,14 +166,17 @@ const Home = () => {
 
       const updatedUser = ress.data.user;
 
+      console.log(ress.data);
+      
+
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
       if (Array.isArray(updatedUser.isFollowing) && updatedUser.isFollowing.includes(LoginUser._id)) {
 
-        setFollowedUsers(prev => [...new Set([...prev, ID])]); // prevent duplicates
-        
+        setFollowedUsers(prev => [...new Set([...prev, ID])]); 
+
       } else {
 
         setFollowedUsers(prev => prev.filter(userId => userId !== ID));
