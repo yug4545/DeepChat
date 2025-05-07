@@ -101,6 +101,11 @@ const Home = () => {
 
   const Following = async (ID, index) => {
 
+    const updatedUsers = [...users]; // assume 'users' is your state
+    updatedUsers[index].isFollowing = !updatedUsers[index].isFollowing;
+    setUsers(updatedUsers);
+
+
     setFollwingloader(true);
     setLoadingIndex(index);
     try {
@@ -109,7 +114,10 @@ const Home = () => {
       });
       fetchUsers();
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
+
+      updatedUsers[index].isFollowing = !updatedUsers[index].isFollowing;
+      setUsers(updatedUsers);
+      toast.error(error);
     } finally {
       setFollwingloader(false);
       setLoadingIndex(null);
