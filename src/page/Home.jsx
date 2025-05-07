@@ -29,6 +29,7 @@ const Home = () => {
   const [Chatloader, setChatloader] = useState(null);
   const [loadingIndex, setLoadingIndex] = useState(null);
   const [FollowLoadingIndex, setFollowLoadingIndex] = useState(null);
+  const [UserLoader, setUserLoader] = useState(null);
 
 
 
@@ -164,18 +165,15 @@ const Home = () => {
 
       const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
 
-      const updatedUser = ress.data.user;    
-      
+      const updatedUser = ress.data.user;
+
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
-      console.log(res.data.isFollowing);
-      
-
       if (res.data.isFollowing) {
 
-        setFollowedUsers(prev => [...new Set([...prev, ID])]); 
+        setFollowedUsers(prev => [...new Set([...prev, ID])]);
 
       } else {
 
@@ -214,6 +212,7 @@ const Home = () => {
   }, [receivedMessages]);
 
   const fetchUsers = async () => {
+    setUserLoader(true)
     try {
       const res = await axios.get('https://deepchat-backend-qrc9.onrender.com/user/read');
       setUsers(res.data.users);
@@ -222,7 +221,9 @@ const Home = () => {
 
       setFollowedUsers(ress.data.user.isFollowing);
     } catch (error) {
-      console.error('Error fetching users or following list:', error);
+      toast.error('Error fetching users or following list:', error);
+    } finally {
+      setUserLoader(false);
     }
   };
 
@@ -471,122 +472,130 @@ const Home = () => {
 
         {/* User List */}
         <Box flexGrow={1} overflow="auto">
-          {(() => {
-            return (
-              <>
-                {followedList.length > 0 && (
-                  <Typography sx={sectionStyle}>Following</Typography>
-                )}
-                {followedList.map((user, index) => (
-                  <Box
-                    key={`followed-${index}`}
-                    onClick={() => UserSelect(user, index)}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    sx={{
-                      ...userCardStyle,
-                      cursor: 'pointer',
-                      flexGrow: 1,
-                      backgroundColor: ActiveChat === index ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                      borderRadius: 2,
-                      transition: 'all 0.1s ease',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                      },
-                    }}
-                  >
-                    <Box display="flex" alignItems="center" gap={2}>
-                      <Avatar sx={{ bgcolor: '#bb86fc', mr: 2, fontWeight: 'bold' }}>{user?.username.charAt(0)}</Avatar>
-                      <Box>
-                        <Typography fontWeight={600} color="#fff">{user?.username}</Typography>
-                        <Typography fontSize={12} color="#888">Following</Typography>
-                      </Box>
+          {loadingUsers ? (
+
+            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+              <CircularProgress sx={{ color: 'gray' }} />
+            </Box>
+
+          ) : (
+            <>
+              {/* Following Section */}
+              {followedList.length > 0 && (
+                <Typography sx={sectionStyle}>Following</Typography>
+              )}
+
+              {followedList.map((user, index) => (
+                <Box
+                  key={`followed-${index}`}
+                  onClick={() => UserSelect(user, index)}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  sx={{
+                    ...userCardStyle,
+                    cursor: 'pointer',
+                    flexGrow: 1,
+                    backgroundColor: ActiveChat === index ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                    borderRadius: 2,
+                    transition: 'all 0.1s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                  }}
+                >
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <Avatar sx={{ bgcolor: '#bb86fc', mr: 2, fontWeight: 'bold' }}>
+                      {user?.username.charAt(0)}
+                    </Avatar>
+                    <Box>
+                      <Typography fontWeight={600} color="#fff">{user?.username}</Typography>
+                      <Typography fontSize={12} color="#888">Following</Typography>
                     </Box>
-                    <Button
-                      size="small"
-                      variant="outlined"
-                      disabled={loadingIndex === index}
-                      sx={{
-                        textTransform: 'none',
-                        borderRadius: '7px',
-                        fontSize: '12px',
-                        minWidth: '70px',
-                        color: '#bb86fc',
-                        borderColor: '#bb86fc',
-                        height: '32px',
-                        '&:hover': {
-                          backgroundColor: '#2a2a2a',
-                          borderColor: '#bb86fc',
-                        },
-                        position: 'relative',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        Following(user._id, index);
-                      }}
-                    >
-                      <CircularProgress
-                        size={16}
-                        sx={{
-                          color: '#bb86fc',
-                          position: 'absolute',
-                          visibility: loadingIndex === index ? 'visible' : 'hidden',
-                        }}
-                      />
-
-                      <span style={{ visibility: loadingIndex === index ? 'hidden' : 'visible' }}>
-                        Following
-                      </span>
-                    </Button>
-
                   </Box>
-                ))}
 
-
-                {suggestedList.length > 0 && (
-                  <Typography sx={sectionStyle}>Suggested</Typography>
-                )}
-
-
-                {filteredSuggestions.length > 0 ? (
-                  filteredSuggestions.map((user, index) => (
-                    <SuggestedFriendCard
-                      key={index}
-                      index={index}
-                      isloading={FollowLoadingIndex == index}
-                      user={user}
-                      isFollowed={followedUsers.includes(user._id)}
-                      onFollowToggle={() => Following(user?._id, index, true)}
-                      onSelect={() => UserSelect(user, index)}
-                    />
-                  ))
-                ) : (
-                  <Typography
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    disabled={loadingUsers || loadingIndex === index}
                     sx={{
-                      color: '#888',
-                      fontSize: '16px',
-                      textAlign: 'center',
-                      mt: 4,
-                      background: 'linear-gradient(135deg, #bb86fc33, #03dac633)',
-                      padding: '12px 16px',
-                      borderRadius: '12px',
-                      border: '1px solid #333',
-                      maxWidth: '94%',
-                      margin: '20px auto',
-                      fontWeight: 500,
-                      backdropFilter: 'blur(8px)',
+                      textTransform: 'none',
+                      borderRadius: '7px',
+                      fontSize: '12px',
+                      minWidth: '70px',
+                      color: '#bb86fc',
+                      borderColor: '#bb86fc',
+                      height: '32px',
+                      '&:hover': {
+                        backgroundColor: '#2a2a2a',
+                        borderColor: '#bb86fc',
+                      },
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      Following(user._id, index);
                     }}
                   >
-                    No suggestions available for <span style={{ color: '#bb86fc' }}>{LoginUser?.username}</span>
-                  </Typography>
-                )}
-              </>
-            );
-          })()}
+                    <CircularProgress
+                      size={16}
+                      sx={{
+                        color: '#bb86fc',
+                        position: 'absolute',
+                        visibility: loadingIndex === index ? 'visible' : 'hidden',
+                      }}
+                    />
+                    <span style={{ visibility: loadingIndex === index ? 'hidden' : 'visible' }}>
+                      Following
+                    </span>
+                  </Button>
+                </Box>
+              ))}
+
+              {/* Suggested Section */}
+              {suggestedList.length > 0 && (
+                <Typography sx={sectionStyle}>Suggested</Typography>
+              )}
+
+              {filteredSuggestions.length > 0 ? (
+                filteredSuggestions.map((user, index) => (
+                  <SuggestedFriendCard
+                    key={index}
+                    index={index}
+                    isloading={FollowLoadingIndex === index}
+                    user={user}
+                    isFollowed={followedUsers.includes(user._id)}
+                    onFollowToggle={() => Following(user._id, index, true)}
+                    onSelect={() => UserSelect(user, index)}
+                    disabled={loadingUsers}
+                  />
+                ))
+              ) : (
+                <Typography
+                  sx={{
+                    color: '#888',
+                    fontSize: '16px',
+                    textAlign: 'center',
+                    mt: 4,
+                    background: 'linear-gradient(135deg, #bb86fc33, #03dac633)',
+                    padding: '12px 16px',
+                    borderRadius: '12px',
+                    border: '1px solid #333',
+                    maxWidth: '94%',
+                    margin: '20px auto',
+                    fontWeight: 500,
+                    backdropFilter: 'blur(8px)',
+                  }}
+                >
+                  No suggestions available for{' '}
+                  <span style={{ color: '#bb86fc' }}>{LoginUser?.username}</span>
+                </Typography>
+              )}
+            </>
+          )}
         </Box>
 
       </Box>
