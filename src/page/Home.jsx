@@ -174,11 +174,6 @@ const Home = () => {
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
-      if (updatedUser.isFollowing) {
-        setFollowedUsers(prev => [...prev, ID]);
-      } else {
-        setFollowedUsers(prev => prev.filter(userId => userId !== ID));
-      }
 
     } catch (error) {
 
