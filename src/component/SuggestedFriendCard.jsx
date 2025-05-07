@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
 
-  let [Followed, setFollowed] = useState(isFollowed);
+  let [Followed, setFollowed] = useState(false);
 
   const Following = async (ID, i) => {
 
@@ -47,7 +47,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
           sx={{
             mr: 2,
             fontWeight: 'bold',
-            background: isFollowed
+            background: isFollowed || Followed
               ? 'linear-gradient(135deg, #666 0%, #444 100%)'
               : 'linear-gradient(135deg, #bb86fc 0%, #03dac6 100%)',
             color: '#fff',
@@ -56,13 +56,13 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
         <Box>
           <Typography fontWeight={600} color="#fff">{user.username}</Typography>
           <Typography fontSize={12} color="#888">
-            {isFollowed ? 'Following' : 'Suggested'}
+            {isFollowed || Followed ? 'Following' : 'Suggested'}
           </Typography>
         </Box>
       </Box>
       <Button
         size="small"
-        variant={isFollowed ? 'outlined' : 'contained'}
+        variant={isFollowed || Followed ? 'outlined' : 'contained'}
         disabled={isloading}
         sx={{
           textTransform: 'none',
@@ -74,13 +74,13 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
             backgroundColor: '#2a2a2a',
             borderColor: '#bb86fc',
           },
-          color: isFollowed ? '#bb86fc' : '#121212',
+          color: isFollowed || Followed ? '#bb86fc' : '#121212',
           borderColor: '#bb86fc',
-          background: isFollowed
+          background: isFollowed || Followed
             ? 'linear-gradient(135deg, #666 0%, #444 100%)'
             : 'linear-gradient(135deg, #bb86fc 0%, #03dac6 100%)',
           '&:hover': {
-            bgcolor: isFollowed ? '#2a2a2a' : '#9a68db',
+            bgcolor: isFollowed || Followed ? '#2a2a2a' : '#9a68db',
             borderColor: '#bb86fc',
           },
         }}
@@ -95,7 +95,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
           }}
         />
 
-        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>{isFollowed? "Following" : "Follow"}</span>
+        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>{isFollowed || Followed? "Following" : "Follow"}</span>
       </Button>
     </Box>
   );
