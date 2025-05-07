@@ -111,7 +111,23 @@ const Home = () => {
         currentUserId: LoginUser._id,
       });
 
-      fetchUsers();
+      //get Following or Follow
+
+      const ress = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
+
+
+      const updatedUser = ress.data.data.user; 
+
+      
+      setUsers(prevUsers =>
+        prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
+      );
+
+      if (updatedUser.isFollowing) {
+        setFollowedUsers(prev => [...prev, ID]);
+      } else {
+        setFollowedUsers(prev => prev.filter(userId => userId !== ID));
+      }
 
     } catch (error) {
 
