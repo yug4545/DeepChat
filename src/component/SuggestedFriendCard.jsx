@@ -74,12 +74,17 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
       <Button
         size="small"
         variant={Followed ? 'outlined' : 'contained'}
-        disabled={loadingIndex === index}
+        disabled={loadingIndex == index}
         sx={{
           textTransform: 'none',
           borderRadius: '7px',
           fontSize: '12px',
           minWidth: '70px',
+          height: '32px',
+          '&:hover': {
+            backgroundColor: '#2a2a2a',
+            borderColor: '#bb86fc',
+          },
           color: Followed ? '#bb86fc' : '#121212',
           borderColor: '#bb86fc',
           background: Followed
@@ -97,12 +102,12 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
           sx={{
             color: '#bb86fc',
             position: 'absolute',
-            visibility: loadingIndex === index ? 'visible' : 'hidden',
+            visibility: loadingIndex == index ? 'visible' : 'hidden',
           }}
         />
 
-        <span style={{ visibility: loadingIndex === index ? 'hidden' : 'visible' }}>
-          {Followed?"Following":"Follow"}
+        <span style={{ visibility: loadingIndex == index ? 'hidden' : 'visible' }}>
+          {Followed ? "Following" : "Follow"}
         </span>
       </Button>
     </Box>
