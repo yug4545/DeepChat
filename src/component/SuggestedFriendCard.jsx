@@ -6,10 +6,6 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
 
   let [Followed, setFollowed] = useState(isFollowed);
 
-
-
-
-
   const Following = async (ID, i) => {
 
     try {
@@ -99,7 +95,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
           }}
         />
 
-        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>Follow</span>
+        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>{Followed? "Following" : "Follow"}</span>
       </Button>
     </Box>
   );
