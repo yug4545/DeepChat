@@ -512,6 +512,7 @@ const Home = () => {
                   filteredSuggestions.map((user, index) => (
                     <SuggestedFriendCard
                       key={index}
+                      index = {index}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
                       onFollowToggle={Following}
