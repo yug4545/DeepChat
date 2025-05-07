@@ -39,6 +39,7 @@ const Home = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [followedList, setFollowedList] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [suggestedList, setSuggestedList] = useState([]);
 
 
   // filter following , follow , searchName 
@@ -54,6 +55,8 @@ const Home = () => {
       user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
     );
     setFilteredSuggestions(suggestions);
+
+    const suggestedListName = []
   }, [SearchName, Searchfilteruser, users, followedUsers, LoginUser]);
 
   const sectionStyle = {
