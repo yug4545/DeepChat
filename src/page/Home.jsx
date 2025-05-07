@@ -28,6 +28,7 @@ const Home = () => {
   const [ActiveChat, setActiveChat] = useState(null);
   const [Chatloader, setChatloader] = useState(null);
   const [loadingIndex, setLoadingIndex] = useState(null);
+  const [FollowLoadingIndex, setFollowLoadingIndex] = useState(null);
 
 
 
@@ -103,6 +104,7 @@ const Home = () => {
   const Following = async (ID, index) => {
 
     setLoadingIndex(index);
+    setFollowLoadingIndex(index);
     try {
 
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
@@ -117,6 +119,7 @@ const Home = () => {
 
     } finally {
 
+      setFollowLoadingIndex(null);
       setLoadingIndex(null);
 
     }
@@ -512,7 +515,7 @@ const Home = () => {
                     <SuggestedFriendCard
                       key={index}
                       index={index}
-                      isloading={loadingIndex == index}
+                      isloading={FollowLoadingIndex == index}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
                       onFollowToggle={() => Following(user?._id, index)}
