@@ -25,7 +25,7 @@ const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onF
       console.log(error);
 
     } 
-    
+
   };
 
   return (
@@ -93,7 +93,7 @@ const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onF
         <CircularProgress
           size={16}
           sx={{
-            color: '#bb86fc',
+            color: 'black',
             position: 'absolute',
             visibility: isloading ? 'visible' : 'hidden',
           }}
