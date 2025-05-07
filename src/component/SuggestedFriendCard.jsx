@@ -47,7 +47,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
           sx={{
             mr: 2,
             fontWeight: 'bold',
-            background: Followed
+            background: isFollowed
               ? 'linear-gradient(135deg, #666 0%, #444 100%)'
               : 'linear-gradient(135deg, #bb86fc 0%, #03dac6 100%)',
             color: '#fff',
@@ -56,7 +56,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
         <Box>
           <Typography fontWeight={600} color="#fff">{user.username}</Typography>
           <Typography fontSize={12} color="#888">
-            {Followed ? 'Following' : 'Suggested'}
+            {isFollowed ? 'Following' : 'Suggested'}
           </Typography>
         </Box>
       </Box>
