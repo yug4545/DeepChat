@@ -165,15 +165,12 @@ const Home = () => {
       const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
 
       const updatedUser = ress.data.user;    
-
-      console.log(res);
       
-
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
-      if (ress.isFollowing) {
+      if (res.data.data.isFollowing) {
 
         setFollowedUsers(prev => [...new Set([...prev, ID])]); 
 
