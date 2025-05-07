@@ -30,6 +30,8 @@ const Home = () => {
   const [Follwingloader, setFollwingloader] = useState(null);
   const [loadingIndex, setLoadingIndex] = useState(null);
 
+  
+
   const location = useLocation();
   const navigate = useNavigate();
   let LoginUser = location?.state;
@@ -513,6 +515,7 @@ const Home = () => {
                     <SuggestedFriendCard
                       key={index}
                       index = {index}
+                      isloading={Follwingloader}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
                       onFollowToggle={()=> Following(user?._id,index)}

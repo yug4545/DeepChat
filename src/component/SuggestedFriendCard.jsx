@@ -2,19 +2,15 @@ import React, { useState } from 'react';
 import { Box, Typography, Avatar, Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
 
-const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
+const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
 
   let [Followed, setFollowed] = useState(isFollowed);
-  let [FollowingLoader, setFollowingLoader] = useState(null)
-  let [loadingIndex, setloadingIndex] = useState(null)
+ 
 
-  console.log(index);
+  
 
 
   const Following = async (ID,i) => {
-
-    setFollowingLoader(true);
-    setloadingIndex(i);
 
     try {
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
@@ -28,11 +24,8 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
 
       console.log(error);
 
-    } finally {
-
-      setFollowingLoader(false);
-      setFollowingLoader(false);
-    }
+    } 
+    
   };
 
   return (
@@ -74,7 +67,7 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
       <Button
         size="small"
         variant={Followed ? 'outlined' : 'contained'}
-        disabled={loadingIndex == index}
+        disabled={isloading}
         sx={{
           textTransform: 'none',
           borderRadius: '7px',
@@ -102,11 +95,11 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
           sx={{
             color: '#bb86fc',
             position: 'absolute',
-            visibility: loadingIndex == index ? 'visible' : 'hidden',
+            visibility: isloading ? 'visible' : 'hidden',
           }}
         />
 
-        <span style={{ visibility: loadingIndex == index ? 'hidden' : 'visible' }}>
+        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>
           {Followed ? "Following" : "Follow"}
         </span>
       </Button>
