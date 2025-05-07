@@ -517,7 +517,7 @@ const Home = () => {
                   <Button
                     size="small"
                     variant="outlined"
-                    disabled={loadingUsers || loadingIndex === index}
+                    disabled={UserLoader || loadingIndex === index}
                     sx={{
                       textTransform: 'none',
                       borderRadius: '7px',
@@ -570,7 +570,7 @@ const Home = () => {
                     isFollowed={followedUsers.includes(user._id)}
                     onFollowToggle={() => Following(user._id, index, true)}
                     onSelect={() => UserSelect(user, index)}
-                    disabled={loadingUsers}
+                    disabled={UserLoader}
                   />
                 ))
               ) : (
