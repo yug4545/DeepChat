@@ -43,7 +43,7 @@ const Home = () => {
 
 
   // filter following , follow , searchName 
-  
+
   useEffect(() => {
     const list = SearchName ? Searchfilteruser : users;
     setFilteredList(list);
@@ -54,7 +54,7 @@ const Home = () => {
     const suggestedListName = filteredList.filter(user => !followedUsers.includes(user._id));
 
     setSuggestedList(suggestedListName);
-    
+
     const suggestions = list.filter(
       user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
     );
@@ -115,7 +115,7 @@ const Home = () => {
 
 
     } catch (error) {
-      console.log(error);
+      toast.error(error);
 
     }
     setMessages('');
@@ -164,16 +164,21 @@ const Home = () => {
 
       const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
 
-      console.log(ress);
-
       const updatedUser = ress.data.user;
-
-      
 
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
+      if (Array.isArray(updatedUser.isFollowing) && updatedUser.isFollowing.includes(LoginUser._id)) {
+
+        setFollowedUsers(prev => [...new Set([...prev, ID])]); // prevent duplicates
+        
+      } else {
+
+        setFollowedUsers(prev => prev.filter(userId => userId !== ID));
+
+      }
 
     } catch (error) {
 
