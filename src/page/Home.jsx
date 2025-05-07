@@ -36,10 +36,25 @@ const Home = () => {
   const navigate = useNavigate();
   let LoginUser = location?.state;
 
-  const filteredList = SearchName ? Searchfilteruser : users;
-  const followedList = filteredList.filter(user => followedUsers.includes(user._id));
-  const suggestedList = filteredList.filter(user => !followedUsers.includes(user._id));
-  const filteredSuggestions = suggestedList.filter(user => user.username !== LoginUser.username);
+  const [filteredList, setFilteredList] = useState([]);
+  const [followedList, setFollowedList] = useState([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+
+
+  // filter following , follow , searchName 
+  
+  useEffect(() => {
+    const list = SearchName ? Searchfilteruser : users;
+    setFilteredList(list);
+
+    const followed = list.filter(user => followedUsers.includes(user._id));
+    setFollowedList(followed);
+
+    const suggestions = list.filter(
+      user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
+    );
+    setFilteredSuggestions(suggestions);
+  }, [SearchName, Searchfilteruser, users, followedUsers, LoginUser]);
 
   const sectionStyle = {
     fontWeight: 600,
@@ -144,9 +159,9 @@ const Home = () => {
       const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
 
 
-      const updatedUser = ress.data.data.user; 
+      const updatedUser = ress.data.data.user;
 
-      
+
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
@@ -156,6 +171,15 @@ const Home = () => {
       } else {
         setFollowedUsers(prev => prev.filter(userId => userId !== ID));
       }
+
+      const updatedFollowedList = list.filter(user => followedUsers.includes(user._id));
+      const updatedSuggestedList = list.filter(
+        user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
+      );
+  
+      // Update filtered lists with the new values
+      setFollowedList(updatedFollowedList);
+      setFilteredSuggestions(updatedSuggestedList);
 
     } catch (error) {
 
