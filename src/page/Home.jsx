@@ -170,6 +170,9 @@ const Home = () => {
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
+      console.log(res.data.data.isFollowing);
+      
+
       if (res.data.data.isFollowing) {
 
         setFollowedUsers(prev => [...new Set([...prev, ID])]); 
