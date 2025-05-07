@@ -173,7 +173,7 @@ const Home = () => {
       console.log(res.data.isFollowing);
       
 
-      if (res.data.data.isFollowing) {
+      if (res.data.isFollowing) {
 
         setFollowedUsers(prev => [...new Set([...prev, ID])]); 
 
