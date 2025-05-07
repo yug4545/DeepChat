@@ -472,7 +472,7 @@ const Home = () => {
 
         {/* User List */}
         <Box flexGrow={1} overflow="auto">
-          {loadingUsers ? (
+          {UserLoader ? (
 
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
               <CircularProgress sx={{ color: 'gray' }} />
