@@ -111,9 +111,9 @@ const Home = () => {
         currentUserId: LoginUser._id,
       });
 
-      //get Following or Follow
+      //get perticuler Following or Follow
 
-      const ress = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
+      const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
 
 
       const updatedUser = ress.data.data.user; 
