@@ -43,8 +43,8 @@ const Home = () => {
 
 
   // filter following , follow , searchName 
-
-  let FilterAll = () => {
+  
+  useEffect(() => {
     const list = SearchName ? Searchfilteruser : users;
     setFilteredList(list);
 
@@ -54,13 +54,13 @@ const Home = () => {
     const suggestedListName = filteredList.filter(user => !followedUsers.includes(user._id));
 
     setSuggestedList(suggestedListName);
-
+    
     const suggestions = list.filter(
       user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
     );
     setFilteredSuggestions(suggestions);
 
-  };
+  }, [SearchName, Searchfilteruser, users, followedUsers, LoginUser]);
 
   const sectionStyle = {
     fontWeight: 600,
@@ -168,13 +168,13 @@ const Home = () => {
 
       const updatedUser = ress.data.user;
 
-
+      
 
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
-      FilterAll();
+
     } catch (error) {
 
       toast.error(error);
@@ -244,11 +244,9 @@ const Home = () => {
     if (!localStorage.getItem("Token")) {
       navigate("/");
       return;
-
     } else {
 
       fetchUsers();
-      FilterAll();
     }
 
 
