@@ -97,11 +97,11 @@ const SuggestedFriendCard = ({ key, user, isFollowed, LoginUser, onFollowToggle,
           sx={{
             color: '#bb86fc',
             position: 'absolute',
-            visibility: loadingIndex === index ? 'visible' : 'hidden',
+            visibility: loadingIndex === key ? 'visible' : 'hidden',
           }}
         />
 
-        <span style={{ visibility: loadingIndex === index ? 'hidden' : 'visible' }}>
+        <span style={{ visibility: loadingIndex === key ? 'hidden' : 'visible' }}>
           {Followed?"Following":"Follow"}
         </span>
       </Button>
