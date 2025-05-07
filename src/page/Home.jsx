@@ -51,12 +51,15 @@ const Home = () => {
     const followed = list.filter(user => followedUsers.includes(user._id));
     setFollowedList(followed);
 
+    const suggestedListName = filteredList.filter(user => !followedUsers.includes(user._id));
+
+    setSuggestedList(suggestedListName);
+    
     const suggestions = list.filter(
       user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
     );
     setFilteredSuggestions(suggestions);
 
-    const suggestedListName = []
   }, [SearchName, Searchfilteruser, users, followedUsers, LoginUser]);
 
   const sectionStyle = {
