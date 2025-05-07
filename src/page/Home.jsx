@@ -172,15 +172,6 @@ const Home = () => {
         setFollowedUsers(prev => prev.filter(userId => userId !== ID));
       }
 
-      const updatedFollowedList = list.filter(user => followedUsers.includes(user._id));
-      const updatedSuggestedList = list.filter(
-        user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
-      );
-  
-      // Update filtered lists with the new values
-      setFollowedList(updatedFollowedList);
-      setFilteredSuggestions(updatedSuggestedList);
-
     } catch (error) {
 
       toast.error(error);
