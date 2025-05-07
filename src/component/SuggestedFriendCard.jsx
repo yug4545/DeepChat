@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Box, Typography, Avatar, Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
 
-const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
+const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
 
   let [Followed, setFollowed] = useState(isFollowed);
- 
-
-  
 
 
-  const Following = async (ID,i) => {
+
+
+
+  const Following = async (ID, i) => {
 
     try {
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
@@ -24,7 +24,7 @@ const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onF
 
       console.log(error);
 
-    } 
+    }
 
   };
 
@@ -88,7 +88,7 @@ const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onF
             borderColor: '#bb86fc',
           },
         }}
-        onClick={() => onFollowToggle ? onFollowToggle(user._id,index) : Following(user._id,index)}
+        onClick={() => onFollowToggle ? onFollowToggle(user._id, index) : Following(user._id, index)}
       >
         <CircularProgress
           size={16}
@@ -99,9 +99,7 @@ const SuggestedFriendCard = ({ index,isloading, user, isFollowed, LoginUser, onF
           }}
         />
 
-        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>
-          {Followed ? "Following" : "Follow"}
-        </span>
+        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>Follow</span>
       </Button>
     </Box>
   );
