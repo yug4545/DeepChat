@@ -166,7 +166,7 @@ const Home = () => {
 
       const updatedUser = ress.data.user;    
 
-      console.log(ress);
+      console.log(res);
       
 
       setUsers(prevUsers =>
