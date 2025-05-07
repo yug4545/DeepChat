@@ -27,10 +27,9 @@ const Home = () => {
   const settings = ['Profile', 'Logout'];
   const [ActiveChat, setActiveChat] = useState(null);
   const [Chatloader, setChatloader] = useState(null);
-  const [Follwingloader, setFollwingloader] = useState(null);
   const [loadingIndex, setLoadingIndex] = useState(null);
 
-  
+
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -103,7 +102,6 @@ const Home = () => {
 
   const Following = async (ID, index) => {
 
-    setFollwingloader(true);
     setLoadingIndex(index);
     try {
 
@@ -119,7 +117,6 @@ const Home = () => {
 
     } finally {
 
-      setFollwingloader(false);
       setLoadingIndex(null);
 
     }
@@ -514,11 +511,11 @@ const Home = () => {
                   filteredSuggestions.map((user, index) => (
                     <SuggestedFriendCard
                       key={index}
-                      index = {index}
-                      isloading={Follwingloader}
+                      index={index}
+                      isloading={loadingIndex == index}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
-                      onFollowToggle={()=> Following(user?._id,index)}
+                      onFollowToggle={() => Following(user?._id, index)}
                       onSelect={() => UserSelect(user, index)}
                     />
                   ))
