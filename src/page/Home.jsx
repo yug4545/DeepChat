@@ -101,10 +101,10 @@ const Home = () => {
     }
   };
 
-  const Following = async (ID, index) => {
+  const Following = async (ID, index, True = false) => {
 
-    setLoadingIndex(index);
-    setFollowLoadingIndex(index);
+    True ? setFollowLoadingIndex(index) : setLoadingIndex(index);
+
     try {
 
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
@@ -518,7 +518,7 @@ const Home = () => {
                       isloading={FollowLoadingIndex == index}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
-                      onFollowToggle={() => Following(user?._id, index)}
+                      onFollowToggle={() => Following(user?._id, index, true)}
                       onSelect={() => UserSelect(user, index)}
                     />
                   ))
