@@ -515,7 +515,7 @@ const Home = () => {
                       index = {index}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
-                      onFollowToggle={()=> Following(index)}
+                      onFollowToggle={()=> Following(user?._id,index)}
                       onSelect={() => UserSelect(user, index)}
                     />
                   ))
