@@ -36,6 +36,34 @@ const Home = () => {
   const navigate = useNavigate();
   let LoginUser = location?.state;
 
+  const filteredList = SearchName ? Searchfilteruser : users;
+  const followedList = filteredList.filter(user => followedUsers.includes(user._id));
+  const suggestedList = filteredList.filter(user => !followedUsers.includes(user._id));
+  const filteredSuggestions = suggestedList.filter(user => user.username !== LoginUser.username);
+
+  const sectionStyle = {
+    fontWeight: 600,
+    fontSize: '14px',
+    background: 'linear-gradient(to right, #1e1e1e, #2c2c2c)',
+    color: '#bb86fc',
+    padding: '10px 16px',
+    borderRadius: '8px',
+    margin: '16px 12px 8px',
+  };
+
+  const userCardStyle = {
+    backgroundColor: '#1a1a1a',
+    borderRadius: '16px',
+    margin: '10px 12px',
+    padding: '12px 16px',
+    transition: 'all 0.3s ease',
+    border: '1px solid #333',
+    '&:hover': {
+      backgroundColor: '#2c2c2c',
+      boxShadow: '0 0 10px #bb86fc33',
+    },
+  };
+
 
 
   const SubmitHandler = async (e) => {
@@ -418,34 +446,6 @@ const Home = () => {
         {/* User List */}
         <Box flexGrow={1} overflow="auto">
           {(() => {
-            const filteredList = SearchName ? Searchfilteruser : users;
-            const followedList = filteredList.filter(user => followedUsers.includes(user._id));
-            const suggestedList = filteredList.filter(user => !followedUsers.includes(user._id));
-            const filteredSuggestions = suggestedList.filter(user => user.username !== LoginUser.username);
-
-            const sectionStyle = {
-              fontWeight: 600,
-              fontSize: '14px',
-              background: 'linear-gradient(to right, #1e1e1e, #2c2c2c)',
-              color: '#bb86fc',
-              padding: '10px 16px',
-              borderRadius: '8px',
-              margin: '16px 12px 8px',
-            };
-
-            const userCardStyle = {
-              backgroundColor: '#1a1a1a',
-              borderRadius: '16px',
-              margin: '10px 12px',
-              padding: '12px 16px',
-              transition: 'all 0.3s ease',
-              border: '1px solid #333',
-              '&:hover': {
-                backgroundColor: '#2c2c2c',
-                boxShadow: '0 0 10px #bb86fc33',
-              },
-            };
-
             return (
               <>
                 {followedList.length > 0 && (
