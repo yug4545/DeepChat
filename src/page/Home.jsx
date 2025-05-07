@@ -167,6 +167,8 @@ const Home = () => {
 
       const updatedUser = ress.data.data.user;
 
+      console.log(updatedUser);
+      
 
       setUsers(prevUsers =>
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
