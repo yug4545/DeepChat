@@ -166,7 +166,7 @@ const Home = () => {
 
       console.log(ress);
 
-      const updatedUser = ress.data.data.user;
+      const updatedUser = ress.data.user;
 
       
 
