@@ -475,7 +475,7 @@ const Home = () => {
           {UserLoader ? (
 
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-              <CircularProgress sx={{ color: 'gray' }} size={25} />
+              <CircularProgress sx={{ color: 'gray' }} size={30} />
             </Box>
 
           ) : (
