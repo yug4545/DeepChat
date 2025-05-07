@@ -170,7 +170,7 @@ const Home = () => {
         prevUsers.map(user => user._id === ID ? { ...user, ...updatedUser } : user)
       );
 
-      console.log(res.data.data.isFollowing);
+      console.log(res.data.isFollowing);
       
 
       if (res.data.data.isFollowing) {
