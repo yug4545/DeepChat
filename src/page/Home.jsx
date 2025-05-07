@@ -116,7 +116,7 @@ const Home = () => {
       toast.error(error);
 
     } finally {
-      
+
       setFollwingloader(false);
       setLoadingIndex(null);
 
@@ -511,7 +511,7 @@ const Home = () => {
                 {filteredSuggestions.length > 0 ? (
                   filteredSuggestions.map((user, index) => (
                     <SuggestedFriendCard
-                      key={`suggested-${index}`}
+                      key={index}
                       user={user}
                       isFollowed={followedUsers.includes(user._id)}
                       onFollowToggle={Following}
