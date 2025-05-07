@@ -570,7 +570,6 @@ const Home = () => {
                     isFollowed={followedUsers.includes(user._id)}
                     onFollowToggle={() => Following(user._id, index, true)}
                     onSelect={() => UserSelect(user, index)}
-                    disabled={UserLoader}
                   />
                 ))
               ) : (

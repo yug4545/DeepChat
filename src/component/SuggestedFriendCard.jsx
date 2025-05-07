@@ -62,7 +62,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
       </Box>
       <Button
         size="small"
-        variant={Followed ? 'outlined' : 'contained'}
+        variant={isFollowed ? 'outlined' : 'contained'}
         disabled={isloading}
         sx={{
           textTransform: 'none',
@@ -74,13 +74,13 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
             backgroundColor: '#2a2a2a',
             borderColor: '#bb86fc',
           },
-          color: Followed ? '#bb86fc' : '#121212',
+          color: isFollowed ? '#bb86fc' : '#121212',
           borderColor: '#bb86fc',
-          background: Followed
+          background: isFollowed
             ? 'linear-gradient(135deg, #666 0%, #444 100%)'
             : 'linear-gradient(135deg, #bb86fc 0%, #03dac6 100%)',
           '&:hover': {
-            bgcolor: Followed ? '#2a2a2a' : '#9a68db',
+            bgcolor: isFollowed ? '#2a2a2a' : '#9a68db',
             borderColor: '#bb86fc',
           },
         }}
@@ -95,7 +95,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
           }}
         />
 
-        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>{Followed? "Following" : "Follow"}</span>
+        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>{isFollowed? "Following" : "Follow"}</span>
       </Button>
     </Box>
   );
