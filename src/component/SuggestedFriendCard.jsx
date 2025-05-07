@@ -11,10 +11,10 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
   console.log(index);
 
 
-  const Following = async (ID) => {
+  const Following = async (ID,i) => {
 
     setFollowingLoader(true);
-    setloadingIndex(index);
+    setloadingIndex(i);
 
     try {
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
@@ -95,7 +95,7 @@ const SuggestedFriendCard = ({ index, user, isFollowed, LoginUser, onFollowToggl
             borderColor: '#bb86fc',
           },
         }}
-        onClick={() => onFollowToggle ? onFollowToggle(user._id) : Following(user._id)}
+        onClick={() => onFollowToggle ? onFollowToggle(user._id,index) : Following(user._id,index)}
       >
         <CircularProgress
           size={16}
