@@ -164,10 +164,10 @@ const Home = () => {
 
       const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${ID}`);
 
+      console.log(ress);
 
       const updatedUser = ress.data.data.user;
 
-      console.log(updatedUser);
       
 
       setUsers(prevUsers =>
