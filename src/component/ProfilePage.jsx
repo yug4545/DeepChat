@@ -714,7 +714,7 @@ const ProfilePage = () => {
                                         key={`suggested-${u._id}`}
                                         sx={{
                                             display: 'inline-block',
-                                            minWidth: '280px',
+                                            minWidth: '320px',
                                             maxWidth: '320px',
                                             flex: '0 0 auto',
                                             transition: 'all 0.4s',
