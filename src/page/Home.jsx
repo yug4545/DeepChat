@@ -43,6 +43,13 @@ const Home = () => {
   const [suggestedList, setSuggestedList] = useState([]);
 
 
+  const filteredMessages = receivedMessages.filter(
+    (msg) =>
+      (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
+      (msg.receiver === selectedUser._id && msg.sender === LoginUser?._id)
+  );
+
+
   // filter following , follow , searchName 
 
  
@@ -123,6 +130,8 @@ const Home = () => {
   };
 
   const UserSelect = async (user, index) => {
+
+    
 
     if (selectedUser?._id !== user?._id) {
 
@@ -672,12 +681,7 @@ const Home = () => {
 
                           </Box>
                         ) : (
-                          receivedMessages.filter(
-                            (msg) =>
-                              (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
-                              (msg.receiver === selectedUser._id && msg.sender === LoginUser?._id)
-                          )
-                          .map((msg, index) => {
+                          filteredMessages.map((msg, index) => {
                             if (msg.messages?.toLowerCase().includes('add')) return null;
 
                             const isLast = index === receivedMessages.length - 1;
