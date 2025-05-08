@@ -695,7 +695,6 @@ const ProfilePage = () => {
                             sx={{
                                 display: 'flex',
                                 gap: 3,
-                                justifyContent: { xs: 'center', sm: 'flex-start' },
                             }}
                         >
                             {isLoadingSuggested ? (
