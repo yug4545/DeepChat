@@ -95,7 +95,7 @@ const ProfilePage = () => {
         };
 
         fetchSuggestedUsers();
-    }, [allUsers,Loginuser]);
+    }, [allUsers, Loginuser]);
 
     const fetchUsersfollowing = async () => {
         try {
@@ -735,6 +735,12 @@ const ProfilePage = () => {
                                             sx={{
                                                 width: '100%',
                                                 height: '100%',
+                                                minWidth: {
+                                                    xs: '80%',  
+                                                    sm: '50%',  
+                                                    md: '33.33%', 
+                                                    lg: '25%'      
+                                                },
                                                 minHeight: '300px',
                                                 borderRadius: '18px',
                                                 background: 'rgba(40, 40, 40, 0.7)',
