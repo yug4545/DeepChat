@@ -712,8 +712,6 @@ const ProfilePage = () => {
                                                     boxShadow: '0 20px 40px rgba(187, 134, 252, 0.6)',
                                                 },
                                             },
-                                            display: 'flex',
-                                            flexWrap: 'wrap',
                                         }}
                                     >
                                         <SuggestedFriendCard
