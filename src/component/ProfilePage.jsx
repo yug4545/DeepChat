@@ -675,7 +675,7 @@ const ProfilePage = () => {
                             display:'flex',
                             flexWrap:'wrap',
                             overflowX:'auto',
-                            justifyContent: { xs: 'center', sm: 'flex-start' },
+                            justifyContent: 'center'
                         }}
                     >
                         <Box
