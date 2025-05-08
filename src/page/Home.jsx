@@ -45,23 +45,23 @@ const Home = () => {
 
   // filter following , follow , searchName 
 
- 
-    useEffect(() => {
-      const list = SearchName ? Searchfilteruser : users;
-      setFilteredList(list);
-    
-      // Users that current user follows
-      const followed = list.filter(user => followedUsers.includes(user._id));
-      setFollowedList(followed);
-    
-      // Users not followed (suggested)
-      const suggestions = list.filter(
-        user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
-      );
-      setSuggestedList(suggestions);
-      setFilteredSuggestions(suggestions);
-    }, [SearchName, Searchfilteruser, users, followedUsers, LoginUser]);
-    
+
+  useEffect(() => {
+    const list = SearchName ? Searchfilteruser : users;
+    setFilteredList(list);
+
+    // Users that current user follows
+    const followed = list.filter(user => followedUsers.includes(user._id));
+    setFollowedList(followed);
+
+    // Users not followed (suggested)
+    const suggestions = list.filter(
+      user => !followedUsers.includes(user._id) && user.username !== LoginUser.username
+    );
+    setSuggestedList(suggestions);
+    setFilteredSuggestions(suggestions);
+  }, [SearchName, Searchfilteruser, users, followedUsers, LoginUser]);
+
 
   const sectionStyle = {
     fontWeight: 600,
@@ -781,7 +781,8 @@ const Home = () => {
 
                             );
 
-                            return isLast ? (
+                            return isLast && msg.sender === selectedUser._id && msg.receiver === LoginUser?._id 
+                            && msg.receiver === selectedUser._id && msg.sender === LoginUser?._id ? (
                               <Slide
                                 key={index}
                                 direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
