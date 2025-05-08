@@ -661,7 +661,7 @@ const ProfilePage = () => {
                             },
                         }}
                     >
-                        🌟 Suggested Friends
+                        🌟 Suggested for you
                     </Typography>
 
                     <Box
