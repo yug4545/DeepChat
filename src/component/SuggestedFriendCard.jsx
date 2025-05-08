@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Box, Typography, Avatar, Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
 
   let [Followed, setFollowed] = useState(false);
+  let [Followloader, setFollowloader] = useState(null);
 
   const Following = async (ID, i) => {
 
+    setFollowloader(true);
     try {
       const res = await axios.post(`https://deepchat-backend-qrc9.onrender.com/user/followeing/${ID}`, {
         currentUserId: LoginUser._id,
@@ -18,8 +21,10 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
 
     } catch (error) {
 
-      console.log(error);
+      toast.error(error);
 
+    } finally {
+      setFollowloader(false);
     }
 
   };
@@ -91,11 +96,11 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
           sx={{
             color: 'black',
             position: 'absolute',
-            visibility: isloading ? 'visible' : 'hidden',
+            visibility: isloading || Followloader ? 'visible' : 'hidden',
           }}
         />
 
-        <span style={{ visibility: isloading ? 'hidden' : 'visible' }}>{isFollowed || Followed? "Following" : "Follow"}</span>
+        <span style={{ visibility: isloading || Followloader ? 'hidden' : 'visible' }}>{isFollowed || Followed ? "Following" : "Follow"}</span>
       </Button>
     </Box>
   );

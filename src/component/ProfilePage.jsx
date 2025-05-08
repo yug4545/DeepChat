@@ -25,6 +25,7 @@ import SuggestedFriendCard from './SuggestedFriendCard';
 import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
@@ -112,7 +113,7 @@ const ProfilePage = () => {
                 profileImage: ress.data.user?.profileImage || null
             });
         } catch (error) {
-            console.error('Error fetching users or following list:', error);
+            toast.error('Error fetching users or following list:', error);
         }
     };
 
