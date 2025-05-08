@@ -87,7 +87,10 @@ const ProfilePage = () => {
             setIsLoadingSuggested(true);
 
             let filter = allUsers.filter(
-                (u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id)
+                (u) => {u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id);
+                console.log(u.username);
+                }
+                
             );
 
             setIsLoadingSuggested(filter);
