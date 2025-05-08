@@ -695,6 +695,7 @@ const ProfilePage = () => {
                             sx={{
                                 display: 'flex',
                                 width:'100%',
+                                backgroundColor:'red',
                                 justifyContent:'center',
                                 gap: 3,
                             }}
