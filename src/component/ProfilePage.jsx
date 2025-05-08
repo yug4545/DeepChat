@@ -691,15 +691,7 @@ const ProfilePage = () => {
                             },
                         }}
                     >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                width:'100%',
-                                backgroundColor:'red',
-                                justifyContent:'center',
-                                gap: 3,
-                            }}
-                        >
+                        
                             {isLoadingSuggested ? (
                                 <Box
                                     sx={{
@@ -815,7 +807,6 @@ const ProfilePage = () => {
                                     </Typography>
                                 </Box>
                             )}
-                        </Box>
                     </Box>
                 </Box>
             </Box>
