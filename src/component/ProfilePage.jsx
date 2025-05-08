@@ -672,8 +672,21 @@ const ProfilePage = () => {
                             backdropFilter: 'blur(12px)',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                            overflowX:'auto',
-                            height:'100px'
+                            overflowX: suggestedUsers.length > 4 ? 'auto' : 'visible', // enable scroll only if > 4
+                            whiteSpace: 'nowrap',
+                            display: 'flex',
+                            gap: 2,
+                            paddingBottom: 2,
+                            '&::-webkit-scrollbar': {
+                                height: '8px',
+                            },
+                            '&::-webkit-scrollbar-thumb': {
+                                backgroundColor: '#bb86fc',
+                                borderRadius: '10px',
+                            },
+                            '&::-webkit-scrollbar-track': {
+                                backgroundColor: 'rgba(255,255,255,0.05)',
+                            },
                         }}
                     >
                         <Box
@@ -700,13 +713,10 @@ const ProfilePage = () => {
                                     <Box
                                         key={`suggested-${u._id}`}
                                         sx={{
-                                            width: {
-                                                xs: '100%',
-                                                sm: 'calc(50% - 12px)',
-                                                md: 'calc(33.33% - 12px)',
-                                                lg: 'calc(25% - 12px)',
-                                            },
+                                            display: 'inline-block',
                                             minWidth: '280px',
+                                            maxWidth: '320px',
+                                            flex: '0 0 auto',
                                             transition: 'all 0.4s',
                                             '&:hover': {
                                                 transform: 'translateY(-8px) scale(1.02)',
