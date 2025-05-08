@@ -672,7 +672,7 @@ const ProfilePage = () => {
                             backdropFilter: 'blur(12px)',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                            overflowX: suggestedUsers.length > 4 ? 'scroll' : 'visible', // enable scroll only if > 4
+                            overflowX: suggestedUsers.length > 4 ? 'auto' : 'visible', // enable scroll only if > 4
                             whiteSpace: 'nowrap',
                             display: 'flex',
                             alignItems:'center',
@@ -680,7 +680,7 @@ const ProfilePage = () => {
                             gap: 2,
                             paddingBottom: 2,
                             '&::-webkit-scrollbar': {
-                                height: '8px',
+                                height: '3px',
                             },
                             '&::-webkit-scrollbar-thumb': {
                                 backgroundColor: '#bb86fc',
