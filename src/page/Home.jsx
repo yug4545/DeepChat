@@ -242,10 +242,6 @@ const Home = () => {
       // console.log("Received real-time message:", data.message);
       setReceivedMessages((prev) => [...prev, data]);
     });
-
-    // return () => {
-    //   socket.off("receive-message");
-    // };
   }, []);
 
   useEffect(() => {
@@ -792,7 +788,7 @@ const Home = () => {
                                 in={true}
                                 timeout={300}
                               >
-                                {messageBox}
+                                {selectedUser?._id == msg.receiver ? messageBox:""}
                               </Slide>
                             ) : (
                               messageBox
