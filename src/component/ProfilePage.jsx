@@ -25,6 +25,8 @@ import SuggestedFriendCard from './SuggestedFriendCard';
 import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 // Custom styled components
 const GradientBox = styled(Box)({
@@ -672,7 +674,6 @@ const ProfilePage = () => {
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
                         }}
                     >
-                        {/* Flexbox Container */}
                         <Box
                             sx={{
                                 display: 'flex',
@@ -681,107 +682,120 @@ const ProfilePage = () => {
                                 justifyContent: { xs: 'center', sm: 'flex-start' },
                             }}
                         >
-                            {(() => {
-
-                                return suggestedUsers.length > 0 ? (
-                                    suggestedUsers.map((u) => (
-                                        <Box
-                                            key={`suggested-${u._id}`}
-                                            sx={{
-                                                width: { xs: '100%', sm: 'calc(50% - 12px)', md: 'calc(33.33% - 12px)', lg: 'calc(25% - 12px)' },
-                                                minWidth: '280px',
-                                                transition: 'all 0.4s',
-                                                '&:hover': {
-                                                    transform: 'translateY(-8px) scale(1.02)',
-                                                    '& .friend-card': {
-                                                        boxShadow: '0 20px 40px rgba(187, 134, 252, 0.6)',
-                                                    },
-                                                },
-                                            }}
-                                        >
-                                            <SuggestedFriendCard
-                                                user={u}
-                                                LoginUser={Loginuser}
-                                                isFollowed={Loginuser?.isFollowing?.includes(u._id)}
-                                                onFollowToggle={null}
-                                                className="friend-card"
-                                                sx={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    minHeight: '300px',
-                                                    borderRadius: '18px',
-                                                    background: 'rgba(40, 40, 40, 0.7)',
-                                                    border: '1px solid rgba(187, 134, 252, 0.2)',
-                                                    p: 3,
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    justifyContent: 'space-between',
-                                                    transition: 'all 0.3s ease',
-                                                    '&:hover': {
-                                                        background: 'rgba(50, 50, 50, 0.9)',
-                                                        borderColor: 'rgba(187, 134, 252, 0.4)',
-                                                        transform: 'translateY(-5px)',
-                                                        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
-                                                    },
-                                                }}
-                                            />
-                                        </Box>
-                                    ))
-                                ) : (
+                            {isLoadingSuggested ? (
+                                <Box
+                                    sx={{
+                                        width: '100%',
+                                        py: 4,
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <CircularProgress size={40} thickness={4} sx={{ color: '#bb86fc' }} />
+                                </Box>
+                            ) : suggestedUsers.length > 0 ? (
+                                suggestedUsers.map((u) => (
                                     <Box
+                                        key={`suggested-${u._id}`}
                                         sx={{
-                                            width: '100%',
-                                            minHeight: '',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            padding: '10px',
-                                            background: 'linear-gradient(135deg, rgba(30, 30, 30, 0.7) 0%, rgba(50, 50, 50, 0.5) 100%)',
-                                            borderRadius: '15px',
-                                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            '&:before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: '-50%',
-                                                left: '-50%',
-                                                width: '200%',
-                                                height: '200%',
-                                                background: 'linear-gradient(45deg, transparent 45%, rgba(187, 134, 252, 0.1) 50%, transparent 55%)',
-                                                animation: 'shimmer 3s infinite linear',
-                                                '@keyframes shimmer': {
-                                                    '0%': { transform: 'rotate(0deg) translateX(-25%)' },
-                                                    '100%': { transform: 'rotate(360deg) translateX(-25%)' },
-                                                },
+                                            width: {
+                                                xs: '100%',
+                                                sm: 'calc(50% - 12px)',
+                                                md: 'calc(33.33% - 12px)',
+                                                lg: 'calc(25% - 12px)',
                                             },
+                                            minWidth: '280px',
+                                            transition: 'all 0.4s',
                                             '&:hover': {
-                                                borderColor: 'rgba(187, 134, 252, 0.3)',
-                                                boxShadow: '0 6px 20px rgba(187, 134, 252, 0.2)',
+                                                transform: 'translateY(-8px) scale(1.02)',
+                                                '& .friend-card': {
+                                                    boxShadow: '0 20px 40px rgba(187, 134, 252, 0.6)',
+                                                },
                                             },
                                         }}
                                     >
-                                        <Typography
-                                            variant="body1"
+                                        <SuggestedFriendCard
+                                            user={u}
+                                            LoginUser={Loginuser}
+                                            isFollowed={Loginuser?.isFollowing?.includes(u._id)}
+                                            onFollowToggle={null}
+                                            className="friend-card"
                                             sx={{
-                                                color: 'rgba(255, 255, 255, 0.7)',
-                                                fontSize: '18px',
-                                                fontWeight: 500,
-                                                textAlign: 'center',
-                                                position: 'relative',
-                                                zIndex: 1,
-                                                background: 'linear-gradient(90deg, #bb86fc, #a162e8)',
-                                                WebkitBackgroundClip: 'text',
-                                                WebkitTextFillColor: 'transparent',
-                                                padding: '12px 24px',
-                                                borderRadius: '8px',
+                                                width: '100%',
+                                                height: '100%',
+                                                minHeight: '300px',
+                                                borderRadius: '18px',
+                                                background: 'rgba(40, 40, 40, 0.7)',
+                                                border: '1px solid rgba(187, 134, 252, 0.2)',
+                                                p: 3,
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-between',
+                                                transition: 'all 0.3s ease',
+                                                '&:hover': {
+                                                    background: 'rgba(50, 50, 50, 0.9)',
+                                                    borderColor: 'rgba(187, 134, 252, 0.4)',
+                                                    transform: 'translateY(-5px)',
+                                                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
+                                                },
                                             }}
-                                        >
-                                            No user suggestions available
-                                        </Typography>
+                                        />
                                     </Box>
-                                );
-                            })()}
+                                ))
+                            ) : (
+                                <Box
+                                    sx={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: '10px',
+                                        background: 'linear-gradient(135deg, rgba(30, 30, 30, 0.7) 0%, rgba(50, 50, 50, 0.5) 100%)',
+                                        borderRadius: '15px',
+                                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+                                        position: 'relative',
+                                        overflow: 'hidden',
+                                        '&:before': {
+                                            content: '""',
+                                            position: 'absolute',
+                                            top: '-50%',
+                                            left: '-50%',
+                                            width: '200%',
+                                            height: '200%',
+                                            background: 'linear-gradient(45deg, transparent 45%, rgba(187, 134, 252, 0.1) 50%, transparent 55%)',
+                                            animation: 'shimmer 3s infinite linear',
+                                            '@keyframes shimmer': {
+                                                '0%': { transform: 'rotate(0deg) translateX(-25%)' },
+                                                '100%': { transform: 'rotate(360deg) translateX(-25%)' },
+                                            },
+                                        },
+                                        '&:hover': {
+                                            borderColor: 'rgba(187, 134, 252, 0.3)',
+                                            boxShadow: '0 6px 20px rgba(187, 134, 252, 0.2)',
+                                        },
+                                    }}
+                                >
+                                    <Typography
+                                        variant="body1"
+                                        sx={{
+                                            color: 'rgba(255, 255, 255, 0.7)',
+                                            fontSize: '18px',
+                                            fontWeight: 500,
+                                            textAlign: 'center',
+                                            position: 'relative',
+                                            zIndex: 1,
+                                            background: 'linear-gradient(90deg, #bb86fc, #a162e8)',
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            padding: '12px 24px',
+                                            borderRadius: '8px',
+                                        }}
+                                    >
+                                        No user suggestions available
+                                    </Typography>
+                                </Box>
+                            )}
                         </Box>
                     </Box>
                 </Box>
