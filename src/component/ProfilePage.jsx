@@ -674,8 +674,8 @@ const ProfilePage = () => {
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
                             display:'flex',
                             flexWrap:'wrap',
-                            overflowX:'auto'
-
+                            overflowX:'auto',
+                            justifyContent: { xs: 'center', sm: 'flex-start' },
                         }}
                     >
                         <Box
