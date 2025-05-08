@@ -676,14 +676,14 @@ const ProfilePage = () => {
                             whiteSpace: 'nowrap',
                             display: 'flex',
                             alignItems:'center',
-                            justifyContent:'flex-start',
+                            justifyContent: { xs: 'center' },
                             gap: 2,
                             paddingBottom: 2,
                             '&::-webkit-scrollbar': {
                                 height: '3px',
                             },
                             '&::-webkit-scrollbar-thumb': {
-                                backgroundColor: 'linear-gradient(90deg, #bb86fc, #9a7dff, #bb86fc)',
+                                backgroundColor: 'aqua',
                                 borderRadius: '10px',
                             },
                             '&::-webkit-scrollbar-track': {
