@@ -65,7 +65,7 @@ const ProfilePage = () => {
     const navigate = useNavigate();
 
     const LoginUser = location.state?.LoginUser;
-    const allUsers = location.state?.users || [];
+    let allUsers;
 
     const [Loginuser, setLoginuser] = useState({});
     const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -75,6 +75,23 @@ const ProfilePage = () => {
         gender: '',
         profileImage: null
     });
+
+    const [isLoadingSuggested, setIsLoadingSuggested] = useState(true);
+    let suggestedUsers;
+
+    useEffect(() => {
+        allUsers = location.state?.users || [];
+
+        const fetchSuggestedUsers = async () => {
+
+            setIsLoadingSuggested(true);
+
+            suggestedUsers = allUsers.filter((u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id));
+            setTimeout(() => setIsLoadingSuggested(false), 1500);
+        };
+
+        fetchSuggestedUsers();
+    }, [allUsers]);
 
     const fetchUsersfollowing = async () => {
         try {
@@ -163,8 +180,6 @@ const ProfilePage = () => {
         }
         fetchUsersfollowing();
     }, []);
-
-    console.log("user ====", LoginUser);
 
     return (
         <Box
@@ -665,9 +680,7 @@ const ProfilePage = () => {
                             }}
                         >
                             {(() => {
-                                const suggestedUsers = allUsers.filter(
-                                    (u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id)
-                                );
+
                                 return suggestedUsers.length > 0 ? (
                                     suggestedUsers.map((u) => (
                                         <Box
