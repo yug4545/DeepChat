@@ -683,7 +683,7 @@ const ProfilePage = () => {
                                 height: '3px',
                             },
                             '&::-webkit-scrollbar-thumb': {
-                                backgroundColor: 'aqua',
+                                backgroundColor: 'silver',
                                 borderRadius: '10px',
                             },
                             '&::-webkit-scrollbar-track': {
