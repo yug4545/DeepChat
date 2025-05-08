@@ -672,7 +672,12 @@ const Home = () => {
 
                           </Box>
                         ) : (
-                          receivedMessages.map((msg, index) => {
+                          receivedMessages.filter(
+                            (msg) =>
+                              (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
+                              (msg.receiver === selectedUser._id && msg.sender === LoginUser?._id)
+                          )
+                          .map((msg, index) => {
                             if (msg.messages?.toLowerCase().includes('add')) return null;
 
                             const isLast = index === receivedMessages.length - 1;
@@ -788,7 +793,7 @@ const Home = () => {
                                 in={true}
                                 timeout={300}
                               >
-                                {selectedUser?._id == msg.receiver ? messageBox:""}
+                                {messageBox}
                               </Slide>
                             ) : (
                               messageBox
