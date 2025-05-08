@@ -694,6 +694,7 @@ const ProfilePage = () => {
                         <Box
                             sx={{
                                 display: 'flex',
+                                justifyContent:'center',
                                 gap: 3,
                             }}
                         >
