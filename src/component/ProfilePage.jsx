@@ -677,7 +677,7 @@ const ProfilePage = () => {
                             display: 'flex',
                             alignItems:'center',
                             justifyContent: { xs: 'center' },
-                            gap: 2,
+                            gap: 1,
                             paddingBottom: 2,
                             '&::-webkit-scrollbar': {
                                 height: '3px',
