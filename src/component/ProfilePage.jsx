@@ -692,7 +692,7 @@ const ProfilePage = () => {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <CircularProgress size={40} thickness={4} sx={{ color: '#bb86fc' }} />
+                                    <CircularProgress size={30} thickness={3} sx={{ color: '#bb86fc' }} />
                                 </Box>
                             ) : suggestedUsers.length > 0 ? (
                                 suggestedUsers.map((u) => (
