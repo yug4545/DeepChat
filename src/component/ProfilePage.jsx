@@ -680,10 +680,10 @@ const ProfilePage = () => {
                             gap: 2,
                             paddingBottom: 2,
                             '&::-webkit-scrollbar': {
-                                height: '3px',
+                                height: '2px',
                             },
                             '&::-webkit-scrollbar-thumb': {
-                                backgroundColor: 'silver',
+                                backgroundColor: 'gray',
                                 borderRadius: '10px',
                             },
                             '&::-webkit-scrollbar-track': {
@@ -701,7 +701,7 @@ const ProfilePage = () => {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <CircularProgress size={30} thickness={3} sx={{ color: '#bb86fc' }} />
+                                    <CircularProgress size={30} thickness={3} sx={{ color: 'gray' }} />
                                 </Box>
                             ) : suggestedUsers.length > 0 ? (
                                 suggestedUsers.map((u) => (
