@@ -235,7 +235,7 @@ const ProfilePage = () => {
                         src={Loginuser?.profileImage}
                         sx={{
                             bgcolor: '#bb86fc',
-                            fontSize: 35,
+                            fontSize: 40,
                         }}
                     >
                         {Loginuser?.username ? Loginuser.username.charAt(0) : ''}
