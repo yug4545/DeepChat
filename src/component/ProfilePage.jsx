@@ -94,7 +94,7 @@ const ProfilePage = () => {
         };
 
         fetchSuggestedUsers();
-    }, [allUsers]);
+    }, [allUsers,Loginuser]);
 
     const fetchUsersfollowing = async () => {
         try {
