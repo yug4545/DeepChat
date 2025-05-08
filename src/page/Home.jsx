@@ -602,7 +602,7 @@ const Home = () => {
       {/* Chat Section */}
       <Box width="75%" display="flex" flexDirection="column" bgcolor="#121212">
         {/* Header */}
-        <Box bgcolor="#1f1f1f" px={2} display="flex" alignItems="center" gap={2} borderBottom="1px solid #333" >
+        <Box bgcolor="#1f1f1f" px={1} display="flex" alignItems="center" gap={2} borderBottom="1px solid #333" >
 
           <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }}>
             {selectedUser ? selectedUser?.username.charAt(0) : '?'}
