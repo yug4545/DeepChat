@@ -717,6 +717,7 @@ const ProfilePage = () => {
                                             minWidth: '280px',
                                             maxWidth: '320px',
                                             flex: '0 0 auto',
+                                            backgroundColor:'red',
                                             transition: 'all 0.4s',
                                             '&:hover': {
                                                 transform: 'translateY(-8px) scale(1.02)',
