@@ -714,8 +714,6 @@ const ProfilePage = () => {
                                             },
                                             display: 'flex',
                                             flexWrap: 'wrap',
-                                            gap: 3,
-                                            justifyContent: { xs: 'center', sm: 'flex-start' }
                                         }}
                                     >
                                         <SuggestedFriendCard
