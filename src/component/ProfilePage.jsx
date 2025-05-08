@@ -89,7 +89,7 @@ const ProfilePage = () => {
             let filtered = allUsers.filter(
                 (u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id));
 
-            setIsLoadingSuggested(filtered);
+            setsuggestedUsers(filtered);
             setTimeout(() => setIsLoadingSuggested(false), 1500);
         };
 
