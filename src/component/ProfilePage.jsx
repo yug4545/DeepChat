@@ -675,6 +675,8 @@ const ProfilePage = () => {
                             overflowX: suggestedUsers.length > 4 ? 'auto' : 'visible', // enable scroll only if > 4
                             whiteSpace: 'nowrap',
                             display: 'flex',
+                            alignItems:'center',
+                            justifyContent:'center',
                             gap: 2,
                             paddingBottom: 2,
                             '&::-webkit-scrollbar': {
