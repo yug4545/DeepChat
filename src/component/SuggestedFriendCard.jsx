@@ -34,7 +34,7 @@ const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, on
       sx={{
         backgroundColor: '#1a1a1a',
         borderRadius: '16px',
-        margin: '10px 12px',
+        margin: '10px 0px',
         padding: '12px 16px',
         transition: 'all 0.3s ease',
         border: '1px solid #333',
