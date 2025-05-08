@@ -65,7 +65,7 @@ const ProfilePage = () => {
     const navigate = useNavigate();
 
     const LoginUser = location.state?.LoginUser;
-    let allUsers;
+    let allUsers = location.state?.users || [];
 
     const [Loginuser, setLoginuser] = useState({});
     const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -77,16 +77,18 @@ const ProfilePage = () => {
     });
 
     const [isLoadingSuggested, setIsLoadingSuggested] = useState(true);
-    let suggestedUsers;
+    const [suggestedUsers, setsuggestedUsers] = useState([]);
 
     useEffect(() => {
-        allUsers = location.state?.users || [];
 
         const fetchSuggestedUsers = async () => {
-
             setIsLoadingSuggested(true);
 
-            suggestedUsers = allUsers.filter((u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id));
+            let filter = allUsers.filter(
+                (u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id)
+            );
+
+            setIsLoadingSuggested(filter);
             setTimeout(() => setIsLoadingSuggested(false), 1500);
         };
 
