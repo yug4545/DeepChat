@@ -676,7 +676,7 @@ const ProfilePage = () => {
                             whiteSpace: 'nowrap',
                             display: 'flex',
                             alignItems:'center',
-                            justifyContent: { xs: 'center' },
+                            justifyContent:'flex-start',
                             gap: 2,
                             paddingBottom: 2,
                             '&::-webkit-scrollbar': {
@@ -713,7 +713,6 @@ const ProfilePage = () => {
                                     <Box
                                         key={`suggested-${u._id}`}
                                         sx={{
-                                            display: 'inline-block',
                                             minWidth: '340px',
                                             maxWidth: '340px',
                                             flex: '0 0 auto',
