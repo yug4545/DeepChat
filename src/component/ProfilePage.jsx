@@ -86,11 +86,10 @@ const ProfilePage = () => {
         const fetchSuggestedUsers = async () => {
             setIsLoadingSuggested(true);
 
-            let filter = allUsers.filter(
+            let filtered = allUsers.filter(
                 (u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id));
-            console.log(filter);
 
-            setIsLoadingSuggested(filter);
+            setIsLoadingSuggested(filtered);
             setTimeout(() => setIsLoadingSuggested(false), 1500);
         };
 
