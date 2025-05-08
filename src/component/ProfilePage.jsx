@@ -187,7 +187,7 @@ const ProfilePage = () => {
 
     return (
         <Box
-            height="100dvh"
+            height="99dvh"
             width="100%"
             bgcolor="#121212"
             color="#fff"
