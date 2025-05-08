@@ -187,7 +187,7 @@ const ProfilePage = () => {
 
     return (
         <Box
-            height="99dvh"
+            height="100dvh"
             width="100%"
             bgcolor="#121212"
             color="#fff"
@@ -235,7 +235,7 @@ const ProfilePage = () => {
                         src={Loginuser?.profileImage}
                         sx={{
                             bgcolor: '#bb86fc',
-                            fontSize: 40,
+                            fontSize: 35,
                         }}
                     >
                         {Loginuser?.username ? Loginuser.username.charAt(0) : ''}
@@ -244,9 +244,9 @@ const ProfilePage = () => {
             </GradientBox>
 
             {/* User Info */}
-            <Box mt={8} textAlign="center" >
+            <Box mt={7} textAlign="center" >
                 <Typography variant="h5" fontWeight={700}>{Loginuser?.username}</Typography>
-                <Typography fontSize={14} color="#bbb" mt={0.5}>
+                <Typography fontSize={14} color="#bbb" mt={0.3}>
                     @{Loginuser?.username ? Loginuser.username.toLowerCase() : ""}
                 </Typography>
 
