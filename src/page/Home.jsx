@@ -13,6 +13,7 @@ import SuggestedFriendCard from '../component/SuggestedFriendCard';
 import Tooltip from '@mui/material/Tooltip';
 import ClearIcon from '@mui/icons-material/Clear';
 import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
 
 const Home = () => {
   const [messages, setMessages] = useState('');
