@@ -560,13 +560,12 @@ const Home = () => {
                 filteredSuggestions.map((user, index) => (
                   <SuggestedFriendCard
                     key={index}
-                    index={index}
                     isloading={FollowLoadingIndex === index}
                     user={user}
                     isFollowed={followedUsers.includes(user._id)}
                     onFollowToggle={() => Following(user._id, index, true)}
                     onSelect={() => UserSelect(user)}
-                    sx={{ backgroundColor: ActiveChat === user?._id ? 'rgba(255, 255, 255, 0.2)' : 'transparent',}}
+                    sx={{ backgroundColor: ActiveChat == user?._id ? 'rgba(255, 255, 255, 0.2)' : 'transparent',}}
                   />
                 ))
               ) : (

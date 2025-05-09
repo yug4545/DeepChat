@@ -3,7 +3,7 @@ import { Box, Typography, Avatar, Button, CircularProgress } from '@mui/material
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const SuggestedFriendCard = ({ index, isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
+const SuggestedFriendCard = ({ isloading, user, isFollowed, LoginUser, onFollowToggle, onSelect }) => {
 
   let [Followed, setFollowed] = useState(false);
   let [Followloader, setFollowloader] = useState(null);
