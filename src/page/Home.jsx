@@ -505,7 +505,11 @@ const Home = () => {
                     </Avatar>
                     <Box>
                       <Typography fontWeight={600} color="#fff">{user?.username}</Typography>
-                      <Typography fontSize={12} color="#888">{receivedMessages?.[receivedMessages.length - 1] || "No messages yet"}</Typography>
+                      <Typography fontSize={12} color="#888">{
+                        Array.isArray(receivedMessages) && receivedMessages.length > 0
+                          ? receivedMessages[receivedMessages.length - 1]
+                          : "No messages yet"
+                      }</Typography>
                     </Box>
                   </Box>
 
