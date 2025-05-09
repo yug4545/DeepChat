@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem, LinearProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import socket from './Socket';
 import axios from 'axios';
@@ -665,10 +665,9 @@ const Home = () => {
                         flexGrow={1}
                       >
                         {Chatloader ? (
-                          <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-                            <CircularProgress size={40} thickness={3} sx={{ color: 'gray' }} />
-
-                          </Box>
+                          <Box sx={{ width: '100%' }}>
+                          <LinearProgress />
+                        </Box>
                         ) : (
                           receivedMessages.map((msg, index) => {
                             if (msg.messages?.toLowerCase().includes('add')) return null;
