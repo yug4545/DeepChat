@@ -666,7 +666,7 @@ const Home = () => {
                       >
                         {Chatloader ? (
                           <Box sx={{ width: '100%' }}>
-                          <LinearProgress  color="inherit"/>
+                          <LinearProgress  color="gray"/>
                         </Box>
                         ) : (
                           receivedMessages.map((msg, index) => {
