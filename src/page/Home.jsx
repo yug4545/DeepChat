@@ -127,7 +127,7 @@ const Home = () => {
     if (selectedUser?._id !== user?._id) {
 
       setSelectedUser(user);
-      setActiveChat(index);
+      setActiveChat(user?._id);
       setReceivedMessages([]);
       setChatloader(true);
       try {
@@ -484,7 +484,7 @@ const Home = () => {
               {followedList.map((user, index) => (
                 <Box
                   key={`followed-${index}`}
-                  onClick={() => UserSelect(user, index)}
+                  onClick={() => UserSelect(user)}
                   display="flex"
                   alignItems="center"
                   justifyContent="space-between"
@@ -492,7 +492,7 @@ const Home = () => {
                     ...userCardStyle,
                     cursor: 'pointer',
                     flexGrow: 1,
-                    backgroundColor: ActiveChat === index ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                    backgroundColor: ActiveChat === user?._id ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
                     borderRadius: 2,
                     transition: 'all 0.1s ease',
                     '&:hover': {
@@ -565,7 +565,8 @@ const Home = () => {
                     user={user}
                     isFollowed={followedUsers.includes(user._id)}
                     onFollowToggle={() => Following(user._id, index, true)}
-                    onSelect={() => UserSelect(user, index)}
+                    onSelect={() => UserSelect(user)}
+                    sx={{ backgroundColor: ActiveChat === user?._id ? 'rgba(255, 255, 255, 0.2)' : 'transparent',}}
                   />
                 ))
               ) : (
