@@ -68,9 +68,10 @@ const ProfilePage = () => {
     const navigate = useNavigate();
 
     const LoginUser = location.state?.LoginUser;
+    const selectedUser = location.state?.selectedUser;
     let allUsers = location.state?.users || [];
 
-    const [Loginuser, setLoginuser] = useState({});
+    const [ProfileUser, setProfileUser] = useState({});
     const [openEditDialog, setOpenEditDialog] = useState(false);
     const [profileData, setProfileData] = useState({
         username: '',
@@ -88,19 +89,19 @@ const ProfilePage = () => {
             setIsLoadingSuggested(true);
 
             let filtered = allUsers.filter(
-                (u) => u._id !== Loginuser?._id && !Loginuser?.isFollowing?.includes(u._id));
+                (u) => u._id !== ProfileUser?._id && !ProfileUser?.isFollowing?.includes(u._id));
 
             setsuggestedUsers(filtered);
             setTimeout(() => setIsLoadingSuggested(false), 1500);
         };
 
         fetchSuggestedUsers();
-    }, [allUsers, Loginuser]);
+    }, [allUsers, ProfileUser]);
 
     const fetchUsersfollowing = async () => {
         try {
-            const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${LoginUser?._id}`);
-            setLoginuser({
+            const ress = await axios.get(`https://deepchat-backend-qrc9.onrender.com/user/following/${LoginUser?._id || selectedUser?._id}`);
+            setProfileUser({
                 ...ress.data.user,
                 isFollowing: ress.data.user?.isFollowing || [],
                 isFollower: ress.data.user?.isFollower || []
@@ -232,27 +233,27 @@ const ProfilePage = () => {
                     sx={{ transform: 'translateX(-50%)' }}
                 >
                     <ProfileAvatar
-                        src={Loginuser?.profileImage}
+                        src={ProfileUser?.profileImage}
                         sx={{
                             bgcolor: '#bb86fc',
                             fontSize: 40,
                         }}
                     >
-                        {Loginuser?.username ? Loginuser.username.charAt(0) : ''}
+                        {ProfileUser?.username ? ProfileUser.username.charAt(0) : ''}
                     </ProfileAvatar>
                 </Box>
             </GradientBox>
 
             {/* User Info */}
             <Box mt={7} textAlign="center" >
-                <Typography variant="h5" fontWeight={700}>{Loginuser?.username}</Typography>
+                <Typography variant="h5" fontWeight={700}>{ProfileUser?.username}</Typography>
                 <Typography fontSize={14} color="#bbb" mt={0.3}>
-                    @{Loginuser?.username ? Loginuser.username.toLowerCase() : ""}
+                    @{ProfileUser?.username ? ProfileUser.username.toLowerCase() : ""}
                 </Typography>
 
-                {Loginuser?.bio && (
+                {ProfileUser?.bio && (
                     <Chip
-                        label={Loginuser?.bio}
+                        label={ProfileUser?.bio}
                         sx={{
                             mt: 2,
                             backgroundColor: '#1e1e1e',
@@ -307,7 +308,7 @@ const ProfilePage = () => {
                             }
                         }}>
                             <Typography fontWeight={600} color="#ff7597" fontSize={25}>
-                                {Loginuser.isFollower?.length || 0}
+                                {ProfileUser.isFollower?.length || 0}
                             </Typography>
                             <Typography fontSize={12} color="#aaa">Followers</Typography>
                         </StatsBox>
@@ -320,7 +321,7 @@ const ProfilePage = () => {
                             }
                         }}>
                             <Typography fontWeight={600} color="#03dac6" fontSize={25}>
-                                {Loginuser.isFollowing?.length || 0}
+                                {ProfileUser.isFollowing?.length || 0}
                             </Typography>
                             <Typography fontSize={12} color="#aaa">Following</Typography>
                         </StatsBox>
@@ -393,7 +394,7 @@ const ProfilePage = () => {
                                         accept="image/*"
                                     />
                                     <Avatar
-                                        src={profileData.profileImage || Loginuser?.profileImage}
+                                        src={profileData.profileImage || ProfileUser?.profileImage}
                                         sx={{
                                             width: 120,
                                             height: 120,
@@ -722,8 +723,8 @@ const ProfilePage = () => {
                                     >
                                         <SuggestedFriendCard
                                             user={u}
-                                            LoginUser={Loginuser}
-                                            isFollowed={Loginuser?.isFollowing?.includes(u._id)}
+                                            LoginUser={ProfileUser}
+                                            isFollowed={ProfileUser?.isFollowing?.includes(u._id)}
                                             onFollowToggle={null}
                                             className="friend-card"
                                             sx={{
