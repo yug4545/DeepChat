@@ -392,11 +392,11 @@ const Home = () => {
                   background: 'linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(45,45,45,0.98) 100%)',
                   borderRadius: '16px',
                   boxShadow: `
-          0 10px 25px -5px rgba(0, 0, 0, 0.6),
-          0 16px 30px 2px rgba(0, 0, 0, 0.4),
-          0 8px 10px -5px rgba(0, 0, 0, 0.5),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.08)
-        `,
+              0 10px 25px -5px rgba(0, 0, 0, 0.6),
+              0 16px 30px 2px rgba(0, 0, 0, 0.4),
+              0 8px 10px -5px rgba(0, 0, 0, 0.5),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.08)
+            `,
                   minWidth: '200px',
                   border: '1px solid rgba(255, 255, 255, 0.12)',
                   backdropFilter: 'blur(16px) saturate(180%)',
@@ -405,10 +405,10 @@ const Home = () => {
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                   '&:hover': {
                     boxShadow: `
-            0 12px 28px -5px rgba(0, 0, 0, 0.7),
-            0 20px 38px 2px rgba(0, 0, 0, 0.5),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.15)
-          `,
+                0 12px 28px -5px rgba(0, 0, 0, 0.7),
+                0 20px 38px 2px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.15)
+              `,
                   },
                 },
               }}
@@ -425,9 +425,11 @@ const Home = () => {
                   key={setting}
                   onClick={() => {
                     handleCloseUserMenu();
-                    setting === 'Profile'
-                      ? navigate('/profile', { state: { LoginUser, users } })
-                      : Logout();
+                    if (setting === 'Profile') {
+                      setDrawerOpen(true); // Open the drawer instead of navigating
+                    } else {
+                      Logout();
+                    }
                   }}
                   sx={{
                     position: 'relative',
@@ -437,9 +439,7 @@ const Home = () => {
                     },
                     '&:hover': {
                       background: 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, transparent 100%)',
-                      '&::before': {
-                        opacity: 1,
-                      },
+                      '&::before': { opacity: 1 },
                     },
                     '&::before': {
                       content: '""',
@@ -478,6 +478,27 @@ const Home = () => {
                 </MenuItem>
               ))}
             </Menu>
+
+            {/* 👉 Right Side Drawer */}
+            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+              <Box
+                sx={{ width: 300, p: 3, bgcolor: '#121212', height: '100%' }}
+                role="presentation"
+              >
+                <Typography variant="h6" sx={{ color: '#fff', mb: 2 }}>
+                  {LoginUser?.username}'s Profile
+                </Typography>
+                <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)', mb: 2 }} />
+                {/* Add your profile content or components here */}
+                <Typography sx={{ color: '#ccc' }}>
+                  Email: {LoginUser?.email}
+                </Typography>
+                <Typography sx={{ color: '#ccc' }}>
+                  ID: {LoginUser?._id}
+                </Typography>
+                {/* You can add form fields, tabs, or anything else here */}
+              </Box>
+            </Drawer>
           </Box>
 
 
