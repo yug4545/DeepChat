@@ -596,9 +596,9 @@ const Home = () => {
       {/* Chat Section */}
       <Box width="75%" display="flex" flexDirection="column" bgcolor="#121212">
         {/* Header */}
-        {selectedUser ? <Box bgcolor="#1f1f1f" p={1.1375} display="flex" alignItems="center" gap={2} sx={{cursor:'pointer'}} borderBottom="1px solid #333" >
+        {selectedUser ? <Box bgcolor="#1f1f1f" p={1.1375} display="flex" alignItems="center" gap={2} sx={{ cursor: 'pointer' }} borderBottom="1px solid #333" >
 
-          <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }} onClick={() =>navigate("/profile", { state: { selectedUser, users } })}>
+          <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }} onClick={() => navigate("/profile", { state: { selectedUser, users } })}>
             {selectedUser ? selectedUser?.username.charAt(0) : '?'}
           </Avatar>
 
@@ -610,7 +610,7 @@ const Home = () => {
           </Box>
 
 
-        </Box>:""}
+        </Box> : ""}
 
         {/* Chat Messages */}
         <Box
@@ -665,9 +665,10 @@ const Home = () => {
                         flexGrow={1}
                       >
                         {Chatloader ? (
-                          <Box sx={{ width: '100%' }}>
-                          <LinearProgress  color="inherit"/>
-                        </Box>
+                          <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+
+                            <LinearProgress color="inherit" />
+                          </Stack>
                         ) : (
                           receivedMessages.map((msg, index) => {
                             if (msg.messages?.toLowerCase().includes('add')) return null;
