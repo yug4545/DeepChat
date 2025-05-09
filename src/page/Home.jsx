@@ -666,7 +666,7 @@ const Home = () => {
                         flexGrow={1}
                       >
                         {Chatloader ? (
-                          <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={1}>
+                          <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={0.6}>
 
                             <LinearProgress color="inherit" />
                           </Stack>
