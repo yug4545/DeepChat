@@ -666,21 +666,24 @@ const Home = () => {
                         flexGrow={1}
                       >
                         {Chatloader ? (
-                          <Stack sx={{ width: '100%' }} spacing={2}>
-                            <Box sx={{ position: 'relative' }}>
-            {/*Chat loader*/}                   <LinearProgress
-                                variant="indeterminate"
-                                sx={{
-                                  height: 10,
-                                  borderRadius: 5,
-                                  backgroundColor: '#f0f0f0',
-                                  '& .MuiLinearProgress-bar': {
-                                    backgroundImage: 'linear-gradient(270deg, #00c6ff, #0072ff)',
-                                    borderRadius: 5,
-                                  },
-                                }}
-                              />
-                            </Box>
+                          <Stack sx={{ 
+                            width: '100%', 
+                            borderRadius: 5,
+                            overflow: 'hidden',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                          }} spacing={2}>
+                            <LinearProgress 
+                              color="inherit" 
+                              sx={{
+                                height: 8,
+                                backgroundColor: 'grey.200',
+                                '& .MuiLinearProgress-bar': {
+                                  backgroundColor: 'grey.600',
+                                  transition: 'transform 0.4s cubic-bezier(0.65, 0, 0.35, 1)'
+                                }
+                              }}
+                              variant="indeterminate"
+                            />
                           </Stack>
                         ) : (
                           receivedMessages.map((msg, index) => {
