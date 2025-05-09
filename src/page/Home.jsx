@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem, LinearProgress } from '@mui/material';
+import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem, LinearProgress, Drawer } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import socket from './Socket';
 import axios from 'axios';
@@ -426,7 +426,7 @@ const Home = () => {
                   onClick={() => {
                     handleCloseUserMenu();
                     if (setting === 'Profile') {
-                      setDrawerOpen(true); // Open the drawer instead of navigating
+                      toggleDrawer(true); // Open the drawer instead of navigating
                     } else {
                       Logout();
                     }
@@ -480,7 +480,7 @@ const Home = () => {
             </Menu>
 
             {/* 👉 Right Side Drawer */}
-            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+            <Drawer anchor="right" open={toggleDrawer(true)} onClose={toggleDrawer(false)}>
               <Box
                 sx={{ width: 300, p: 3, bgcolor: '#121212', height: '100%' }}
                 role="presentation"
