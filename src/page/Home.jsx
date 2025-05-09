@@ -369,11 +369,9 @@ const Home = () => {
                   key={setting}
                   onClick={() => {
                     handleCloseUserMenu();
-                    if (setting === "Profile") {
-                      navigate("/profile", { state: { LoginUser, users } });
-                    } else {
-                      Logout();
-                    }
+                    setting === "Profile"
+                      ? navigate("/profile", { state: { LoginUser, users } })
+                      : Logout();
                   }}
                   sx={{
                     position: 'relative',
@@ -565,7 +563,7 @@ const Home = () => {
                     isFollowed={followedUsers.includes(user._id)}
                     onFollowToggle={() => Following(user._id, index, true)}
                     onSelect={() => UserSelect(user)}
-                    sx={{ backgroundColor: ActiveChat == user?._id ? 'rgba(255, 255, 255, 0.2)' : 'transparent',}}
+                    sx={{ backgroundColor: ActiveChat == user?._id ? 'rgba(255, 255, 255, 0.2)' : 'transparent', }}
                   />
                 ))
               ) : (
@@ -600,7 +598,7 @@ const Home = () => {
         {/* Header */}
         <Box bgcolor="#1f1f1f" p={1.7625} display="flex" alignItems="center" gap={2} borderBottom="1px solid #333" >
 
-          <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }}>
+          <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }} onClick={navigate("/profile", { state: { LoginUser, users } })}>
             {selectedUser ? selectedUser?.username.charAt(0) : '?'}
           </Avatar>
 
@@ -781,8 +779,8 @@ const Home = () => {
 
                             );
 
-                            return isLast && msg.sender === selectedUser._id && msg.receiver === LoginUser?._id 
-                            && msg.receiver === selectedUser._id && msg.sender === LoginUser?._id ? (
+                            return isLast && msg.sender === selectedUser._id && msg.receiver === LoginUser?._id
+                              && msg.receiver === selectedUser._id && msg.sender === LoginUser?._id ? (
                               <Slide
                                 key={index}
                                 direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
