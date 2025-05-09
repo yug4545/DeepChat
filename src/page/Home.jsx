@@ -14,6 +14,15 @@ import Tooltip from '@mui/material/Tooltip';
 import ClearIcon from '@mui/icons-material/Clear';
 import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
 const Home = () => {
   const [messages, setMessages] = useState('');
@@ -31,6 +40,8 @@ const Home = () => {
   const [loadingIndex, setLoadingIndex] = useState(null);
   const [FollowLoadingIndex, setFollowLoadingIndex] = useState(null);
   const [UserLoader, setUserLoader] = useState(null);
+  const [open, setOpen] = React.useState(false);
+
 
 
 
@@ -276,6 +287,55 @@ const Home = () => {
     setAnchorElUser(null);
   };
 
+  // Drawer
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setOpen(open);
+  };
+
+  const drawerList = (
+    <Box
+      sx={{ width: 250 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+
   let Logout = () => {
 
     localStorage.removeItem("Token");
@@ -317,13 +377,14 @@ const Home = () => {
                     color: '#121212',
                     fontSize: 16,
                     fontWeight: 'bold',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   {LoginUser?.username.charAt(0)}
                 </Avatar>
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{
                 mt: '45px',
@@ -331,11 +392,11 @@ const Home = () => {
                   background: 'linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(45,45,45,0.98) 100%)',
                   borderRadius: '16px',
                   boxShadow: `
-        0 10px 25px -5px rgba(0, 0, 0, 0.6),
-        0 16px 30px 2px rgba(0, 0, 0, 0.4),
-        0 8px 10px -5px rgba(0, 0, 0, 0.5),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.08)
-      `,
+          0 10px 25px -5px rgba(0, 0, 0, 0.6),
+          0 16px 30px 2px rgba(0, 0, 0, 0.4),
+          0 8px 10px -5px rgba(0, 0, 0, 0.5),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.08)
+        `,
                   minWidth: '200px',
                   border: '1px solid rgba(255, 255, 255, 0.12)',
                   backdropFilter: 'blur(16px) saturate(180%)',
@@ -344,24 +405,18 @@ const Home = () => {
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                   '&:hover': {
                     boxShadow: `
-          0 12px 28px -5px rgba(0, 0, 0, 0.7),
-          0 20px 38px 2px rgba(0, 0, 0, 0.5),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.15)
-        `,
-                  }
-                }
+            0 12px 28px -5px rgba(0, 0, 0, 0.7),
+            0 20px 38px 2px rgba(0, 0, 0, 0.5),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.15)
+          `,
+                  },
+                },
               }}
               id="menu-appbar"
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
@@ -370,8 +425,8 @@ const Home = () => {
                   key={setting}
                   onClick={() => {
                     handleCloseUserMenu();
-                    setting === "Profile"
-                      ? navigate("/profile", { state: { LoginUser, users } })
+                    setting === 'Profile'
+                      ? navigate('/profile', { state: { LoginUser, users } })
                       : Logout();
                   }}
                   sx={{
@@ -384,7 +439,7 @@ const Home = () => {
                       background: 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, transparent 100%)',
                       '&::before': {
                         opacity: 1,
-                      }
+                      },
                     },
                     '&::before': {
                       content: '""',
@@ -415,7 +470,7 @@ const Home = () => {
                         content: '"»"',
                         color: 'rgba(255,255,255,0.3)',
                         transition: 'all 0.3s ease',
-                      }
+                      },
                     }}
                   >
                     {setting}
@@ -423,8 +478,8 @@ const Home = () => {
                 </MenuItem>
               ))}
             </Menu>
-
           </Box>
+
 
         </Box>
 
