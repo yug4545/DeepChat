@@ -89,7 +89,7 @@ const SuggestedFriendCard = ({ isloading, user, isFollowed, LoginUser, onFollowT
             borderColor: '#bb86fc',
           },
         }}
-        onClick={() => onFollowToggle ? onFollowToggle(user._id, index) : Following(user._id, index)}
+        onClick={() => onFollowToggle ? onFollowToggle(user._id) : Following(user._id)}
       >
         <CircularProgress
           size={16}
