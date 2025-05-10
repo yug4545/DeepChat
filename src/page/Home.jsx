@@ -103,17 +103,15 @@ const Home = () => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
-    const now = new Date();
     const newMessage = {
       sender: LoginUser?._id,
       receiver: selectedUser?._id,
       messages,
-      time: now.toLocaleTimeString('en-IN', {
+      time: new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
-        timeZone: 'Asia/Kolkata',
-      })
+      }),
     };
 
     setMessages("")
