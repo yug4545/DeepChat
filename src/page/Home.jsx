@@ -436,7 +436,7 @@ const Home = () => {
                 },
               }}
             >
-              <Box sx={{ p: 2 }}>
+              <Box>
                 <Typography variant="h6" color="#fff" gutterBottom>
                   Settings
                 </Typography>
