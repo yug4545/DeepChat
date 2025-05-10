@@ -21,8 +21,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Home = () => {
   const [messages, setMessages] = useState('');
@@ -312,7 +312,7 @@ const Home = () => {
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <PersonOutlineIcon /> : <LogoutIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -321,13 +321,18 @@ const Home = () => {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {settings.map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text} onClick={() => {
+                handleCloseUserMenu();
+                text === 'Profile'
+                  ? navigate('/profile', { state: { LoginUser, users } })
+                  : Logout();
+              }} />
             </ListItemButton>
           </ListItem>
         ))}
