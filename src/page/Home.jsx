@@ -521,7 +521,27 @@ const Home = () => {
         </Box>
 
         {/* User List */}
-        <Box flexGrow={1} overflow="auto">
+        <Box flexGrow={1}
+          overflow="auto"
+          sx={{
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#555',
+              borderRadius: '10px',
+              border: '2px solid transparent',
+              backgroundClip: 'content-box',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              backgroundColor: '#777',
+            },
+            scrollbarWidth: 'thin', // Firefox
+            scrollbarColor: '#555 transparent', // Firefox
+          }}>
           {UserLoader ? (
 
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
