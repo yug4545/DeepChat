@@ -339,7 +339,7 @@ const Home = () => {
         </Typography>
       </Box>
 
-      <Divider sx={{ borderColor: '#444', mb: 2 }} />
+      <Divider sx={{ borderColor: '#444'}} />
 
       {/* Menu List */}
       <List sx={{ flex: 1 }} dense>
