@@ -301,23 +301,51 @@ const Home = () => {
   };
 
   const drawerList = (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
+  <Box
+    sx={{
+      width: 250,
+      px: 2,
+      py: 3,
+      color: 'white',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+      justifyContent: 'space-between',
+    }}
+    role="presentation"
+    onClick={toggleDrawer(false)}
+    onKeyDown={toggleDrawer(false)}
+  >
+    <Box>
+      <Typography
+        variant="body2"
+        sx={{ mb: 2, lineHeight: 1.6, fontSize: 14, opacity: 0.85 }}
+      >
+        Welcome <strong>{LoginUser?.username}</strong>! <br />
+        You can view your profile or log out using the options below.
+      </Typography>
+
+      <Divider sx={{ mb: 2, borderColor: '#444' }} />
+
       <List>
         {settings.map((text, index) => (
-          <ListItem key={text} disablePadding onClick={() => {
-            handleCloseUserMenu();
-            text === 'Profile'
-              ? navigate('/profile', { state: { LoginUser, users } })
-              : Logout();
-          }} >
+          <ListItem
+            key={text}
+            disablePadding
+            onClick={() => {
+              handleCloseUserMenu();
+              text === 'Profile'
+                ? navigate('/profile', { state: { LoginUser, users } })
+                : Logout();
+            }}
+          >
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <PersonOutlineIcon sx={{ color: 'white' }} /> : <LogoutIcon sx={{ color: 'white' }} />}
+                {index % 2 === 0 ? (
+                  <PersonOutlineIcon sx={{ color: 'white' }} />
+                ) : (
+                  <LogoutIcon sx={{ color: 'white' }} />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} sx={{ color: 'white' }} />
             </ListItemButton>
@@ -325,7 +353,17 @@ const Home = () => {
         ))}
       </List>
     </Box>
-  );
+
+    {/* Ending paragraph */}
+    <Typography
+      variant="caption"
+      sx={{ mt: 2, fontSize: 12, color: 'gray', textAlign: 'center' }}
+    >
+      DeepChat – Connect. Chat. Repeat.
+    </Typography>
+  </Box>
+);
+
 
 
   let Logout = () => {
