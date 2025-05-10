@@ -437,7 +437,7 @@ const Home = () => {
               }}
             >
               <Box>
-                <Typography variant="h6" color="#fff" gutterBottom p={2}>
+                <Typography variant="h6" color="#fff" gutterBottom p={1} mb={0}>
                   Settings
                 </Typography>
                 <Divider sx={{ borderColor: '#444'}} />
