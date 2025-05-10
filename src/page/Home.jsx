@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem, LinearProgress } from '@mui/material';
+import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem, LinearProgress, Drawer } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import socket from './Socket';
 import axios from 'axios';
@@ -312,9 +312,9 @@ const Home = () => {
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <PersonOutlineIcon /> : <LogoutIcon />}
+                {index % 2 === 0 ? <PersonOutlineIcon sx={{ color: 'white' }} /> : <LogoutIcon sx={{ color: 'white' }} />}
               </ListItemIcon>
-              <ListItemText primary={text}  onClick={() => {
+              <ListItemText primary={text} onClick={() => {
                 handleCloseUserMenu();
                 text === 'Profile'
                   ? navigate('/profile', { state: { LoginUser, users } })
@@ -360,7 +360,7 @@ const Home = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={toggleDrawer(true)} sx={{ p: 0 }}>
                 <Avatar
                   sx={{
                     width: 36,
@@ -372,48 +372,40 @@ const Home = () => {
                     cursor: 'pointer',
                   }}
                 >
-                  {LoginUser?.username.charAt(0)}
+                  {LoginUser?.username?.charAt(0)}
                 </Avatar>
               </IconButton>
             </Tooltip>
 
-            <Menu
-              sx={{
-                mt: '45px',
-                '& .MuiPaper-root': {
-                  background: 'linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(45,45,45,0.98) 100%)',
-                  borderRadius: '16px',
+            <Drawer
+              anchor="right"
+              open={open}
+              onClose={toggleDrawer(false)}
+              PaperProps={{
+                sx: {
+                  background: 'linear-gradient(135deg, rgba(26,26,26,0.95), rgba(45,45,45,0.98))',
+                  borderLeft: '1px solid rgba(255,255,255,0.12)',
+                  borderTopLeftRadius: '16px',
+                  borderBottomLeftRadius: '16px',
                   boxShadow: `
-          0 10px 25px -5px rgba(0, 0, 0, 0.6),
-          0 16px 30px 2px rgba(0, 0, 0, 0.4),
-          0 8px 10px -5px rgba(0, 0, 0, 0.5),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.08)
-        `,
-                  minWidth: '200px',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
+              0 10px 25px -5px rgba(0, 0, 0, 0.6),
+              0 16px 30px 2px rgba(0, 0, 0, 0.4),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.08)
+            `,
                   backdropFilter: 'blur(16px) saturate(180%)',
-                  overflow: 'hidden',
-                  transform: 'translateY(5px)',
-                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                  '&:hover': {
-                    boxShadow: `
-            0 12px 28px -5px rgba(0, 0, 0, 0.7),
-            0 20px 38px 2px rgba(0, 0, 0, 0.5),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.15)
-          `,
-                  },
+                  width: 260,
+                  p: 2,
                 },
               }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              keepMounted
-              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
+              <Typography variant="h6" color="#fff" gutterBottom>
+                Settings
+              </Typography>
+              <Divider sx={{ borderColor: '#444', mb: 2 }} />
+
+              {/* drawerList passed as prop */}
               {drawerList}
-            </Menu>
+            </Drawer>
           </Box>
 
 
