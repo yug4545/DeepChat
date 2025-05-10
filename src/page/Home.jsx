@@ -308,7 +308,7 @@ const Home = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {settings.map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -420,63 +420,7 @@ const Home = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => {
-                    handleCloseUserMenu();
-                    setting === 'Profile'
-                      ? navigate('/profile', { state: { LoginUser, users } })
-                      : Logout();
-                  }}
-                  sx={{
-                    position: 'relative',
-                    padding: '12px 24px',
-                    '&:not(:last-child)': {
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-                    },
-                    '&:hover': {
-                      background: 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, transparent 100%)',
-                      '&::before': {
-                        opacity: 1,
-                      },
-                    },
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      height: '100%',
-                      width: '3px',
-                      background: 'linear-gradient(to bottom, #00d2ff, #3a7bd5)',
-                      opacity: 0,
-                      transition: 'opacity 0.3s ease',
-                    },
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      textAlign: 'center',
-                      fontWeight: 600,
-                      width: '100%',
-                      background: 'linear-gradient(90deg, #ffffff 0%, #aaaaaa 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      '&::before': {
-                        content: '"»"',
-                        color: 'rgba(255,255,255,0.3)',
-                        transition: 'all 0.3s ease',
-                      },
-                    }}
-                  >
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
+              {drawerList}
             </Menu>
           </Box>
 
