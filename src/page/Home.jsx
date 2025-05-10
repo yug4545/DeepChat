@@ -351,26 +351,7 @@ const Home = () => {
     navigate("/");
     return;
   }
-  // Time
 
-  function formatDateLabel(dateStr) {
-    const today = new Date();
-    const date = new Date(dateStr);
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-
-    const isToday = date.toDateString() === today.toDateString();
-    const isYesterday = date.toDateString() === yesterday.toDateString();
-
-    if (isToday) return 'Today';
-    if (isYesterday) return 'Yesterday';
-
-    return date.toLocaleDateString('en-IN', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    });
-  }
 
   return (
     <Box height="100vh" display="flex" bgcolor="#121212" color="#fff">
@@ -738,6 +719,7 @@ const Home = () => {
           {selectedUser ? (
             followedUsers.includes(selectedUser._id) ? (
               <Fade in timeout={500}>
+                {/* Chat Messages */}
                 <Box
                   flexGrow={1}
                   p={2}
@@ -758,29 +740,24 @@ const Home = () => {
                     },
                   }}
                 >
-                  <Fade in timeout={500}>
-                    <Box display="flex" flexDirection="column" gap={1.5} flexGrow={1}>
-                      {Chatloader ? (
-                        <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={0.6}>
-                          <LinearProgress color="inherit" />
-                        </Stack>
-                      ) : (
-                        (() => {
-                          let lastMessageDate = '';
-                          return receivedMessages.map((msg, index) => {
+                  {selectedUser && followedUsers.includes(selectedUser._id) ? (
+                    <Fade in timeout={500}>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        gap={1.5}
+                        flexGrow={1}
+                      >
+                        {Chatloader ? (
+                          <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={0.6}>
+
+                            <LinearProgress color="inherit" />
+                          </Stack>
+                        ) : (
+                          receivedMessages.map((msg, index) => {
                             if (msg.messages?.toLowerCase().includes('add')) return null;
 
-                            const msgDate = new Date(msg.createdAt || msg.time);
-                            const dateLabel = formatDateLabel(msgDate);
-                            const formattedTime = msgDate.toLocaleTimeString('en-IN', {
-                              hour: '2-digit',
-                              minute: '2-digit',
-                              hour12: true,
-                              timeZone: 'Asia/Kolkata'
-                            });
-
-                            const showDateDivider = dateLabel !== lastMessageDate;
-                            if (showDateDivider) lastMessageDate = dateLabel;
+                            const isLast = index === receivedMessages.length - 1;
 
                             const messageBox = (
                               <Box
@@ -831,6 +808,7 @@ const Home = () => {
                                   }
                                 }}
                               >
+                                {/* Message Text */}
                                 <Typography
                                   fontSize={15}
                                   sx={{
@@ -845,6 +823,7 @@ const Home = () => {
                                   {msg?.messages}
                                 </Typography>
 
+                                {/* Time & Dot */}
                                 <Box display="flex" alignItems="center" gap={1}>
                                   <Typography
                                     fontSize={10}
@@ -855,7 +834,7 @@ const Home = () => {
                                       textTransform: 'uppercase',
                                     }}
                                   >
-                                    {formattedTime}
+                                    {msg?.time}
                                   </Typography>
                                   <Box
                                     sx={{
@@ -870,52 +849,59 @@ const Home = () => {
                                   />
                                 </Box>
 
+                                {/* Pulse Animation */}
                                 <style>
                                   {`
-                            @keyframes pulse {
-                              0% { transform: scale(1); opacity: 0.8; }
-                              50% { transform: scale(1.3); opacity: 0.4; }
-                              100% { transform: scale(1); opacity: 0.8; }
-                            }
-                          `}
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.3); opacity: 0.4; }
+        100% { transform: scale(1); opacity: 0.8; }
+      }
+    `}
                                 </style>
                               </Box>
+
                             );
 
-                            return (
-                              <React.Fragment key={index}>
-                                {showDateDivider && (
-                                  <Box
-                                    alignSelf="center"
-                                    my={1}
-                                    px={2}
-                                    py={0.5}
-                                    borderRadius={2}
-                                    bgcolor="#333"
-                                    color="#bbb"
-                                    fontSize={12}
-                                    fontWeight={500}
-                                    textAlign="center"
-                                    sx={{ border: '1px solid #555', backdropFilter: 'blur(4px)' }}
-                                  >
-                                    {dateLabel}
-                                  </Box>
-                                )}
+                            return isLast && msg.sender === selectedUser._id && msg.receiver === LoginUser?._id
+                              && msg.receiver === selectedUser._id && msg.sender === LoginUser?._id ? (
+                              <Slide
+                                key={index}
+                                direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
+                                in={true}
+                                timeout={300}
+                              >
                                 {messageBox}
-                              </React.Fragment>
+                              </Slide>
+                            ) : (
+                              messageBox
                             );
-                          });
-                        })()
-                      )}
-                      <div ref={messageEndRef} />
-                    </Box>
-                  </Fade>
+                          })
+                        )}
+
+                        <div ref={messageEndRef} />
+                      </Box>
+                    </Fade>
+                  ) : (
+                    <Typography color="gray" textAlign="center" mt={4}>
+                      {selectedUser ? 'Follow this user to start chatting!' : 'Select a user to start chatting.'}
+                    </Typography>
+                  )}
                 </Box>
               </Fade>
             ) : (
-              // Follow prompt
               <Slide direction="down" in timeout={500}>
-                <Box textAlign="center" mt={8} p={4} borderRadius={3} mx="auto" maxWidth="400px" boxShadow={4} bgcolor="#1e1e1e" border="1px dashed #444">
+                <Box
+                  textAlign="center"
+                  mt={8}
+                  p={4}
+                  borderRadius={3}
+                  mx="auto"
+                  maxWidth="400px"
+                  boxShadow={4}
+                  bgcolor="#1e1e1e"
+                  border="1px dashed #444"
+                >
                   <PersonAddAlt1Icon sx={{ fontSize: 48, color: '#bb86fc', mb: 1 }} />
                   <Typography variant="h6" color="#fff" gutterBottom>
                     You must follow this user to chat
@@ -934,9 +920,11 @@ const Home = () => {
               </Slide>
             )
           ) : (
-            // Welcome prompt
             <Fade in timeout={500}>
-              <Box className="w-100 h-100 d-flex align-items-center justify-content-center" sx={{ color: '#aaa', px: 2 }}>
+              <Box
+                className="w-100 h-100 d-flex align-items-center justify-content-center"
+                sx={{ color: '#aaa', px: 2 }}
+              >
                 <Box textAlign="center" maxWidth="500px">
                   <Typography variant="h3" gutterBottom>
                     <Diversity3Icon sx={{ fontSize: 50, color: '#bb86fc' }} />
