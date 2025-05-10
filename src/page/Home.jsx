@@ -325,7 +325,7 @@ const Home = () => {
         You can view your profile or log out using the options below.
       </Typography>
 
-      <Divider sx={{ mb: 2, borderColor: '#444' }} />
+      <Divider sx={{ borderColor: '#444' }} />
 
       <List>
         {settings.map((text, index) => (
@@ -440,7 +440,7 @@ const Home = () => {
                 <Typography variant="h6" color="#fff" gutterBottom p={2}>
                   Settings
                 </Typography>
-                <Divider sx={{ borderColor: '#444', mb: 2 }} />
+                <Divider sx={{ borderColor: '#444'}} />
                 {drawerList}
               </Box>
             </Drawer>
