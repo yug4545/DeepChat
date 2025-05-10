@@ -107,11 +107,15 @@ const Home = () => {
       sender: LoginUser?._id,
       receiver: selectedUser?._id,
       messages,
-      time: new Date().toLocaleTimeString([], {
+      time: new Date().toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
-      }),
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      })
     };
 
     setMessages("")
