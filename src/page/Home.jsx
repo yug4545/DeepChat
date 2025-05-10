@@ -309,17 +309,17 @@ const Home = () => {
     >
       <List>
         {settings.map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem key={text} disablePadding onClick={() => {
+            handleCloseUserMenu();
+            text === 'Profile'
+              ? navigate('/profile', { state: { LoginUser, users } })
+              : Logout();
+          }} >
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <PersonOutlineIcon sx={{ color: 'white' }} /> : <LogoutIcon sx={{ color: 'white' }} />}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ color: 'white' }} onClick={() => {
-                handleCloseUserMenu();
-                text === 'Profile'
-                  ? navigate('/profile', { state: { LoginUser, users } })
-                  : Logout();
-              }} />
+              <ListItemText primary={text} sx={{ color: 'white' }} />
             </ListItemButton>
           </ListItem>
         ))}
