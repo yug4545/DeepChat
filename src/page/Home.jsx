@@ -321,7 +321,7 @@ const Home = () => {
         <Typography variant="h6" color="#fff" gutterBottom>
           Settings
         </Typography>
-        <Divider sx={{ borderColor: '#444', mb: 2 }} />
+        <Divider sx={{ borderColor: '#444'}} />
       </Box>
 
       {/* Welcome Message */}
