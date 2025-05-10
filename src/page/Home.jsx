@@ -316,21 +316,33 @@ const Home = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      {/* Welcome Message Section */}
+      {/* Header Section */}
+      <Box sx={{ mb: 2 }}>
+        <Typography variant="h6" color="#fff" gutterBottom>
+          Settings
+        </Typography>
+        <Divider sx={{ borderColor: '#444', mb: 2 }} />
+      </Box>
+
+      {/* Welcome Message */}
       <Box sx={{ mb: 2 }}>
         <Typography
           variant="body2"
           sx={{ lineHeight: 1.6, fontSize: 14, opacity: 0.85 }}
         >
-          Welcome <strong>{LoginUser?.username}</strong>! <br />
+          Welcome{' '}
+          <Box component="span" sx={{ fontWeight: 'bold', display: 'inline' }}>
+            {LoginUser?.username}
+          </Box>
+          ! <br />
           You can view your profile or log out using the options below.
         </Typography>
       </Box>
 
       <Divider sx={{ borderColor: '#444', mb: 2 }} />
 
-      {/* Menu List Section */}
-      <List sx={{ flex: 1 }}>
+      {/* Menu List */}
+      <List sx={{ flex: 1 }} dense>
         {settings.map((text, index) => (
           <ListItem
             key={text}
@@ -342,8 +354,8 @@ const Home = () => {
                 : Logout();
             }}
           >
-            <ListItemButton>
-              <ListItemIcon>
+            <ListItemButton sx={{ py: 1.2 }}>
+              <ListItemIcon sx={{ minWidth: 36 }}>
                 {index % 2 === 0 ? (
                   <PersonOutlineIcon sx={{ color: 'white' }} />
                 ) : (
@@ -356,11 +368,11 @@ const Home = () => {
         ))}
       </List>
 
-      {/* Ending Paragraph pinned to the bottom */}
-      <Box sx={{ mt: 'auto', mb: 2 }}>
+      {/* Footer Slogan */}
+      <Box sx={{ textAlign: 'center', mt: 'auto', mb: 1 }}>
         <Typography
           variant="caption"
-          sx={{ fontSize: 12, color: 'gray', textAlign: 'center' }}
+          sx={{ fontSize: 12, opacity: 0.4 }}
         >
           DeepChat – Connect. Chat. Repeat.
         </Typography>
@@ -435,18 +447,10 @@ const Home = () => {
                   backdropFilter: 'blur(16px) saturate(180%)',
                   width: 260,
                   overflowX: 'hidden',
-                  px: 0, // remove horizontal padding to avoid conflict
+                  px: 0,
                 },
               }}
             >
-              <Box sx={{ p: 2, pb: 0 }}>
-                <Typography variant="h6" color="#fff" gutterBottom>
-                  Settings
-                </Typography>
-                <Divider sx={{ borderColor: '#444', mb: 2 }} />
-              </Box>
-
-              {/* drawerList already includes padding and layout */}
               {drawerList}
             </Drawer>
           </Box>
