@@ -303,30 +303,82 @@ const Home = () => {
   const drawerList = (
   <Box
     sx={{
-      width: 250,
+      width: 280,
       px: 2,
       py: 3,
+      background: 'linear-gradient(135deg, #1a237e 0%, #311b92 100%)',
       color: 'white',
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
       justifyContent: 'space-between',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
     }}
     role="presentation"
     onClick={toggleDrawer(false)}
     onKeyDown={toggleDrawer(false)}
   >
     <Box>
+      {/* User Profile Section */}
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <Avatar 
+          sx={{ 
+            width: 56, 
+            height: 56, 
+            mr: 2,
+            bgcolor: '#4fc3f7',
+            fontSize: '1.5rem',
+            fontWeight: 'bold'
+          }}
+        >
+          {LoginUser?.username?.charAt(0).toUpperCase()}
+        </Avatar>
+        <Box>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            {LoginUser?.username}
+          </Typography>
+          <Typography variant="caption" sx={{ opacity: 0.8 }}>
+            {LoginUser?.isPremium ? 'Premium Member' : 'Standard Member'}
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* Welcome Message */}
       <Typography
         variant="body2"
-        sx={{ mb: 2, lineHeight: 1.6, fontSize: 14, opacity: 0.85 }}
+        sx={{ 
+          mb: 2, 
+          lineHeight: 1.6, 
+          fontSize: 14, 
+          opacity: 0.85,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          p: 1.5,
+          borderRadius: 1
+        }}
       >
-        Welcome <strong>{LoginUser?.username}</strong>! <br />
-        You can view your profile or log out using the options below.
+        Welcome back! <br />
+        Last active: {new Date().toLocaleString()}
       </Typography>
 
-      <Divider sx={{ mb: 2, borderColor: '#444' }} />
+      {/* New Inspirational Paragraph */}
+      <Typography
+        variant="body2"
+        sx={{
+          mb: 2,
+          p: 1.5,
+          fontStyle: 'italic',
+          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          borderRadius: 1,
+          borderLeft: '3px solid #4fc3f7'
+        }}
+      >
+        "Every conversation is a new opportunity to learn something wonderful. 
+        Keep connecting and sharing your story with the world."
+      </Typography>
 
+      <Divider sx={{ mb: 2, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+
+      {/* Main Menu */}
       <List>
         {settings.map((text, index) => (
           <ListItem
@@ -338,6 +390,13 @@ const Home = () => {
                 ? navigate('/profile', { state: { LoginUser, users } })
                 : Logout();
             }}
+            sx={{
+              mb: 0.5,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: 1
+              }
+            }}
           >
             <ListItemButton>
               <ListItemIcon>
@@ -347,20 +406,93 @@ const Home = () => {
                   <LogoutIcon sx={{ color: 'white' }} />
                 )}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ color: 'white' }} />
+              <ListItemText 
+                primary={text} 
+                sx={{ color: 'white' }} 
+                primaryTypographyProps={{ fontWeight: 'medium' }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+
+      {/* Additional Features */}
+      <Divider sx={{ my: 2, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+      
+      <Typography variant="subtitle2" sx={{ px: 2, mb: 1, opacity: 0.8 }}>
+        Quick Actions
+      </Typography>
+      
+      <Box sx={{ display: 'flex', gap: 1, px: 2, mb: 3 }}>
+        <Chip 
+          icon={<SettingsIcon fontSize="small" />} 
+          label="Settings" 
+          sx={{ 
+            color: 'white', 
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.2)' }
+          }} 
+          clickable
+        />
+        <Chip 
+          icon={<HelpOutlineIcon fontSize="small" />} 
+          label="Help" 
+          sx={{ 
+            color: 'white', 
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.2)' }
+          }} 
+          clickable
+        />
+      </Box>
     </Box>
 
-    {/* Ending paragraph */}
-    <Typography
-      variant="caption"
-      sx={{ mt: 2, fontSize: 12, color: 'gray', textAlign: 'center' }}
-    >
-      DeepChat – Connect. Chat. Repeat.
-    </Typography>
+    {/* Footer Section */}
+    <Box>
+      <Divider sx={{ mb: 2, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+      
+      {/* Updated Connection Status */}
+      <Box sx={{ 
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        p: 1.5,
+        borderRadius: 1,
+        mb: 2,
+        textAlign: 'center'
+      }}>
+        <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>
+          Connection: Excellent <SignalCellularAltIcon sx={{ color: '#4caf50', fontSize: 16, verticalAlign: 'middle' }} />
+        </Typography>
+        <Typography variant="caption" sx={{ display: 'block' }}>
+          Messages sent today: 24
+        </Typography>
+      </Box>
+      
+      {/* Updated Version Info */}
+      <Typography
+        variant="caption"
+        sx={{ 
+          display: 'block',
+          fontSize: 12, 
+          color: 'rgba(255, 255, 255, 0.6)', 
+          textAlign: 'center',
+          fontStyle: 'italic'
+        }}
+      >
+        DeepChat Pro v3.1.5
+      </Typography>
+      <Typography
+        variant="caption"
+        sx={{ 
+          mt: 0.5,
+          fontSize: 11, 
+          color: 'rgba(255, 255, 255, 0.4)', 
+          textAlign: 'center',
+          display: 'block'
+        }}
+      >
+        Powered by NextGen Chat Technology
+      </Typography>
+    </Box>
   </Box>
 );
 
