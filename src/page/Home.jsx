@@ -314,7 +314,7 @@ const Home = () => {
               <ListItemIcon>
                 {index % 2 === 0 ? <PersonOutlineIcon sx={{ color: 'white' }} /> : <LogoutIcon sx={{ color: 'white' }} />}
               </ListItemIcon>
-              <ListItemText primary={text} onClick={() => {
+              <ListItemText primary={text} sx={{ color: 'white' }} onClick={() => {
                 handleCloseUserMenu();
                 text === 'Profile'
                   ? navigate('/profile', { state: { LoginUser, users } })
@@ -388,23 +388,23 @@ const Home = () => {
                   borderTopLeftRadius: '16px',
                   borderBottomLeftRadius: '16px',
                   boxShadow: `
-              0 10px 25px -5px rgba(0, 0, 0, 0.6),
-              0 16px 30px 2px rgba(0, 0, 0, 0.4),
-              inset 0 0 0 1px rgba(255, 255, 255, 0.08)
-            `,
+        0 10px 25px -5px rgba(0, 0, 0, 0.6),
+        0 16px 30px 2px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08)
+      `,
                   backdropFilter: 'blur(16px) saturate(180%)',
                   width: 260,
-                  p: 2,
+                  overflowX: 'hidden',
                 },
               }}
             >
-              <Typography variant="h6" color="#fff" gutterBottom>
-                Settings
-              </Typography>
-              <Divider sx={{ borderColor: '#444', mb: 2 }} />
-
-              {/* drawerList passed as prop */}
-              {drawerList}
+              <Box sx={{ p: 2 }}>
+                <Typography variant="h6" color="#fff" gutterBottom>
+                  Settings
+                </Typography>
+                <Divider sx={{ borderColor: '#444', mb: 2 }} />
+                {drawerList}
+              </Box>
             </Drawer>
           </Box>
 
