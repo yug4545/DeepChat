@@ -301,33 +301,36 @@ const Home = () => {
   };
 
   const drawerList = (
-  <Box
-    sx={{
-      width: 250,
-      px: 2,
-      py: 3,
-      color: 'white',
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
-      justifyContent: 'space-between',
-    }}
-    role="presentation"
-    onClick={toggleDrawer(false)}
-    onKeyDown={toggleDrawer(false)}
-  >
-    <Box>
-      <Typography
-        variant="body2"
-        sx={{ mb: 2, lineHeight: 1.6, fontSize: 14, opacity: 0.85 }}
-      >
-        Welcome <strong>{LoginUser?.username}</strong>! <br />
-        You can view your profile or log out using the options below.
-      </Typography>
+    <Box
+      sx={{
+        width: 250,
+        px: 3,
+        py: 3,
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        justifyContent: 'space-between',
+      }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      {/* Welcome Message Section */}
+      <Box sx={{ mb: 2 }}>
+        <Typography
+          variant="body2"
+          sx={{ lineHeight: 1.6, fontSize: 14, opacity: 0.85 }}
+        >
+          Welcome <strong>{LoginUser?.username}</strong>! <br />
+          You can view your profile or log out using the options below.
+        </Typography>
+      </Box>
 
-      <Divider sx={{ borderColor: '#444' }} />
+      <Divider sx={{ borderColor: '#444', mb: 2 }} />
 
-      <List>
+      {/* Menu List Section */}
+      <List sx={{ flex: 1 }}>
         {settings.map((text, index) => (
           <ListItem
             key={text}
@@ -352,19 +355,18 @@ const Home = () => {
           </ListItem>
         ))}
       </List>
+
+      {/* Ending Paragraph pinned to the bottom */}
+      <Box sx={{ mt: 'auto', mb: 2 }}>
+        <Typography
+          variant="caption"
+          sx={{ fontSize: 12, color: 'gray', textAlign: 'center' }}
+        >
+          DeepChat – Connect. Chat. Repeat.
+        </Typography>
+      </Box>
     </Box>
-
-    {/* Ending paragraph */}
-    <Typography
-      variant="caption"
-      sx={{ mt: 2, fontSize: 12, color: 'gray', textAlign: 'center' }}
-    >
-      DeepChat – Connect. Chat. Repeat.
-    </Typography>
-  </Box>
-);
-
-
+  );
 
   let Logout = () => {
 
@@ -433,16 +435,19 @@ const Home = () => {
                   backdropFilter: 'blur(16px) saturate(180%)',
                   width: 260,
                   overflowX: 'hidden',
+                  px: 0, // remove horizontal padding to avoid conflict
                 },
               }}
             >
-              <Box>
-                <Typography variant="h6" color="#fff" gutterBottom p={1} mb={0}>
+              <Box sx={{ p: 2, pb: 0 }}>
+                <Typography variant="h6" color="#fff" gutterBottom>
                   Settings
                 </Typography>
-                <Divider sx={{ borderColor: '#444'}} />
-                {drawerList}
+                <Divider sx={{ borderColor: '#444', mb: 2 }} />
               </Box>
+
+              {/* drawerList already includes padding and layout */}
+              {drawerList}
             </Drawer>
           </Box>
 
