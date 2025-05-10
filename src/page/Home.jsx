@@ -103,18 +103,22 @@ const Home = () => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
+    const now = new Date();
     const newMessage = {
       sender: LoginUser?._id,
       receiver: selectedUser?._id,
       messages,
-      time: new Date().toLocaleString('en-IN', {
-        timeZone: 'Asia/Kolkata',
+      time: now.toLocaleTimeString('en-IN', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
+        timeZone: 'Asia/Kolkata',
+      }),
+      date: now.toLocaleDateString('en-IN', {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
+        timeZone: 'Asia/Kolkata',
       })
     };
 
