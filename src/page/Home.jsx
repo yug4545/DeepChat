@@ -321,7 +321,7 @@ const Home = () => {
         <Typography variant="h6" color="#fff" gutterBottom>
           Settings
         </Typography>
-        <Divider sx={{ borderColor: '#444'}} />
+        <Divider sx={{ borderColor: '#444' }} />
       </Box>
 
       {/* Welcome Message */}
@@ -339,7 +339,7 @@ const Home = () => {
         </Typography>
       </Box>
 
-      <Divider sx={{ borderColor: '#444'}} />
+      <Divider sx={{ borderColor: '#444' }} />
 
       {/* Menu List */}
       <List sx={{ flex: 1 }} dense>
@@ -411,8 +411,8 @@ const Home = () => {
           {/* You might also include a small profile icon in the header */}
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={toggleDrawer(true)} sx={{ p: 0 }}>
+            <Tooltip title="Open settings" arrow>
+              <IconButton onClick={toggleDrawer(true)} sx={{ p: 0 }} >
                 <Avatar
                   sx={{
                     width: 36,
@@ -649,9 +649,11 @@ const Home = () => {
         {/* Header */}
         {selectedUser ? <Box bgcolor="#1f1f1f" p={1.1375} display="flex" alignItems="center" gap={2} sx={{ cursor: 'pointer' }} borderBottom="1px solid #333" >
 
-          <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }} onClick={() => navigate("/profile", { state: { selectedUser, users } })}>
-            {selectedUser ? selectedUser?.username.charAt(0) : '?'}
-          </Avatar>
+          <Tooltip title="Profile" arrow>
+            <Avatar sx={{ bgcolor: '#bb86fc', color: '#121212', fontWeight: 'bold' }} onClick={() => navigate("/profile", { state: { selectedUser, users } })}>
+              {selectedUser ? selectedUser?.username.charAt(0) : '?'}
+            </Avatar>
+          </Tooltip>
 
           <Box flexGrow={1}>
             <Typography variant="h6" color="#fff" >
