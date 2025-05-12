@@ -698,7 +698,7 @@ const Home = () => {
                   sx={{
                     backgroundImage: 'radial-gradient(circle at 50% 50%, #2a2a2a 1px, transparent 1px)',
                     backgroundSize: '20px 20px',
-                    '&::-webkit-scrollbar': { width: '8px' },
+                    '&::-webkit-scrollbar': { width: '3px' },
                     '&::-webkit-scrollbar-track': { backgroundColor: '#1e1e1e' },
                     '&::-webkit-scrollbar-thumb': {
                       background: 'linear-gradient( #bb86fc, #03dac6)',
