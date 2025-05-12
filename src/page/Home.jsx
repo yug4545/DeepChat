@@ -32,7 +32,7 @@ const Home = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [followedUsers, setFollowedUsers] = useState([]);
   const [SearchName, setSearchName] = useState('');
-  const [isOnline, setisOnline] = useState(false);
+  const [isOnline, setisOnline] = useState({});
   const [Searchfilteruser, setSearchfilteruser] = useState([]);
   const settings = ['Profile', 'Logout'];
   const [ActiveChat, setActiveChat] = useState(null);
@@ -250,7 +250,7 @@ const Home = () => {
     socket.emit("join", LoginUser._id);
 
     socket.on("user-online", ({ userId, isOnline }) => {
-      setisOnline(isOnline);
+      setisOnline({ userId, isOnline });
     });
 
     socket.on("receive-message", (data) => {
@@ -663,7 +663,7 @@ const Home = () => {
             <Typography variant="h6" color="#fff" >
               {selectedUser ? selectedUser?.username : 'ChatApp'}
             </Typography>
-            {selectedUser && <Typography fontSize={12} color={selectedUser.isOnline ? "#03dac6" : "#888"}>{isOnline || selectedUser.isOnline ?"Online":"Offline"}</Typography>}
+            {selectedUser && <Typography fontSize={12} color={selectedUser?._id == isOnline?.userId ? "#03dac6" : "#888"}>{(selectedUser?._id == isOnline?.userId && isOnline?.isOnline) || selectedUser.isOnline ?"Online":"Offline"}</Typography>}
           </Box>
 
 
