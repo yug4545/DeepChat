@@ -1,28 +1,46 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, TextField, Button, Typography, Avatar, IconButton, Menu, MenuItem, LinearProgress, Drawer } from '@mui/material';
+// 🌟 MUI Components (Destructured)
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  LinearProgress,
+  Drawer,
+  Fade,
+  Slide,
+  Tooltip,
+  Snackbar,
+  CircularProgress,
+  Stack,
+  SwipeableDrawer,
+  List,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+
+// 🎯 MUI Icons (Destructured)
 import SendIcon from '@mui/icons-material/Send';
-import socket from './Socket';
-import axios from 'axios';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
-import { toast } from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom'; // import useNavigate
 import SearchIcon from '@mui/icons-material/Search';
-import { Fade, Slide } from '@mui/material';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import SuggestedFriendCard from '../component/SuggestedFriendCard';
-import Tooltip from '@mui/material/Tooltip';
-import ClearIcon from '@mui/icons-material/Clear';
-import CircularProgress from '@mui/material/CircularProgress';
-import Stack from '@mui/material/Stack';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ClearIcon from '@mui/icons-material/Clear';
+
+// 🔌 External + Local (Default Imports)
+import socket from './Socket';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom';
+import SuggestedFriendCard from '../component/SuggestedFriendCard';
 
 const Home = () => {
   const [messages, setMessages] = useState('');
