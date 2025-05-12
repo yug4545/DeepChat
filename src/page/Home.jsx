@@ -969,7 +969,7 @@ const Home = () => {
               '&:hover': { bgcolor: '#9a68db' },
             }}
           >
-            <SendIcon sx={{ color: '#fff', transform: 'rotate(-15deg)'}} />
+            <SendIcon sx={{ color: '#fff', transform: 'rotate(-20deg)'}} />
           </Button>
         </Box>
       </Box>
