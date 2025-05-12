@@ -663,7 +663,7 @@ const Home = () => {
             <Typography variant="h6" color="#fff" >
               {selectedUser ? selectedUser?.username : 'ChatApp'}
             </Typography>
-            {selectedUser && <Typography fontSize={12} color={selectedUser ? "#03dac6" : "#888"}>{isOnline?"Online":"Offline"}</Typography>}
+            {selectedUser && <Typography fontSize={12} color={selectedUser ? "#03dac6" : "#888"}>{isOnline || selectedUser.isOnline ?"Online":"Offline"}</Typography>}
           </Box>
 
 
