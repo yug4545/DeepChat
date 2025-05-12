@@ -273,8 +273,23 @@ const Home = () => {
         aria-label="close"
         color="inherit"
         onClick={handleClose}
+        sx={{
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            transform: 'scale(1.1)',
+          },
+          transition: 'all 0.2s ease-in-out',
+        }}
       >
-        <CloseIcon fontSize="small" />
+        <CloseIcon
+          fontSize="small"
+          sx={{
+            color: 'inherit',
+            '&:hover': {
+              color: '#fff',
+            }
+          }}
+        />
       </IconButton>
     </React.Fragment>
   );
@@ -1034,15 +1049,48 @@ const Home = () => {
           </Button>
         </Box>
       </Box>
-      <Box>
+      <Box sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 1400 }}>
         {(() => {
           const onlineUser = users?.find(user => user._id === isOnline.userId);
+          if (!onlineUser) return null;
+
           return (
             <Snackbar
-              open={openSankbar}
+              open={openSnackbar}
               autoHideDuration={5000}
               onClose={handleClose}
-              message={onlineUser ? `${onlineUser.username} is Login` : ""}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              TransitionComponent={Fade}
+              sx={{
+                '& .MuiSnackbarContent-root': {
+                  backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#2e7d32' : '#4caf50',
+                  color: '#fff',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                  minWidth: 'unset',
+                  padding: '8px 16px',
+                  alignItems: 'center',
+                }
+              }}
+              message={
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <FiberManualRecordIcon
+                    fontSize="small"
+                    sx={{
+                      color: '#a5d6a7',
+                      animation: 'pulse 1.5s infinite',
+                      '@keyframes pulse': {
+                        '0%': { opacity: 0.6 },
+                        '50%': { opacity: 1 },
+                        '100%': { opacity: 0.6 }
+                      }
+                    }}
+                  />
+                  <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                    {onlineUser.username} is now online
+                  </Typography>
+                </Box>
+              }
               action={action}
             />
           );
