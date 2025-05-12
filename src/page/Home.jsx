@@ -663,7 +663,23 @@ const Home = () => {
             <Typography variant="h6" color="#fff" >
               {selectedUser ? selectedUser?.username : 'ChatApp'}
             </Typography>
-            {selectedUser && <Typography fontSize={12} color={selectedUser?._id == isOnline?.userId ? "#03dac6" : "#888"}>{(selectedUser?._id == isOnline?.userId && isOnline?.isOnline) || selectedUser.isOnline ?"Online":"Offline"}</Typography>}
+            {selectedUser && (
+              <Typography
+                fontSize={12}
+                color={
+                  (isOnline?.userId === selectedUser._id && isOnline?.isOnline) ||
+                    selectedUser.isOnline
+                    ? "#03dac6"
+                    : "#888"
+                }
+              >
+                {(isOnline?.userId === selectedUser._id && isOnline?.isOnline) ||
+                  selectedUser.isOnline
+                  ? "Online"
+                  : "Offline"}
+              </Typography>
+            )}
+
           </Box>
 
 
@@ -973,7 +989,7 @@ const Home = () => {
               '&:hover': { bgcolor: '#9a68db' },
             }}
           >
-            <SendIcon sx={{ color: '#fff', transform: 'rotate(-20deg)'}} />
+            <SendIcon sx={{ color: '#fff', transform: 'rotate(-20deg)' }} />
           </Button>
         </Box>
       </Box>
