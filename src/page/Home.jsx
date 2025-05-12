@@ -7,8 +7,6 @@ import {
   Typography,
   Avatar,
   IconButton,
-  Menu,
-  MenuItem,
   LinearProgress,
   Drawer,
   Fade,
@@ -17,7 +15,6 @@ import {
   Snackbar,
   CircularProgress,
   Stack,
-  SwipeableDrawer,
   List,
   Divider,
   ListItem,
@@ -34,6 +31,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ClearIcon from '@mui/icons-material/Clear';
+import CloseIcon from '@mui/icons-material/Close';
 
 // 🔌 External + Local (Default Imports)
 import socket from './Socket';
@@ -58,7 +56,8 @@ const Home = () => {
   const [loadingIndex, setLoadingIndex] = useState(null);
   const [FollowLoadingIndex, setFollowLoadingIndex] = useState(null);
   const [UserLoader, setUserLoader] = useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openSankbar, setOpenSankbar] = React.useState(false);
 
 
 
@@ -257,6 +256,32 @@ const Home = () => {
     }
   };
 
+  //open Sankbar or colse 
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSankbar(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   useEffect(() => {
 
     if (!LoginUser) {
@@ -268,6 +293,7 @@ const Home = () => {
     socket.emit("join", LoginUser._id);
 
     socket.on("user-online", ({ userId, isOnline }) => {
+      setOpenSankbar(true);
       setisOnline({ userId, isOnline });
     });
 
@@ -1010,6 +1036,20 @@ const Home = () => {
             <SendIcon sx={{ color: '#fff', transform: 'rotate(-20deg)' }} />
           </Button>
         </Box>
+      </Box>
+      <Box>
+        {(() => {
+          const onlineUser = users?.find(user => user._id === isOnline.userId);
+          return (
+            <Snackbar
+              open={openSankbar}
+              autoHideDuration={5000}
+              onClose={handleClose}
+              message={onlineUser ? `${onlineUser.username} is Login` : ""}
+              action={action}
+            />
+          );
+        })()}
       </Box>
     </Box>
   );
