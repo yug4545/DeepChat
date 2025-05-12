@@ -32,6 +32,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ClearIcon from '@mui/icons-material/Clear';
 import CloseIcon from '@mui/icons-material/Close';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // 🔌 External + Local (Default Imports)
 import socket from './Socket';
@@ -1056,7 +1057,7 @@ const Home = () => {
 
           return (
             <Snackbar
-              open={openSnackbar}
+              open={openSankbar}
               autoHideDuration={5000}
               onClose={handleClose}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
