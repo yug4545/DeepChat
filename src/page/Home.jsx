@@ -909,10 +909,8 @@ const Home = () => {
 
                             );
 
-                            return isLast && (
-                              (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
-                              (msg.sender === LoginUser?._id && msg.receiver === selectedUser._id)
-                            ) ? (
+                            return isLast && msg.sender === selectedUser._id && msg.receiver === LoginUser?._id
+                              && msg.receiver === selectedUser._id && msg.sender === LoginUser?._id ? (
                               <Slide
                                 key={index}
                                 direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
@@ -924,7 +922,6 @@ const Home = () => {
                             ) : (
                               messageBox
                             );
-
                           })
                         )}
 
@@ -1091,7 +1088,7 @@ const Home = () => {
                     }}
                   />
                   <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                    {onlineUser.username} is now {isOnline?.isOnline ? "Online" : "Offline"}
+                    {onlineUser.username} is now {isOnline?.isOnline?"Online":"Offline"}
                   </Typography>
                 </Box>
               }
