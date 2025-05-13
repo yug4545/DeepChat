@@ -1088,7 +1088,7 @@ const Home = () => {
                     }}
                   />
                   <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                    {onlineUser.username} is now {isOnline?"Online":"Offline"}
+                    {onlineUser.username} is now {isOnline?.isOnline?"Online":"Offline"}
                   </Typography>
                 </Box>
               }
