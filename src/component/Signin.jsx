@@ -85,7 +85,7 @@ const Signin = () => {
         transports: ['websocket'],
         withCredentials: true,
         autoConnect: true,
-      }), []);
+    }), []);
     const [SocketID, setSocketID] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -103,7 +103,7 @@ const Signin = () => {
                 toast.error('Username is required');
                 return;
             }
-            
+
             if (!values.email) {
                 toast.error('Email is required');
                 return;
@@ -140,7 +140,13 @@ const Signin = () => {
                     }, 1000);
                 }
             } catch (error) {
-                toast.error(error);
+                if (error.response && error.response.data && error.response.data.message) {
+                    toast.error(error.response.data.message);
+                } else if (error.response && error.response.data && error.response.data.error) {
+                    toast.error(error.response.data.error); 
+                } else {
+                    toast.error('Something went wrong. Please try again.');
+                }
             } finally {
                 setLoading(false);
             }
