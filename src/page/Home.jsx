@@ -121,10 +121,13 @@ const Home = () => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
+    const trimmedMessage = messages.trim();
+    if (!trimmedMessage) return; 
+
     const newMessage = {
       sender: LoginUser?._id,
       receiver: selectedUser?._id,
-      messages,
+      messages: trimmedMessage,
       time: new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
@@ -132,25 +135,22 @@ const Home = () => {
       }),
     };
 
-    setMessages("")
+    setMessages('');
     setReceivedMessages((prev) => [...prev, newMessage]);
-    try {
 
-      let res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/createchat', {
+    try {
+      const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/chat/createchat', {
         sender: newMessage.sender,
         receiver: newMessage.receiver,
-        text: newMessage.messages,
+        text: trimmedMessage,
       });
 
       socket.emit('Message', newMessage);
-
-
     } catch (error) {
-      toast.error(error);
-
+      toast.error(error?.response?.data?.message || 'Failed to send message');
     }
-    setMessages('');
   };
+
 
   const UserSelect = async (user, index) => {
 
@@ -1088,7 +1088,7 @@ const Home = () => {
                     }}
                   />
                   <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                    {onlineUser.username} is now {isOnline?.isOnline?"Online":"Offline"}
+                    {onlineUser.username} is now {isOnline?.isOnline ? "Online" : "Offline"}
                   </Typography>
                 </Box>
               }
