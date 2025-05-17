@@ -909,18 +909,17 @@ const Home = () => {
 
                             );
 
-                            return isLast &&
-                              (
-                                (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
-                                (msg.sender === LoginUser?._id && msg.receiver === selectedUser._id)
-                              ) ? (
+                            return isLast ? (
                               <Slide
                                 key={index}
                                 direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
                                 in={true}
                                 timeout={300}
                               >
-                                {messageBox}
+                                {
+                                  (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
+                                    (msg.sender === LoginUser?._id && msg.receiver === selectedUser._id) ?
+                                    messageBox : ""}
                               </Slide>
                             ) : (
                               messageBox
