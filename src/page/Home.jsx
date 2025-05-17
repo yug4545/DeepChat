@@ -122,7 +122,7 @@ const Home = () => {
     e.preventDefault();
 
     const trimmedMessage = messages.trim();
-    if (!trimmedMessage) return; 
+    if (!trimmedMessage) return;
 
     const newMessage = {
       sender: LoginUser?._id,
@@ -909,11 +909,14 @@ const Home = () => {
 
                             );
 
-                            return isLast && msg.sender == selectedUser._id && msg.receiver == LoginUser?._id
-                              && msg.receiver == selectedUser._id && msg.sender == LoginUser?._id ? (
+                            return isLast &&
+                              (
+                                (msg.sender === selectedUser._id && msg.receiver === LoginUser?._id) ||
+                                (msg.sender === LoginUser?._id && msg.receiver === selectedUser._id)
+                              ) ? (
                               <Slide
                                 key={index}
-                                direction={msg.sender == LoginUser?._id ? 'left' : 'right'}
+                                direction={msg.sender === LoginUser?._id ? 'left' : 'right'}
                                 in={true}
                                 timeout={300}
                               >
