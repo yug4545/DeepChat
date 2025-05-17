@@ -616,7 +616,7 @@ const Home = () => {
                     </Avatar>
                     <Box>
                       <Typography fontWeight={600} color="#fff">{user?.username}</Typography>
-                      <Typography fontSize={12} color="#888">{(isOnline?.userId == user?._id && isOnline.isOnline == true) ? "Online" : "Following"}</Typography>
+                      <Typography fontSize={12} color="#888">Following</Typography>
                     </Box>
                   </Box>
 
