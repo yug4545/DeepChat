@@ -313,7 +313,12 @@ const Home = () => {
     socket.on("receive-message", (data) => {
 
       // console.log("Received real-time message:", data.message);
-      setReceivedMessages((prev) => [...prev, data]);
+      if (
+        (data.sender === selectedUser?._id && data.receiver === LoginUser._id) ||
+        (data.sender === LoginUser._id && data.receiver === selectedUser?._id)
+      ) {
+        setReceivedMessages((prev) => [...prev, data]);
+      }
     });
   }, []);
 
