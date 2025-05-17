@@ -803,7 +803,7 @@ const Home = () => {
                           receivedMessages.map((msg, index) => {
                             if (msg.messages?.toLowerCase().includes('add')) return null;
 
-                            const isLast = index === receivedMessages.length - 1;
+                            const isLast = receivedMessages.length - 1;
 
                             const messageBox = (
                               <Box
