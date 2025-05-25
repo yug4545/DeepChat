@@ -1077,7 +1077,7 @@ const Home = () => {
                   <FiberManualRecordIcon
                     fontSize="small"
                     sx={{
-                      color: '#a5d6a7',
+                      color: isOnline?.isOnline ? '#a5d6a7' : '#ef9a9a', // light green for online, light red for offline
                       animation: 'pulse 1.5s infinite',
                       '@keyframes pulse': {
                         '0%': { opacity: 0.6 },
