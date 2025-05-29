@@ -210,9 +210,9 @@ const Signin = () => {
 
                         <TextField
                             fullWidth
-                            label="Username , email"
-                            name="email"
-                            type="email"
+                            label="Username,Email"
+                            name="EmailorUsername"
+                            type="text"
                             variant="outlined"
                             margin="normal"
                             value={formik.values.EmailorUsername}
