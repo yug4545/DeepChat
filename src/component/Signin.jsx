@@ -20,16 +20,12 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Create a dark theme
+// Dark theme
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
-        primary: {
-            main: '#90caf9',
-        },
-        secondary: {
-            main: '#f48fb1',
-        },
+        primary: { main: '#90caf9' },
+        secondary: { main: '#f48fb1' },
         background: {
             default: '#121212',
             paper: '#1e1e1e',
@@ -40,29 +36,31 @@ const darkTheme = createTheme({
     },
 });
 
-// Dark gradient background component
+// Background container
 const GradientBackground = styled(Box)({
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
+    position: 'relative',
+    overflow: 'hidden',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '2rem',
 });
 
-// Styled Paper component with glass effect
+// Glass effect box
 const GlassPaper = styled(Paper)({
-    background: 'rgba(30, 30, 30, 0.75)',
+    background: 'rgba(255, 255, 255, 0.05)',
     backdropFilter: 'blur(12px)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    boxShadow: '0 8px 32px 0 rgba(11, 8, 42, 0.6)',
+    border: '1px solid rgba(255, 255, 255, 0.15)',
+    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
     borderRadius: '16px',
     padding: '2.5rem',
     width: '100%',
     maxWidth: '420px',
+    zIndex: 1,
 });
 
-// Gradient button component
+// Gradient styled button
 const GradientButton = styled(Button)({
     background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
     border: 0,
@@ -81,77 +79,15 @@ const GradientButton = styled(Button)({
 
 const Signin = () => {
     const [isSignup, setIsSignup] = useState(false);
+    const [SocketID, setSocketID] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     const socket = useMemo(() => io('https://deepchat-backend-qrc9.onrender.com', {
         transports: ['websocket'],
         withCredentials: true,
         autoConnect: true,
     }), []);
-    const [SocketID, setSocketID] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const navigate = useNavigate();
-
-    const formik = useFormik({
-        initialValues: {
-            username: '',
-            email: '',
-            password: '',
-        },
-        onSubmit: async (values) => {
-
-            if (isSignup && !values.username) {
-                toast.error('Username is required');
-                return;
-            }
-
-            if (!values.email) {
-                toast.error('Email is required');
-                return;
-            }
-
-            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(values.email)) {
-                toast.error('Please enter a valid email');
-                return;
-            }
-
-            if (!values.password) {
-                toast.error('Password is required');
-                return;
-            }
-
-
-
-
-            setLoading(true);
-            try {
-                if (isSignup) {
-                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/signup', values);
-                    toast.success('Signup successful');
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                } else {
-                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/login', values);
-                    toast.success('Login successful');
-
-                    localStorage.setItem("Token", res.data.token);
-                    setTimeout(() => {
-                        navigate('/home', { state: res.data.user });
-                    }, 1000);
-                }
-            } catch (error) {
-                if (error.response && error.response.data && error.response.data.message) {
-                    toast.error(error.response.data.message);
-                } else if (error.response && error.response.data && error.response.data.error) {
-                    toast.error(error.response.data.error); 
-                } else {
-                    toast.error('Something went wrong. Please try again.');
-                }
-            } finally {
-                setLoading(false);
-            }
-        },
-    });
 
     useEffect(() => {
         socket.on('Welcome', (id) => {
@@ -160,10 +96,65 @@ const Signin = () => {
         });
     }, [socket]);
 
+    const formik = useFormik({
+        initialValues: { username: '', email: '', password: '' },
+        onSubmit: async (values) => {
+            if (isSignup && !values.username) return toast.error('Username is required');
+            if (!values.email) return toast.error('Email is required');
+            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(values.email)) {
+                return toast.error('Please enter a valid email');
+            }
+            if (!values.password) return toast.error('Password is required');
+
+            setLoading(true);
+            try {
+                if (isSignup) {
+                    await axios.post('https://deepchat-backend-qrc9.onrender.com/user/signup', values);
+                    toast.success('Signup successful');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/login', values);
+                    toast.success('Login successful');
+                    localStorage.setItem("Token", res.data.token);
+                    setTimeout(() => {
+                        navigate('/home', { state: res.data.user });
+                    }, 1000);
+                }
+            } catch (error) {
+                const msg = error.response?.data?.message || error.response?.data?.error || 'Something went wrong.';
+                toast.error(msg);
+            } finally {
+                setLoading(false);
+            }
+        },
+    });
+
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <GradientBackground>
+                {/* Video Background */}
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        zIndex: 0,
+                        opacity: 0.6,
+                    }}
+                >
+                    <source src="/mnt/data/39718-423320538_medium.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+
+                {/* Form Container */}
                 <GlassPaper elevation={3}>
                     <Typography
                         variant="h4"
@@ -192,20 +183,8 @@ const Signin = () => {
                             }
                         }}
                     >
-                        <Tab
-                            label="Login"
-                            sx={{
-                                fontWeight: 'bold',
-                                '&.Mui-selected': { color: '#a78bfa' }
-                            }}
-                        />
-                        <Tab
-                            label="Sign Up"
-                            sx={{
-                                fontWeight: 'bold',
-                                '&.Mui-selected': { color: '#a78bfa' }
-                            }}
-                        />
+                        <Tab label="Login" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: '#a78bfa' } }} />
+                        <Tab label="Sign Up" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: '#a78bfa' } }} />
                     </Tabs>
 
                     <form onSubmit={formik.handleSubmit}>
@@ -218,25 +197,7 @@ const Signin = () => {
                                 margin="normal"
                                 value={formik.values.username}
                                 onChange={formik.handleChange}
-                                sx={{
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderColor: 'rgba(255, 255, 255, 0.2)',
-                                        },
-                                        '&:hover fieldset': {
-                                            borderColor: '#a78bfa',
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: '#a78bfa',
-                                        },
-                                    },
-                                    '& .MuiInputLabel-root': {
-                                        color: 'rgba(255, 255, 255, 0.7)',
-                                    },
-                                    '& .MuiInputLabel-root.Mui-focused': {
-                                        color: '#a78bfa',
-                                    },
-                                }}
+                                sx={inputStyles}
                             />
                         )}
 
@@ -249,25 +210,7 @@ const Signin = () => {
                             margin="normal"
                             value={formik.values.email}
                             onChange={formik.handleChange}
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    '& fieldset': {
-                                        borderColor: 'rgba(255, 255, 255, 0.2)',
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: '#a78bfa',
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: '#a78bfa',
-                                    },
-                                },
-                                '& .MuiInputLabel-root': {
-                                    color: 'rgba(255, 255, 255, 0.7)',
-                                },
-                                '& .MuiInputLabel-root.Mui-focused': {
-                                    color: '#a78bfa',
-                                },
-                            }}
+                            sx={inputStyles}
                         />
 
                         <TextField
@@ -279,25 +222,7 @@ const Signin = () => {
                             margin="normal"
                             value={formik.values.password}
                             onChange={formik.handleChange}
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    '& fieldset': {
-                                        borderColor: 'rgba(255, 255, 255, 0.2)',
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: '#a78bfa',
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: '#a78bfa',
-                                    },
-                                },
-                                '& .MuiInputLabel-root': {
-                                    color: 'rgba(255, 255, 255, 0.7)',
-                                },
-                                '& .MuiInputLabel-root.Mui-focused': {
-                                    color: '#a78bfa',
-                                },
-                            }}
+                            sx={inputStyles}
                         />
 
                         <GradientButton
@@ -307,14 +232,11 @@ const Signin = () => {
                             sx={{ mt: 3, py: 1.5 }}
                             disabled={loading}
                         >
-                            {loading ? (
-                                <CircularProgress size={24} sx={{ color: 'white' }} />
-                            ) : (
-                                isSignup ? 'Get Started' : 'Login'
-                            )}
+                            {loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : isSignup ? 'Get Started' : 'Login'}
                         </GradientButton>
                     </form>
                 </GlassPaper>
+
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -330,6 +252,27 @@ const Signin = () => {
             </GradientBackground>
         </ThemeProvider>
     );
+};
+
+// Reusable input styles
+const inputStyles = {
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+        },
+        '&:hover fieldset': {
+            borderColor: '#a78bfa',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#a78bfa',
+        },
+    },
+    '& .MuiInputLabel-root': {
+        color: 'rgba(255, 255, 255, 0.7)',
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+        color: '#a78bfa',
+    },
 };
 
 export default Signin;
