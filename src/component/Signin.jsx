@@ -61,7 +61,6 @@ const BackgroundContainer = styled(Box)({
         left: 0,
         width: '100%',
         height: '100%',
-        background: 'rgba(0, 0, 0, 0.6)',
         zIndex: 0,
     },
 });
@@ -126,9 +125,13 @@ const Signin = () => {
                 const url = isSignup
                     ? 'https://deepchat-backend-qrc9.onrender.com/user/signup'
                     : 'https://deepchat-backend-qrc9.onrender.com/user/login';
+
                 const res = await axios.post(url, values);
+
                 toast.success(isSignup ? 'Signup successful' : 'Login successful');
+
                 if (!isSignup) {
+
                     localStorage.setItem("Token", res.data.token);
                     setTimeout(() => navigate('/home', { state: res.data.user }), 1000);
                 } else {
@@ -170,15 +173,6 @@ const Signin = () => {
                         }}
                     >
                         Deepchat
-                    </Typography>
-
-                    <Typography
-                        textAlign="center"
-                        fontSize={14}
-                        mb={3}
-                        sx={{ color: 'rgba(255, 255, 255, 0.6)' }}
-                    >
-                        {isSignup ? 'Join us and start connecting instantly!' : 'Log in to continue your chat journey.'}
                     </Typography>
 
                     <Tabs
@@ -254,7 +248,6 @@ const Signin = () => {
     );
 };
 
-// Reusable TextField styling
 const textFieldStyles = {
     '& .MuiOutlinedInput-root': {
         '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
