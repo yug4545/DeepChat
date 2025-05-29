@@ -63,8 +63,8 @@ const GlassPaper = styled(Paper)({
 
 // Gradient styled button
 const GradientButton = styled(Button)({
-    background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
-    border: 0,
+    background: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
+    border: '1px solid rgba(79, 195, 247, 0.3)',
     borderRadius: '8px !important',
     color: 'white',
     height: 48,
