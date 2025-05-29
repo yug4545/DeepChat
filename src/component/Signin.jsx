@@ -169,8 +169,8 @@ const Signin = () => {
                             letterSpacing: '1px'
                         }}
                     >
-                        <FaUserSecret size={40} style={{color: 'linear-gradient(45deg, #667eea 0%, #a78bfa 100%)',marginRight:'12px'}}/>
-                        Deepchat 
+                        <Box className="d-flex align-items-center"><FaUserSecret size={40} style={{ color: '#a78bfa', marginRight: '12px' }} />
+                            Deepchat </Box>
                     </Typography>
 
                     <Tabs
