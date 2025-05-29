@@ -98,13 +98,19 @@ const Signin = () => {
     }, [socket]);
 
     const formik = useFormik({
-        initialValues: { username: '', email: '', password: '' },
+        initialValues: { username: '', EmailorUsername: '', password: '' },
         onSubmit: async (values) => {
             if (isSignup && !values.username) return toast.error('Username is required');
-            if (!values.email) return toast.error('Email is required');
-            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(values.email)) {
-                return toast.error('Please enter a valid email');
+            if (!values.EmailorUsername) return toast.error('Username or email is required');
+
+            const isEmail = values.EmailorUsername.includes('@');
+            if (isEmail) {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(values.EmailorUsername)) {
+                    return toast.error('Please enter a valid email');
+                }
             }
+            
             if (!values.password) return toast.error('Password is required');
 
             setLoading(true);
