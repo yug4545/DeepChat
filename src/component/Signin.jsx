@@ -185,37 +185,13 @@ const Signin = () => {
                         sx={{ mb: 3 }}
                         TabIndicatorProps={{
                             style: {
-                                background: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
+                                background: 'white',
                                 height: '3px'
                             }
                         }}
                     >
-                        <Tab
-                            label={
-                                <span style={{
-                                    background: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    fontWeight: 'bold'
-                                }}>
-                                    Login
-                                </span>
-                            }
-                        />
-
-                        <Tab
-                            label={
-                                <span style={{
-                                    background: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    fontWeight: 'bold'
-                                }}>
-                                    Sign Up
-                                </span>
-                            }
-                        />
-
+                        <Tab label="Login" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: 'white' } }} />
+                        <Tab label="Sign Up" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: 'white' } }} />
                     </Tabs>
 
                     <form onSubmit={formik.handleSubmit}>
