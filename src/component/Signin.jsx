@@ -150,7 +150,7 @@ const Signin = () => {
                         opacity: 0.6,
                     }}
                 >
-                    <source src="/mnt/data/39718-423320538_medium.mp4" type="video/mp4" />
+                    <source src="/Sun.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
 
