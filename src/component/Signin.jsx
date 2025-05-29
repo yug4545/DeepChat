@@ -74,7 +74,7 @@ const GradientButton = styled(Button)({
     '&:hover': {
         transform: 'translateY(-2px)',
         boxShadow: '0 7px 14px rgba(0, 0, 0, 0.4)',
-        background: 'linear-gradient(45deg, #5a6fd8 0%, #6a42a0 100%)',
+        background: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
     },
 });
 
@@ -268,10 +268,10 @@ const inputStyles = {
             borderColor: 'rgba(255, 255, 255, 0.2)',
         },
         '&:hover fieldset': {
-            borderColor: '#a78bfa',
+            borderColor: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
         },
         '&.Mui-focused fieldset': {
-            borderColor: '#a78bfa',
+            borderColor: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
         },
     },
     '& .MuiInputLabel-root': {
