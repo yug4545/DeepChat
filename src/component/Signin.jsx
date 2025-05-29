@@ -159,17 +159,16 @@ const Signin = () => {
                 <GlassPaper elevation={3}>
                     <Typography
                         variant="h4"
-                        textAlign="center"
                         mb={3}
                         sx={{
-                            background: 'linear-gradient(45deg, #667eea 0%, #a78bfa 100%)',
+                            background: 'white',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             fontWeight: 'bold',
                             letterSpacing: '1px'
                         }}
                     >
-                        <Box className="d-flex align-items-center"><FaUserSecret size={40} style={{ color: '#a78bfa', marginRight: '12px' }} />
+                        <Box className="d-flex align-items-center justify-content-center"><FaUserSecret size={40} style={{ marginRight: '12px' }} />
                             Deepchat </Box>
                     </Typography>
 
