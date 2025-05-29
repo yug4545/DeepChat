@@ -110,7 +110,7 @@ const Signin = () => {
                     return toast.error('Please enter a valid email');
                 }
             }
-            
+
             if (!values.password) return toast.error('Password is required');
 
             setLoading(true);
@@ -210,12 +210,12 @@ const Signin = () => {
 
                         <TextField
                             fullWidth
-                            label="Email"
+                            label="Username , email"
                             name="email"
                             type="email"
                             variant="outlined"
                             margin="normal"
-                            value={formik.values.email}
+                            value={formik.values.EmailorUsername}
                             onChange={formik.handleChange}
                             sx={inputStyles}
                         />
