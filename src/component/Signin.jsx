@@ -74,7 +74,7 @@ const GradientButton = styled(Button)({
     '&:hover': {
         transform: 'translateY(-2px)',
         boxShadow: '0 7px 14px rgba(0, 0, 0, 0.4)',
-        background: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
+        background: 'linear-gradient(45deg, white 0%, #1A3A5F 100%)',
     },
 });
 
