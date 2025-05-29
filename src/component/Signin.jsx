@@ -265,7 +265,7 @@ const Signin = () => {
 const inputStyles = {
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-            borderColor: 'white',
+            borderColor: 'rgba(255, 255, 255, 0.2)',
         },
         '&:hover fieldset': {
             borderColor: 'white',
@@ -275,7 +275,7 @@ const inputStyles = {
         },
     },
     '& .MuiInputLabel-root': {
-        color: 'white',
+        color: 'rgba(255, 255, 255, 0.7)',
     },
     '& .MuiInputLabel-root.Mui-focused': {
         color: 'white',
