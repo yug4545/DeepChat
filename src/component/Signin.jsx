@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaUserSecret } from "react-icons/fa";
 
 // Dark theme
 const darkTheme = createTheme({
@@ -161,14 +162,14 @@ const Signin = () => {
                         textAlign="center"
                         mb={3}
                         sx={{
-                            background: 'linear-gradient(45deg, #667eea 0%, #a78bfa 100%)',
+                            background: 'white',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             fontWeight: 'bold',
                             letterSpacing: '1px'
                         }}
                     >
-                        {isSignup ? 'Create Account' : 'Welcome Back'}
+                        <FaUserSecret size={28} /> Deepchat {isSignup ? 'Login' : 'Signup'}
                     </Typography>
 
                     <Tabs
