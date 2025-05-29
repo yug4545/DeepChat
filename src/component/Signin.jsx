@@ -158,7 +158,7 @@ const Signin = () => {
                 {/* Form Container */}
                 <GlassPaper elevation={3}>
                     <Typography
-                        variant="h5"
+                        variant="h4"
                         textAlign="center"
                         mb={3}
                         sx={{
@@ -169,7 +169,7 @@ const Signin = () => {
                             letterSpacing: '1px'
                         }}
                     >
-                        <FaUserSecret size={35} />
+                        <FaUserSecret size={35} style={{background: 'linear-gradient(45deg, #667eea 0%, #a78bfa 100%)',marginRight:'12px'}}/>
                         Deepchat {isSignup ? 'Signup' : 'Login'}
                     </Typography>
 
