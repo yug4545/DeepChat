@@ -265,20 +265,20 @@ const Signin = () => {
 const inputStyles = {
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-            borderColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'white',
         },
         '&:hover fieldset': {
-            borderColor: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
+            borderColor: 'white',
         },
         '&.Mui-focused fieldset': {
-            borderColor: 'linear-gradient(45deg, #0B1C28 0%, #1A3A5F 100%)',
+            borderColor: 'white',
         },
     },
     '& .MuiInputLabel-root': {
-        color: 'rgba(255, 255, 255, 0.7)',
+        color: 'white',
     },
     '& .MuiInputLabel-root.Mui-focused': {
-        color: '#a78bfa',
+        color: 'white',
     },
 };
 
