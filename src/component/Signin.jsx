@@ -36,53 +36,35 @@ const darkTheme = createTheme({
     },
 });
 
-// Styled container with full screen background video
-const BackgroundContainer = styled(Box)({
-    position: 'relative',
+// Background container
+const GradientBackground = styled(Box)({
     minHeight: '100vh',
+    position: 'relative',
     overflow: 'hidden',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '2rem',
-    '& video': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        zIndex: -1,
-    },
-    '&::after': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-    },
 });
 
-// Glassmorphic form
+// Glass effect box
 const GlassPaper = styled(Paper)({
-    position: 'relative',
-    zIndex: 1,
-    background: 'rgba(30, 30, 30, 0.75)',
-    backdropFilter: 'blur(15px)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    boxShadow: '0 8px 32px rgba(11, 8, 42, 0.6)',
+    background: 'rgba(255, 255, 255, 0.05)',
+    backdropFilter: 'blur(12px)',
+    border: '1px solid rgba(255, 255, 255, 0.15)',
+    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
     borderRadius: '16px',
     padding: '2.5rem',
     width: '100%',
     maxWidth: '420px',
+    zIndex: 1,
 });
 
-// Gradient button
+// Gradient styled button
 const GradientButton = styled(Button)({
     background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
-    borderRadius: '8px',
+    border: 0,
+    borderRadius: '8px !important',
     color: 'white',
     height: 48,
     padding: '0 30px',
@@ -90,6 +72,7 @@ const GradientButton = styled(Button)({
     transition: 'all 0.3s ease',
     '&:hover': {
         transform: 'translateY(-2px)',
+        boxShadow: '0 7px 14px rgba(0, 0, 0, 0.4)',
         background: 'linear-gradient(45deg, #5a6fd8 0%, #6a42a0 100%)',
     },
 });
@@ -98,52 +81,13 @@ const Signin = () => {
     const [isSignup, setIsSignup] = useState(false);
     const [SocketID, setSocketID] = useState(null);
     const [loading, setLoading] = useState(false);
-
-    const socket = useMemo(() =>
-        io('https://deepchat-backend-qrc9.onrender.com', {
-            transports: ['websocket'],
-            withCredentials: true,
-            autoConnect: true,
-        }), []);
-
     const navigate = useNavigate();
 
-    const formik = useFormik({
-        initialValues: {
-            username: '',
-            email: '',
-            password: '',
-        },
-        onSubmit: async (values) => {
-            if (isSignup && !values.username) return toast.error('Username is required');
-            if (!values.email) return toast.error('Email is required');
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) return toast.error('Enter a valid email');
-            if (!values.password) return toast.error('Password is required');
-
-            setLoading(true);
-            try {
-                const url = isSignup
-                    ? 'https://deepchat-backend-qrc9.onrender.com/user/signup'
-                    : 'https://deepchat-backend-qrc9.onrender.com/user/login';
-
-                const res = await axios.post(url, values);
-
-                toast.success(isSignup ? 'Signup successful' : 'Login successful');
-
-                if (!isSignup) {
-
-                    localStorage.setItem("Token", res.data.token);
-                    setTimeout(() => navigate('/home', { state: res.data.user }), 1000);
-                } else {
-                    setTimeout(() => window.location.reload(), 1000);
-                }
-            } catch (error) {
-                toast.error(error.response?.data?.message || error.response?.data?.error || 'Something went wrong.');
-            } finally {
-                setLoading(false);
-            }
-        },
-    });
+    const socket = useMemo(() => io('https://deepchat-backend-qrc9.onrender.com', {
+        transports: ['websocket'],
+        withCredentials: true,
+        autoConnect: true,
+    }), []);
 
     useEffect(() => {
         socket.on('Welcome', (id) => {
@@ -152,35 +96,92 @@ const Signin = () => {
         });
     }, [socket]);
 
+    const formik = useFormik({
+        initialValues: { username: '', email: '', password: '' },
+        onSubmit: async (values) => {
+            if (isSignup && !values.username) return toast.error('Username is required');
+            if (!values.email) return toast.error('Email is required');
+            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(values.email)) {
+                return toast.error('Please enter a valid email');
+            }
+            if (!values.password) return toast.error('Password is required');
+
+            setLoading(true);
+            try {
+                if (isSignup) {
+                    await axios.post('https://deepchat-backend-qrc9.onrender.com/user/signup', values);
+                    toast.success('Signup successful');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    const res = await axios.post('https://deepchat-backend-qrc9.onrender.com/user/login', values);
+                    toast.success('Login successful');
+                    localStorage.setItem("Token", res.data.token);
+                    setTimeout(() => {
+                        navigate('/home', { state: res.data.user });
+                    }, 1000);
+                }
+            } catch (error) {
+                const msg = error.response?.data?.message || error.response?.data?.error || 'Something went wrong.';
+                toast.error(msg);
+            } finally {
+                setLoading(false);
+            }
+        },
+    });
+
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <BackgroundContainer>
-                <video autoPlay loop muted>
+            <GradientBackground>
+                {/* Video Background */}
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        zIndex: 0,
+                        opacity: 0.6,
+                    }}
+                >
                     <source src="/Sun.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
                 </video>
 
+                {/* Form Container */}
                 <GlassPaper elevation={3}>
                     <Typography
                         variant="h4"
                         textAlign="center"
-                        mb={1}
+                        mb={3}
                         sx={{
                             background: 'linear-gradient(45deg, #667eea 0%, #a78bfa 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             fontWeight: 'bold',
+                            letterSpacing: '1px'
                         }}
                     >
-                        Deepchat
+                        {isSignup ? 'Create Account' : 'Welcome Back'}
                     </Typography>
 
                     <Tabs
                         value={isSignup ? 1 : 0}
                         onChange={(e, val) => setIsSignup(val === 1)}
                         centered
-                        sx={{ mb: 2 }}
-                        TabIndicatorProps={{ style: { background: '#a78bfa', height: 3 } }}
+                        sx={{ mb: 3 }}
+                        TabIndicatorProps={{
+                            style: {
+                                background: 'linear-gradient(45deg, #667eea 0%, #a78bfa 100%)',
+                                height: '3px'
+                            }
+                        }}
                     >
                         <Tab label="Login" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: '#a78bfa' } }} />
                         <Tab label="Sign Up" sx={{ fontWeight: 'bold', '&.Mui-selected': { color: '#a78bfa' } }} />
@@ -192,11 +193,11 @@ const Signin = () => {
                                 fullWidth
                                 label="Username"
                                 name="username"
+                                variant="outlined"
                                 margin="normal"
                                 value={formik.values.username}
                                 onChange={formik.handleChange}
-                                variant="outlined"
-                                sx={textFieldStyles}
+                                sx={inputStyles}
                             />
                         )}
 
@@ -205,11 +206,11 @@ const Signin = () => {
                             label="Email"
                             name="email"
                             type="email"
+                            variant="outlined"
                             margin="normal"
                             value={formik.values.email}
                             onChange={formik.handleChange}
-                            variant="outlined"
-                            sx={textFieldStyles}
+                            sx={inputStyles}
                         />
 
                         <TextField
@@ -217,15 +218,16 @@ const Signin = () => {
                             label="Password"
                             name="password"
                             type="password"
+                            variant="outlined"
                             margin="normal"
                             value={formik.values.password}
                             onChange={formik.handleChange}
-                            variant="outlined"
-                            sx={textFieldStyles}
+                            sx={inputStyles}
                         />
 
                         <GradientButton
                             type="submit"
+                            variant="contained"
                             fullWidth
                             sx={{ mt: 3, py: 1.5 }}
                             disabled={loading}
@@ -237,25 +239,40 @@ const Signin = () => {
 
                 <ToastContainer
                     position="top-right"
-                    autoClose={4000}
+                    autoClose={5000}
                     hideProgressBar={false}
+                    newestOnTop={false}
                     closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
                     pauseOnHover
                     theme="dark"
                 />
-            </BackgroundContainer>
+            </GradientBackground>
         </ThemeProvider>
     );
 };
 
-const textFieldStyles = {
+// Reusable input styles
+const inputStyles = {
     '& .MuiOutlinedInput-root': {
-        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
-        '&:hover fieldset': { borderColor: '#a78bfa' },
-        '&.Mui-focused fieldset': { borderColor: '#a78bfa' },
+        '& fieldset': {
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+        },
+        '&:hover fieldset': {
+            borderColor: '#a78bfa',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#a78bfa',
+        },
     },
-    '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-    '& .MuiInputLabel-root.Mui-focused': { color: '#a78bfa' },
+    '& .MuiInputLabel-root': {
+        color: 'rgba(255, 255, 255, 0.7)',
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+        color: '#a78bfa',
+    },
 };
 
 export default Signin;
