@@ -210,7 +210,7 @@ const Signin = () => {
 
                         <TextField
                             fullWidth
-                            label="Username,Email"
+                            label="Username,email"
                             name="EmailorUsername"
                             type="text"
                             variant="outlined"
